@@ -1,0 +1,80 @@
+<div class="row">
+    <div class="col-sm-6 ">
+        <div class="panel panel-default" ng-show="carname">
+
+            <div class="panel-heading">
+                <div> Sell </div>
+                <div>{{carname}} </div>
+            </div>
+
+            <div class="panel-body">
+                <div class="col-md-12">
+                    <form ng-submit="submit()" name="sellcarForm" novalidate>
+
+                        <div class="form-group"
+                             ng-class="{ 'has-error': sellcarForm.buyername.$invalid && sellcarForm.buyername.$dirty }">
+                            <label for="buyername">Buyer Name:</label> <input type="text" required
+                                                                   class="form-control" ng-model="car.buyername"
+                                                                   id="buyername"
+                                                                   name="buyername">
+                        </div>
+                        <div class="form-group"
+                             ng-class="{ 'has-error': sellcarForm.selldate.$invalid && sellcarForm.selldate.$dirty }">
+                            <label for="selldate">Sell Date:</label> <input type="date" required
+                                                                   class="form-control" ng-model="car.selldate"
+                                                                   id="selldate"
+                                                                   name="selldate">
+                        </div>
+                        <div class="form-group"
+                             ng-class="{ 'has-error': sellcarForm.sellprice.$invalid && sellcarForm.sellprice.$dirty }">
+                            <label for="sellprice">Sell Price:</label> <input type="float"
+                                                                   class="form-control" ng-model="car.sellprice"
+                                                                   id="sellprice"
+                                                                   name="sellprice">
+                        </div>
+
+                        <button type="submit" class="btn btn-default"
+                                ng-disabled="sellcarForm.$invalid">{{buttonText}}
+                        </button>
+
+                        <div class="alert alert-info margin-top-5" ng-show="message">{{message}}</div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Not Sold Cars
+            </div>
+            <div class="panel-body">
+
+                <div class="alert alert-info margin-top-5" ng-show="deleteMessage">{{deleteMessage}}</div>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Seats</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="car in sellcar">
+                        <td>{{$index+1}}</td>
+                        <td>{{car.name}}</td>
+                        <td>{{car.price}}</td>
+                        <td>{{car.seats}}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary" ng-click="initSellCar(car)">Sell</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,89 @@
+<div class="row">
+    <div class="col-sm-6 ">
+        <div class="panel panel-default">
+            <div class="panel-heading">Car</div>
+            <div class="panel-body">
+                <div class="col-md-12">
+                    <form ng-submit="submit()" name="carForm" novalidate>
+
+                        <div class="form-group"
+                             ng-class="{ 'has-error': carForm.name.$invalid && carForm.name.$dirty }">
+                            <label for="name">Name:</label> <input type="text" required
+                                                                   class="form-control" ng-model="car.name"
+                                                                   id="name"
+                                                                   name="name">
+                        </div>
+
+                        <div class="form-group"
+                             ng-class="{ 'has-error': carForm.price.$invalid && carForm.price.$dirty }">
+                            <label for="price">Price:</label> <input type="number"
+                                                                           required class="form-control"
+                                                                           ng-model="car.price"
+                                                                           id="price" name="price">
+                        </div>
+
+                        <div class="form-group"
+                             ng-class="{ 'has-error': carForm.seats.$invalid && carForm.seats.$dirty }">
+                            <label for="seats">Seats Number:</label> <input type="number" class="form-control" id="seats"
+                                                                      ng-model="car.seats" name="seats">
+                        </div>
+                        <button type="submit" class="btn btn-default"
+                                ng-disabled="carForm.$invalid">{{buttonText}}
+                        </button>
+
+                        <div class="alert alert-info margin-top-5" ng-show="message">{{message}}</div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Cars
+                <button type="button" class="btn btn-default btn-sm"
+                        ng-click="initAddCar()">
+                    <span class="glyphicon glyphicon-plus"></span> New Car
+                </button>
+            </div>
+            <div class="panel-body">
+
+                <div class="alert alert-info margin-top-5" ng-show="deleteMessage">{{deleteMessage}}</div>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Seats</th>
+                        <th>Sold</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="car in cars">
+                        <td>{{$index+1}}</td>
+                        <td>{{car.name}}</td>
+                        <td>{{car.price}}</td>
+                        <td>{{car.seats}}</td>
+                        <td>{{car.sold?'Y':'N'}}</td>
+                        <td>
+                            <button type="button" class="btn btn-default btn-sm"
+                                    ng-click="initEdit(car)">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-default btn-sm"
+                                    ng-click="deleteCar(car)">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -4,7 +4,6 @@ import Project.domain.Car;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -28,7 +27,6 @@ public class CarServiceAspect {
         } else {
             System.out.println("Create New Car -" + c.getName() + " - by " + auth.getName());
         }
-
     }
 
     @AfterReturning("execution(* Project.service.CarService.createOrUpdateCar(Project.domain.Car , Boolean )) && args(c,update)")
@@ -39,7 +37,6 @@ public class CarServiceAspect {
         } else {
             System.out.println("Created New Car -" + c.getName() + " - by " + auth.getName());
         }
-
     }
 
     @Before("execution(* Project.service.CarService.deleteCarById(Long)) && args(id)")
@@ -59,6 +56,5 @@ public class CarServiceAspect {
         auth = SecurityContextHolder.getContext().getAuthentication();
         System.out.println("get Car -ID " + id + " - by " + auth.getName());
     }
-
 
 }

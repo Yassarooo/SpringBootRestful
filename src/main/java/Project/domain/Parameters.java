@@ -1,11 +1,12 @@
 package Project.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 
 @Table(name = "parameters")
-public class Parameters {
+public class Parameters implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -82,9 +82,11 @@ public class CarRestController {
     @RequestMapping(value = "/cars", method = RequestMethod.POST)
     public ResponseEntity<Car> createCar(@RequestBody Car car) {
         car.setSold(false);
+        Parameters def = paramsService.getParamsById((long) car.getParamid());
+        if (def == null)
+            def = paramsService.getParamsById((long) 1);
+        car.setParams(def);
         if (car.getSeats() == null) {
-            Parameters def = paramsService.getParamsById((long) 1);
-            car.setParams(def);
             car.setSeats(def.getSeats());
         }
         return new ResponseEntity<Car>(carService.createOrUpdateCar(car, false), HttpStatus.CREATED);
@@ -121,7 +123,7 @@ public class CarRestController {
      * @return
      */
     @RequestMapping(value = "/cars/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Car> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<Car> deleteCar(@PathVariable Long id) {
         Car car = carService.getCarById(id);
         if (car == null) {
             return new ResponseEntity<Car>(HttpStatus.NO_CONTENT);

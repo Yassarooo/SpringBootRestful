@@ -4,7 +4,7 @@ package Project.domain;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import java.util.Date;
+import javax.persistence.GeneratedValue;
 
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id", scope = Message.class)
 public class Message {
@@ -14,6 +14,9 @@ public class Message {
     private String content;
 
     private String date;
+
+    @GeneratedValue
+    private int id;
 
     public String getEmail() {
         return email;
@@ -37,6 +40,14 @@ public class Message {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override

@@ -1,60 +1,57 @@
 angular.module('NAProject')
 // Creating the Angular Controller
-    .controller('CarsController', function ($http, $scope, AuthService) {
+    .controller('ParamsController', function ($http, $scope, AuthService) {
         var edit = false;
         $scope.buttonText = 'Create';
         var init = function () {
-            edit = false;
-            $http.get('api/cars').success(function (res) {
-                $scope.cars = res;
+            $http.get('api/params').success(function (res) {
+                $scope.params = res;
 
-                $scope.carForm.$setPristine();
+                $scope.paramsForm.$setPristine();
                 $scope.message = '';
-                $scope.car = null;
+                $scope.param = null;
                 $scope.buttonText = 'Create';
 
             }).error(function (error) {
                 $scope.message = error.message;
             });
         };
-        $scope.initEdit = function (car) {
+        $scope.initEdit = function (param) {
             edit = true;
-            $scope.car = car;
+            $scope.param = param;
             $scope.message = '';
             $scope.buttonText = 'Update';
         };
-        $scope.initAddCar = function () {
+        $scope.initAddParam = function () {
             edit = false;
-            $scope.car = null;
-            $scope.carForm.$setPristine();
+            $scope.param = null;
+            $scope.paramsForm.$setPristine();
             $scope.message = '';
             $scope.buttonText = 'Create';
         };
-        $scope.deleteCar = function (car) {
-            $http.delete('api/cars/' + car.id).success(function (res) {
+        $scope.deleteParam = function (param) {
+            $http.delete('api/params/' + param.id).success(function (res) {
                 $scope.deleteMessage = "Success!";
                 init();
             }).error(function (error) {
                 $scope.deleteMessage = error.message;
             });
         };
-        var editCar = function () {
-            $http.put('api/cars', $scope.car).success(function (res) {
-                $scope.car = null;
-                $scope.confirmPassword = null;
-                $scope.carForm.$setPristine();
+        var editParam = function () {
+            $http.put('api/params', $scope.param).success(function (res) {
+                $scope.param = null;
+                $scope.paramsForm.$setPristine();
                 $scope.message = "Editting Success";
                 init();
             }).error(function (error) {
                 $scope.message = error.message;
             });
         };
-        var addCar = function () {
-            $http.post('api/cars', $scope.car).success(function (res) {
-                $scope.car = null;
-                $scope.confirmPassword = null;
-                $scope.carForm.$setPristine();
-                $scope.message = "Car Created";
+        var addParam = function () {
+            $http.post('api/params', $scope.param).success(function (res) {
+                $scope.param = null;
+                $scope.paramsForm.$setPristine();
+                $scope.message = "Parameters Entity Created";
                 init();
             }).error(function (error) {
                 $scope.message = error.message;
@@ -62,9 +59,9 @@ angular.module('NAProject')
         };
         $scope.submit = function () {
             if (edit) {
-                editCar();
+                editParam();
             } else {
-                addCar();
+                addParam();
             }
         };
         init();

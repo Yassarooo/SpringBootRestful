@@ -9,7 +9,10 @@ import Project.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
+@Transactional
 public class CarService {
 
     @Autowired
@@ -35,6 +38,7 @@ public class CarService {
         }
     }
 
+    @Transactional
     public Car createOrUpdateCar(Car c, Boolean update) throws RuntimeException {
         Optional<Car> car;
         if (update) {
@@ -43,6 +47,7 @@ public class CarService {
                 Car newEntity = car.get();
                 newEntity.setName(c.getName());
                 newEntity.setPrice(c.getPrice());
+                newEntity.setSeats(c.getSeats());
                 newEntity.setParams(c.getParams());
                 newEntity.setBuyername(c.getBuyername());
                 newEntity.setSelldate(c.getSelldate());
@@ -62,6 +67,7 @@ public class CarService {
         }
     }
 
+    @Transactional
     public void deleteCarById(Long id) throws RuntimeException {
         Optional<Car> car = carRepository.findById(id);
 

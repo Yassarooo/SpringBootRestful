@@ -1,3 +1,14 @@
+<style>
+    table thead {
+        display: block;
+    }
+    table tbody{
+        height: 400px;
+        overflow-y: scroll;
+        display: block;
+    }
+</style>
+
 <div class="row">
     <div class="col-sm-6 ">
         <div class="panel panel-default">
@@ -17,17 +28,26 @@
                         <div class="form-group"
                              ng-class="{ 'has-error': carForm.price.$invalid && carForm.price.$dirty }">
                             <label for="price">Price:</label> <input type="number"
-                                                                           required class="form-control"
-                                                                           ng-model="car.price"
-                                                                           id="price" name="price">
+                                                                     required class="form-control"
+                                                                     ng-model="car.price"
+                                                                     id="price" name="price">
                         </div>
 
                         <div class="form-group"
                              ng-class="{ 'has-error': carForm.seats.$invalid && carForm.seats.$dirty }">
-                            <label for="seats">Seats Number:</label> <input type="number" class="form-control" id="seats"
-                                                                      ng-model="car.seats" name="seats">
+                            <label for="seats">Seats Number:</label> <input type="number" class="form-control"
+                                                                            id="seats"
+                                                                            ng-model="car.seats" name="seats">
                         </div>
-                        <button type="submit" class="btn btn-default"
+                        <div class="form-group"
+                             ng-class="{ 'has-error': carForm.params.$invalid && carForm.seats.$dirty }">
+                            <label for="params">Default Parameter ID:</label> <input type="number"
+                                                                                      required
+                                                                                      class="form-control" id="params"
+                                                                                      ng-model="car.paramid">
+                        </input>
+                        </div>
+                        <button type="submit" class="btn btn-primary"
                                 ng-disabled="carForm.$invalid">{{buttonText}}
                         </button>
 
@@ -41,7 +61,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 Cars
-                <button type="button" class="btn btn-default btn-sm"
+                <button type="button" class="btn btn-primary btn-sm"
                         ng-click="initAddCar()">
                     <span class="glyphicon glyphicon-plus"></span> New Car
                 </button>
@@ -49,7 +69,13 @@
             <div class="panel-body">
 
                 <div class="alert alert-info margin-top-5" ng-show="deleteMessage">{{deleteMessage}}</div>
-                <table class="table table-bordered">
+
+                <form class="form-inline md-form form-sm mt-0">
+                    <i class="glyphicon glyphicon-search" aria-hidden="true"></i>
+                    <input class="form-control form-control-sm ml-3 w-75" ng-model="searchtxt" type="text" placeholder="Search" aria-label="Search">
+                </form>
+                <br>
+                <table class="table table-striped table-bordered table-sm">
                     <thead>
                     <tr>
                         <th>#</th>
@@ -62,20 +88,21 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="car in cars">
+                    <tr ng-repeat="car in cars | filter : searchtxt">
                         <td>{{$index+1}}</td>
                         <td>{{car.name}}</td>
-                        <td>{{car.price}}</td>
+                        <td>{{car.price}}$</td>
                         <td>{{car.seats}}</td>
-                        <td>{{car.sold?'Y':'N'}}</td>
+                        <td ng-show="car.sold"><span class="glyphicon glyphicon-check"></span></td>
+                        <td ng-show="!car.sold"><span class="glyphicon glyphicon-unchecked"></span></td>
                         <td>
-                            <button type="button" class="btn btn-default btn-sm"
+                            <button type="button" class="btn btn-primary btn-sm"
                                     ng-click="initEdit(car)">
                                 <span class="glyphicon glyphicon-edit"></span>
                             </button>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-default btn-sm"
+                            <button type="button" class="btn btn-primary btn-sm"
                                     ng-click="deleteCar(car)">
                                 <span class="glyphicon glyphicon-trash"></span>
                             </button>

@@ -33,6 +33,18 @@ angular.module('NAProject').config(function ($stateProvider, $urlRouterProvider)
                 controller: 'UsersController',
             }
         }
+    }).state('params', {
+        parent: 'nav',
+        url: '/params',
+        data: {
+            role: 'ADMIN'
+        },
+        views: {
+            'content@': {
+                templateUrl: 'app/views/params.html',
+                controller: 'ParamsController',
+            }
+        }
     }).state('cars', {
         parent: 'nav',
         url: '/cars',
@@ -58,6 +70,15 @@ angular.module('NAProject').config(function ($stateProvider, $urlRouterProvider)
             'content@': {
                 templateUrl: 'app/views/MQ.html',
                 controller: 'MQController',
+            }
+        }
+    }).state('session', {
+        parent: 'nav',
+        url: '/session',
+        views: {
+            'content@': {
+                templateUrl: 'app/views/session.html',
+                controller: 'SessionController',
             }
         }
     }).state('home', {

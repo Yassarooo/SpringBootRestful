@@ -9,7 +9,7 @@ angular.module('NAProject')
                 $scope.sellcarForm.$setPristine();
                 $scope.message = 'Please Select Car to Sell';
                 $scope.car = null;
-                $scope.buttonText = '';
+                $scope.buttonText = 'Sell';
             }).error(function (error) {
                 $scope.message = error.message;
             });
@@ -17,7 +17,7 @@ angular.module('NAProject')
         $scope.initSellCar = function (car) {
             edit = true;
             $scope.car = car;
-            $scope.message = 'Please Enter Sell Info';
+            $scope.message = 'Enter Sell Info';
             $scope.carname = car.name;
             $scope.buttonText = 'Sell';
         };

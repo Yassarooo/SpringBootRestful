@@ -33,7 +33,10 @@ public class Car implements Serializable {
     @Column(name = "sold")
     private Boolean sold;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @Column(name = "paramid")
+    private Integer paramid;
+
+    @ManyToOne
     @JoinColumn(name = "Params_ID")
     private Parameters params;
 
@@ -41,7 +44,7 @@ public class Car implements Serializable {
 
     }
 
-    public Car(String name, Float price, Integer seats, String buyername, Float sellprice, Date selldate, Boolean sold) {
+    public Car(String name, Float price, Integer seats, String buyername, Float sellprice, Date selldate, Boolean sold, Integer paramid) {
         this.price = price;
         this.name = name;
         this.seats = seats;
@@ -49,6 +52,7 @@ public class Car implements Serializable {
         this.sellprice = sellprice;
         this.selldate = selldate;
         this.sold = sold;
+        this.paramid = paramid;
     }
 
     public Long getId() {
@@ -121,5 +125,13 @@ public class Car implements Serializable {
 
     public void setSold(Boolean sold) {
         this.sold = sold;
+    }
+
+    public Integer getParamid() {
+        return paramid;
+    }
+
+    public void setParamid(Integer paramid) {
+        this.paramid = paramid;
     }
 }

@@ -1,6 +1,5 @@
 package Project.web;
 
-
 import Project.domain.AppUser;
 import Project.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

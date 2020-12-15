@@ -9,7 +9,7 @@
     }
 </style>
 
-<nav class="navbar navbar-default navbar-static-top">
+<nav class="navbar navbar-dark navbar-static-top bg-dark">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed"
@@ -23,22 +23,28 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li ng-show="user.username"><a ui-sref="users">Users</a></li>
+                <li ng-show="user.username"><a ui-sref="params"><span class="glyphicon glyphicon-tasks"></span> Parameters</a>
+                </li>
             </ul>
             <ul class="nav navbar-nav">
-                <li ng-show="user.username"> <a ui-sref="cars">Cars</a></li>
+                <li ng-show="user.username"><a ui-sref="cars"> <span class="glyphicon glyphicon-tasks"></span> Cars</a>
+                </li>
             </ul>
             <ul class="nav navbar-nav">
-                <li ng-show="user.username"> <a ui-sref="sellcar">Sell Car</a></li>
+                <li ng-show="user.username"><a ui-sref="sellcar"> <span class="glyphicon glyphicon-usd"></span> Sell Car</a>
+                </li>
             </ul>
             <ul class="nav navbar-nav">
-                <li ng-show="user.username"> <a ui-sref="MQ">Message Queue</a></li>
+                <li ng-show="user.username"><a ui-sref="MQ"><span class="glyphicon glyphicon-send"></span> MQ</a>
+
+                <li ng-show="user.username"><a ui-sref="session"><span class="glyphicon glyphicon-send"></span> Session Store</a>
+                </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
 
                 <li ng-show="user.username"><a> <span class="user">Hi,
-							{{user.username}}</span> <span ng-click="logout()" href=""
-                                                       class="logout">Logout</span>
+							{{user.username}} </span> <span ng-click="logout()" href=""
+                                                           class="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</span>
                 </a></li>
                 <li ng-show="!user.username"><a ui-sref="register">Register</a></li>
             </ul>

@@ -12,6 +12,9 @@ public class Car implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Version
+    private Integer version;
+
     @Column(name = "name")
     private String name;
 
@@ -134,4 +137,8 @@ public class Car implements Serializable {
     public void setParamid(Integer paramid) {
         this.paramid = paramid;
     }
+
+    public Integer getVersion() { return version; }
+
+    public void setVersion(Integer version) { this.version = version; }
 }

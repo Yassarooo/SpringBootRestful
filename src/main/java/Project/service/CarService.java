@@ -45,7 +45,7 @@ public class CarService {
         }
     }
 
-    @Transactional(propagation = Propagation.NEVER)
+    @Transactional
     public Car createOrUpdateCar(Car c, Boolean update) throws RuntimeException {
         try {
             Optional<Car> car;
@@ -82,6 +82,7 @@ public class CarService {
         }
     }
 
+    @Transactional
     public void deleteCarById(Long id) throws RuntimeException {
         Optional<Car> car = carRepository.findById(id);
 

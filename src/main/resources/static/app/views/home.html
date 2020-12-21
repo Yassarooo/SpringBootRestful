@@ -3,47 +3,57 @@
     <div class="jumbotron">
         <div class="container">
 
-            <h1 class="display-3">Hello,
+            <h1 class="display-3"><img src="http://localhost/app/views/cheers.png" width="75" height="75"> Hello,
                 {{user.username}}!</h1>
             <p>This is a project for a simple car management system. It includes many spring boot examples. Created By
                 Jazara Debuggers Team. Have a look at the sections below</p>
-            <p><a class="btn btn-primary btn-lg" href="#" role="button">Go To Cars »</a></p>
+            <p><a class="btn btn-primary btn-lg" role="button">Go To Cars »</a></p>
         </div>
     </div>
 
     <div class="container">
         <!-- Example row of columns -->
         <div class="row">
-            <div class="col-md-4">
-                <h2>Parameters</h2>
+            <div class="col-md-5">
+                <h2><a>
+                    <span class="glyphicon glyphicon-tasks"></span>
+                </a> Parameters</h2>
                 <p>this section has a parameters entitiy control , you can add,update or remove objects, we need it to
                     set default company parameters such as seats and company commission percentage . </p>
                 <p><a class="btn btn-primary" ui-sref="params" role="button">To Parameters »</a></p>
             </div>
-            <div class="col-md-4">
-                <h2>Cars</h2>
+            <div class="col-md-5">
+                <h2><a>
+                    <span class="glyphicon glyphicon-tasks"></span>
+                </a> Cars</h2>
                 <p>Manage Cars, Add,Update,Remove Cars if car seats field is empty, then the default cars seats value
                     will be taken from car's default parameters entity , in addition , you can only edit basic car info
                     (name,price,seats). </p>
                 <p><a class="btn btn-primary" ui-sref="cars" role="button">To Cars »</a></p>
             </div>
-            <div class="col-md-4">
-                <h2>Sell Car</h2>
+            <div class="col-md-5">
+                <h2><a>
+                    <span class="glyphicon glyphicon-usd"></span>
+                </a> Sell Car</h2>
                 <p>in this section you can sell car by choosing the car then clicking sell button and enter additional
                     informations then submit sell request.</p>
                 <p><a class="btn btn-primary" ui-sref="sellcar" role="button">Sell Car »</a></p>
             </div>
-            <div class="col-md-4">
-                <h2>Message Queue</h2>
+            <div class="col-md-5">
+                <h2><a>
+                    <span class="glyphicon glyphicon-send"></span>
+                </a> Message Queue</h2>
                 <p>Send message to rabbitMQ server, to see the message has been sent just heading to <a
                         href="http://localhost:15672/" target="_blank">RabbitMQ Dashboard</a> and login as guest then go to queue named
                     yassar queue . </p>
                 <p><a class="btn btn-primary" ui-sref="MQ" role="button">Test MQ »</a></p>
             </div>
-            <div class="col-md-4">
-                <h2>About Us</h2>
-                <p>Jazara Debuggers Team </p>
-                <p><a class="btn btn-primary" ui-sref="About" role="button">Jazara Debuggers »</a></p>
+            <div class="col-md-5">
+                <h2><a>
+                    <span class="glyphicon glyphicon-info-sign"></span>
+                </a> About Us</h2>
+                <p>Jazara Debuggers Team. </p>
+                <p><a class="btn btn-info" ui-sref="about" role="button"><img src="http://localhost/app/views/carrot.png" width="25" height="25"> Jazara Debuggers »</a></p>
             </div>
         </div>
 

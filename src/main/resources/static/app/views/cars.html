@@ -1,9 +1,5 @@
 <style>
-    table thead {
-        display: block;
-    }
-
-    table tbody {
+    table {
         height: 500px;
         overflow-y: scroll;
         display: block;
@@ -11,8 +7,8 @@
 </style>
 
 <div class="row">
-    <div class="col-sm-6 ">
-        <div class="panel panel-default">
+    <div class="col-sm-5 ">
+        <div class="panel panel-primary">
             <div class="panel-heading">Car</div>
             <div class="panel-body">
                 <div class="col-md-12">
@@ -58,11 +54,11 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-6">
-        <div class="panel panel-default">
+    <div class="col-sm-7">
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 Cars
-                <button type="button" class="btn btn-primary btn-sm"
+                <button type="button" class="btn btn-default btn-sm"
                         ng-click="initAddCar()">
                     <span class="glyphicon glyphicon-plus"></span> New Car
                 </button>
@@ -90,10 +86,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="car in cars | filter : searchtxt">
+                    <tr ng-repeat="car in cars |filter : searchtxt">
                         <td>{{$index+1}}</td>
                         <td>{{car.name}}</td>
-                        <td>{{car.price}}$</td>
+                        <td>{{car.price | currency}}</td>
                         <td>{{car.seats}}</td>
                         <td ng-show="car.sold"><span class="glyphicon glyphicon-check"></span></td>
                         <td ng-show="!car.sold"><span class="glyphicon glyphicon-unchecked"></span></td>

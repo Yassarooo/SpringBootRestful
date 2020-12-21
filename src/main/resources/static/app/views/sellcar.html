@@ -1,21 +1,18 @@
 <style>
-    table thead {
-        display: block;
-    }
-    table tbody{
-        height: 400px;
+    table {
+        height: 500px;
         overflow-y: scroll;
         display: block;
     }
 </style>
 
 <div class="row">
-    <div class="col-sm-6 ">
-        <div class="panel panel-default" ng-show="carname">
+    <div class="col-sm-5">
+        <div class="panel panel-primary" ng-show="carname">
 
             <div class="panel-heading">
-                <div> Sell </div>
-                <div>{{carname}} </div>
+                <div> Sell</div>
+                <div>{{carname}}</div>
             </div>
 
             <div class="panel-body">
@@ -25,23 +22,25 @@
                         <div class="form-group"
                              ng-class="{ 'has-error': sellcarForm.buyername.$invalid && sellcarForm.buyername.$dirty }">
                             <label for="buyername">Buyer Name:</label> <input type="text" required
-                                                                   class="form-control" ng-model="car.buyername"
-                                                                   id="buyername"
-                                                                   name="buyername">
+                                                                              class="form-control"
+                                                                              ng-model="car.buyername"
+                                                                              id="buyername"
+                                                                              name="buyername">
                         </div>
                         <div class="form-group"
                              ng-class="{ 'has-error': sellcarForm.selldate.$invalid && sellcarForm.selldate.$dirty }">
                             <label for="selldate">Sell Date:</label> <input type="date" required
-                                                                   class="form-control" ng-model="car.selldate"
-                                                                   id="selldate"
-                                                                   name="selldate">
+                                                                            class="form-control" ng-model="car.selldate"
+                                                                            id="selldate"
+                                                                            name="selldate">
                         </div>
                         <div class="form-group"
                              ng-class="{ 'has-error': sellcarForm.sellprice.$invalid && sellcarForm.sellprice.$dirty }">
                             <label for="sellprice">Sell Price:</label> <input type="float"
-                                                                   class="form-control" ng-model="car.sellprice"
-                                                                   id="sellprice"
-                                                                   name="sellprice">
+                                                                              class="form-control"
+                                                                              ng-model="car.sellprice"
+                                                                              id="sellprice"
+                                                                              name="sellprice">
                         </div>
 
                         <button type="submit" class="btn btn-primary"
@@ -54,14 +53,21 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-6">
-        <div class="panel panel-default">
+    <div class="col-sm-7">
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 Not Sold Cars
             </div>
             <div class="panel-body">
 
                 <div class="alert alert-info margin-top-5" ng-show="deleteMessage">{{deleteMessage}}</div>
+
+                <form class="form-inline md-form form-sm mt-0">
+                    <i class="glyphicon glyphicon-search" aria-hidden="true"></i>
+                    <input class="form-control form-control-sm ml-3 w-75" ng-model="searchtxt2" type="text"
+                           placeholder="Search" aria-label="Search">
+                </form>
+                <br>
                 <table class="table table-striped table-bordered table-sm">
                     <thead>
                     <tr>
@@ -74,13 +80,15 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="car in sellcar">
+                    <tr ng-repeat="car in sellcar | filter : searchtxt2">
                         <td>{{$index+1}}</td>
                         <td>{{car.name}}</td>
-                        <td>{{car.price}}$</td>
+                        <td>{{car.price | currency}}</td>
                         <td>{{car.seats}}</td>
                         <td>
-                            <button type="button" class="btn btn-primary" ng-click="initSellCar(car)"><span class="glyphicon glyphicon-usd"></span> Sell</button>
+                            <button type="button" class="btn btn-primary" ng-click="initSellCar(car)"><span
+                                    class="glyphicon glyphicon-usd"></span> Sell
+                            </button>
                         </td>
                     </tr>
                     </tbody>

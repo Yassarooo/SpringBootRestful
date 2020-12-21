@@ -1,6 +1,6 @@
 angular.module('NAProject')
 // Creating the Angular Controller
-    .controller('SessionController', function ($http, $scope, AuthService) {
+    .controller('AboutController', function ($http, $scope, AuthService) {
         this.addchecked = false;
         this.destroychecked = false;
 

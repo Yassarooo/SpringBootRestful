@@ -25,8 +25,8 @@ angular.module('NAProject')
             $http.put('api/sellcar', $scope.car).success(function (res) {
                 $scope.car = null;
                 $scope.sellcarForm.$setPristine();
-                $scope.message = "Sell Success";
                 init();
+                $scope.message = "Sell Success";
             }).error(function (error) {
                 $scope.message = error.message;
             });

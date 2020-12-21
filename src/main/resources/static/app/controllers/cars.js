@@ -32,8 +32,8 @@ angular.module('NAProject')
         };
         $scope.deleteCar = function (car) {
             $http.delete('api/cars/' + car.id).success(function (res) {
-                $scope.deleteMessage = "Success!";
                 init();
+                $scope.deleteMessage = "Success!";
             }).error(function (error) {
                 $scope.deleteMessage = error.message;
             });
@@ -54,8 +54,8 @@ angular.module('NAProject')
                 $scope.car = null;
                 $scope.confirmPassword = null;
                 $scope.carForm.$setPristine();
-                $scope.message = "Car Created";
                 init();
+                $scope.message = "Car Created";
             }).error(function (error) {
                 $scope.message = error.message;
             });
@@ -66,6 +66,10 @@ angular.module('NAProject')
             } else {
                 addCar();
             }
+        };
+        $scope.sort = function(keyname){
+            $scope.sortKey = keyname;   //set the sortKey to the param passed
+            $scope.reverse = !$scope.reverse; //if true make it false and vice versa
         };
         init();
 

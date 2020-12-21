@@ -1,7 +1,8 @@
 angular.module('NAProject').config(function ($stateProvider, $urlRouterProvider) {
 
     // the ui router will redirect if a invalid state has come.
-    $urlRouterProvider.otherwise('/page-not-found');
+    $urlRouterProvider.otherwise('/');
+
     // parent view - navigation state
     $stateProvider.state('nav', {
         abstract: true,
@@ -72,13 +73,13 @@ angular.module('NAProject').config(function ($stateProvider, $urlRouterProvider)
                 controller: 'MQController',
             }
         }
-    }).state('session', {
+    }).state('about', {
         parent: 'nav',
-        url: '/session',
+        url: '/about',
         views: {
             'content@': {
-                templateUrl: 'app/views/session.html',
-                controller: 'SessionController',
+                templateUrl: 'app/views/about.html',
+                controller: 'AboutController',
             }
         }
     }).state('home', {

@@ -7,9 +7,31 @@
         cursor: pointer;
         margin-left: 5px;
     }
+    .jumbotron{
+        background: #222222;
+    }
+    .panel{
+        background: #191c22;
+    }
+    .table-striped>tbody>tr:nth-child(odd)>td,
+    .table-striped>tbody>tr:nth-child(odd)>th {
+        background-color: #0a1b26;
+    }
+    .form-control{
+        background-color: #0a1b26;
+        color: #ffffff;
+    }
+    .alert-warning{
+        background : #ffffff;
+        color : red;
+    }
+    body{
+        background: #191c22;
+        color:#ffffff;
+    }
 </style>
 
-<nav class="navbar navbar-dark navbar-static-top bg-dark">
+<nav class="navbar navbar-inverse">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed"
@@ -23,11 +45,11 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li ng-show="user.username"><a ui-sref="params"><span class="glyphicon glyphicon-tasks"></span> Parameters</a>
+                <li ng-show="user.username"><a ui-sref="params"><span class="fa fa-database"></span> Parameters</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav">
-                <li ng-show="user.username"><a ui-sref="cars"> <span class="glyphicon glyphicon-tasks"></span> Cars</a>
+                <li ng-show="user.username"><a ui-sref="cars"> <span class="fa fa-car"></span> Cars</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav">
@@ -37,7 +59,7 @@
             <ul class="nav navbar-nav">
                 <li ng-show="user.username"><a ui-sref="MQ"><span class="glyphicon glyphicon-send"></span> MQ</a>
 
-                <li ng-show="user.username"><a ui-sref="about"><span class=" glyphicon glyphicon-info-sign "></span> About us</a>
+                <li ng-show="user.username"><a ui-sref="about"><span class="fa fa-info-circle"></span> About us</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">

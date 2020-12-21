@@ -10,7 +10,6 @@ angular.module('NAProject')
             $scope.user = null;
         });
         $scope.logout = function () {
-            sessionStorage.clear();
             localStorage.clear();
             AuthService.user = null;
             $rootScope.$broadcast('LogoutSuccessful');

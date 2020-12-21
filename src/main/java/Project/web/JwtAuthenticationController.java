@@ -1,10 +1,12 @@
-package Project.config;
+package Project.web;
 
 
 import java.io.IOException;
 import java.security.Principal;
 import java.util.*;
 
+import Project.config.JwtTokenUtil;
+import Project.config.JwtUserDetailsService;
 import Project.domain.AppUser;
 import Project.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -76,6 +77,15 @@ public class JwtAuthenticationController {
         roles.add("ADMIN");
         user.setRoles(roles);
         return ResponseEntity.ok(userDetailsService.save(user));
+    }
+
+    @RequestMapping(value = "/checktoken", method = RequestMethod.POST)
+    public ResponseEntity<?> checktoken(@RequestParam String token) {
+        if (jwtTokenUtil.isTokenExpired(token))
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        else {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
     }
 
     private void authenticate(String username, String password) throws Exception {

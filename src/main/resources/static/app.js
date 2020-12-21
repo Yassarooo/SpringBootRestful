@@ -14,6 +14,20 @@ angular.module('NAProject', ['ui.router'])
                 if (localStorage.getItem("token") && localStorage.getItem("user")) {
                     $http.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem("token");
                     AuthService.user = JSON.parse(localStorage.getItem("user"));
+                    $http({
+                        url: 'checktoken',
+                        method: "POST",
+                        params: {
+                            token: localStorage.getItem("token")
+                        }
+                    }).success(function () {
+                        // checking if the token is available in the response
+                        $http.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem("token");
+                        AuthService.user = JSON.parse(localStorage.getItem("user"));
+                    }).error(function () {
+                        // if authentication was not successful. Setting the error message.
+                        $state.go('login');
+                    });
                 }
                 // To avoiding the infinite looping of state change we have to add a
                 // if condition.

@@ -7,28 +7,84 @@
         cursor: pointer;
         margin-left: 5px;
     }
-    .jumbotron{
+
+    .jumbotron {
         background: #222222;
     }
-    .panel{
+
+    .panel {
         background: #191c22;
     }
-    .table-striped>tbody>tr:nth-child(odd)>td,
-    .table-striped>tbody>tr:nth-child(odd)>th {
+
+    .table-striped > tbody > tr:nth-child(odd) > td,
+    .table-striped > tbody > tr:nth-child(odd) > th {
         background-color: #0a1b26;
     }
-    .form-control{
+
+    .form-control {
         background-color: #0a1b26;
         color: #ffffff;
     }
-    .alert-warning{
-        background : #ffffff;
-        color : red;
+
+    .alert-warning {
+        background: #ffffff;
+        color: red;
     }
-    body{
+
+    body {
         background: #191c22;
-        color:#ffffff;
+        color: #ffffff;
     }
+
+    #circle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100px;
+        height: 100px;
+        z-index: 999;
+    }
+
+    .loader {
+        width: calc(100% - 0px);
+        height: calc(100% - 0px);
+        border: 8px solid #162534;
+        border-top: 8px solid #09f;
+        border-radius: 50%;
+        animation: rotate 5s linear infinite;
+    }
+
+    @keyframes rotate {
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    *, *::after, *::before {
+        box-sizing: border-box;
+    }
+
+    .preloader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100%;
+        background: rgb(23, 22, 22);
+        opacity: 0.8;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+        transition: opacity 0.3s linear;
+    }
+
+    .page-content {
+        max-width: 768px;
+        margin: 0 auto;
+    }
+
 </style>
 
 <nav class="navbar navbar-inverse">
@@ -41,36 +97,56 @@
                     class="icon-bar"></span> <span class="icon-bar"></span> <span
                     class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" ui-sref="home">Cars Management System</a>
+            <a class="navbar-brand" ng-click="showload()" ui-sref="home">Cars Management System</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li ng-show="user.username"><a ui-sref="params"><span class="fa fa-database"></span> Parameters</a>
+                <li ng-show="user.username" ng-click="showload()"><a ui-sref="params"><span
+                        class="fa fa-database"></span> Parameters</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav">
-                <li ng-show="user.username"><a ui-sref="cars"> <span class="fa fa-car"></span> Cars</a>
+                <li ng-show="user.username" ng-click="showload()"><a ui-sref="cars"> <span class="fa fa-car"></span>
+                    Cars</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav">
-                <li ng-show="user.username"><a ui-sref="sellcar"> <span class="glyphicon glyphicon-usd"></span> Sell Car</a>
+                <li ng-show="user.username" ng-click="showload()"><a ui-sref="sellcar"> <span
+                        class="glyphicon glyphicon-usd"></span> Sell Car</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav">
-                <li ng-show="user.username"><a ui-sref="MQ"><span class="glyphicon glyphicon-send"></span> MQ</a>
+                <li ng-show="user.username" ng-click="showload()"><a ui-sref="MQ"><span
+                        class="glyphicon glyphicon-send"></span> MQ</a>
 
-                <li ng-show="user.username"><a ui-sref="about"><span class="fa fa-info-circle"></span> About us</a>
+                <li ng-show="user.username" ng-click="showload()"><a ui-sref="about"><span
+                        class="fa fa-info-circle"></span> About us</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
 
                 <li ng-show="user.username"><a> <span class="user">Hi,
-							{{user.username}} </span> <span ng-click="logout()" href=""
-                                                           class="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</span>
+							{{user.username}} </span> <span ng-click="logout();showload()" href=""
+                                                            class="logout"><span
+                        class="glyphicon glyphicon-log-out"></span> Logout</span>
                 </a></li>
-                <li ng-show="!user.username"><a ui-sref="register">Register</a></li>
+                <li ng-show="!user.username" ng-click="showload()"><a ui-sref="register">Register</a></li>
             </ul>
         </div>
         <!--/.nav-collapse -->
     </div>
 </nav>
+
+
+<div class="preloader" ng-show="mainload">
+    <div id="circle">
+        <div class="loader">
+            <div class="loader">
+                <div class="loader">
+                    <div class="loader">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

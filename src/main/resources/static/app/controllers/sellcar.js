@@ -1,8 +1,10 @@
 angular.module('NAProject')
 // Creating the Angular Controller
-    .controller('SellCarController', function ($http, $scope, AuthService) {
+    .controller('SellCarController', function ($http, $scope, $rootScope) {
+        $rootScope.$broadcast('hideload');
         var edit = false;
         $scope.buttonText = 'Sell';
+        $scope.sellload = true;
         var init = function () {
             $http.get('api/sellcar').success(function (res) {
                 $scope.sellcar = res;
@@ -10,8 +12,11 @@ angular.module('NAProject')
                 $scope.message = 'Please Select Car to Sell';
                 $scope.car = null;
                 $scope.buttonText = 'Sell';
+                $scope.sellload = false;
+
             }).error(function (error) {
                 $scope.message = error.message;
+                $scope.sellload = false;
             });
         };
         $scope.initSellCar = function (car) {
@@ -26,12 +31,15 @@ angular.module('NAProject')
                 $scope.car = null;
                 $scope.sellcarForm.$setPristine();
                 init();
+                $scope.sellsubload = false;
                 $scope.message = "Sell Success";
             }).error(function (error) {
+                $scope.sellsubload = false;
                 $scope.message = error.message;
             });
         };
         $scope.submit = function () {
+            $scope.sellsubload = true;
             if (edit) {
                 SellCar();
             } else {

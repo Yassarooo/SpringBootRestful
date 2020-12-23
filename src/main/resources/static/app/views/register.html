@@ -45,7 +45,7 @@
                     <button type="submit" class="btn btn-primary"
                             ng-disabled="register.$invalid || (confirmPassword != appUser.password)"> <span class="glyphicon glyphicon-new-window"></span> Register
                     </button>
-                    <button class="btn btn-default" ui-sref="login">Login</button>
+                    <button class="btn btn-default" ng-click="showload()" ui-sref="login">Login</button>
                     <div class="alert alert-info margin-top-5" ng-show="message">{{message}}</div>
                 </form>
             </div>

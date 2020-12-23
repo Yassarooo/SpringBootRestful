@@ -1,6 +1,7 @@
 angular.module('NAProject')
 // Creating the Angular Controller
-    .controller('MQController', function ($http, $scope, AuthService) {
+    .controller('MQController', function ($http, $scope, $rootScope) {
+        $rootScope.$broadcast('hideload');
         this.checked = false;
         $scope.buttonText = 'Send';
         $scope.submit = function () {

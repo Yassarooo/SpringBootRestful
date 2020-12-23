@@ -1,8 +1,42 @@
+<style>
+    table {
+        height: 300px;
+        display: block;
+    }
+
+    #circle {
+        width: 70px;
+        height: 70px;
+    }
+    #circle2 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100px;
+        height: 100px;
+        z-index: 999;
+    }
+</style>
+
 <div class="row">
     <div class="col-sm-6 ">
         <div class="panel panel-primary">
             <div class="panel-heading">Parameters</div>
             <div class="panel-body">
+
+                <div ng-show="paramsubload" id="circle2">
+                    <div class="loader">
+                        <div class="loader">
+                            <div class="loader">
+                                <div class="loader">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col-md-12">
                     <form ng-submit="submit()" name="paramsForm" novalidate>
 
@@ -57,6 +91,17 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <div ng-show="paramsload" id="circle">
+                        <div class="loader">
+                            <div class="loader">
+                                <div class="loader">
+                                    <div class="loader">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <tr ng-repeat="param in params">
                         <td>{{param.id}}</td>
                         <td>{{param.seats}}</td>

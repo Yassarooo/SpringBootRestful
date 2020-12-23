@@ -1,17 +1,20 @@
 angular.module('NAProject')
 // Creating the Angular Controller
-    .controller('CarsController', function ($http, $scope, AuthService) {
+    .controller('CarsController', function ($http, $scope, $rootScope) {
+        $rootScope.$broadcast('hideload');
         var edit = false;
         $scope.buttonText = 'Create';
+        $scope.message = '';
+
         var init = function () {
             edit = false;
+            $scope.carsload = true;
             $http.get('api/cars').success(function (res) {
                 $scope.cars = res;
-
                 $scope.carForm.$setPristine();
-                $scope.message = '';
                 $scope.car = null;
                 $scope.buttonText = 'Create';
+                $scope.carsload = false;
 
             }).error(function (error) {
                 $scope.message = error.message;
@@ -31,46 +34,47 @@ angular.module('NAProject')
             $scope.buttonText = 'Create';
         };
         $scope.deleteCar = function (car) {
-            $http.delete('api/cars/' + car.id).success(function (res) {
+            $scope.carsload = true;
+            $http.delete('api/cars/' + car.id).success(function () {
                 init();
-                $scope.deleteMessage = "Success!";
+                $scope.deleteMessage = "Deleted!";
             }).error(function (error) {
                 $scope.deleteMessage = error.message;
             });
         };
         var editCar = function () {
-            $http.put('api/cars', $scope.car).success(function (res) {
+            $http.put('api/cars', $scope.car).success(function () {
                 $scope.car = null;
                 $scope.confirmPassword = null;
                 $scope.carForm.$setPristine();
+                $scope.carsubload = false;
                 $scope.message = "Editting Success";
                 init();
             }).error(function (error) {
+                $scope.carsubload = false;
                 $scope.message = error.message;
             });
         };
         var addCar = function () {
-            $http.post('api/cars', $scope.car).success(function (res) {
+            $http.post('api/cars', $scope.car).success(function () {
                 $scope.car = null;
                 $scope.confirmPassword = null;
                 $scope.carForm.$setPristine();
                 init();
+                $scope.carsubload = false;
                 $scope.message = "Car Created";
             }).error(function (error) {
+                $scope.carsubload = false;
                 $scope.message = error.message;
             });
         };
         $scope.submit = function () {
+            $scope.carsubload = true;
             if (edit) {
                 editCar();
             } else {
                 addCar();
             }
         };
-        $scope.sort = function(keyname){
-            $scope.sortKey = keyname;   //set the sortKey to the param passed
-            $scope.reverse = !$scope.reverse; //if true make it false and vice versa
-        };
         init();
-
     });

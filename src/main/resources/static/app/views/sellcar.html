@@ -4,6 +4,15 @@
         overflow-y: scroll;
         display: block;
     }
+    #circle2 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100px;
+        height: 100px;
+        z-index: 999;
+    }
 </style>
 
 <div class="row">
@@ -16,6 +25,19 @@
             </div>
 
             <div class="panel-body">
+
+                <div ng-show="sellsubload" id="circle2">
+                    <div class="loader">
+                        <div class="loader">
+                            <div class="loader">
+                                <div class="loader">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col-md-12">
                     <form ng-submit="submit()" name="sellcarForm" novalidate>
 
@@ -80,6 +102,18 @@
                     </tr>
                     </thead>
                     <tbody>
+
+                    <div ng-show="sellload" id="circle">
+                        <div class="loader">
+                            <div class="loader">
+                                <div class="loader">
+                                    <div class="loader">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <tr ng-repeat="car in sellcar | filter : searchtxt2">
                         <td>{{$index+1}}</td>
                         <td>{{car.name}}</td>

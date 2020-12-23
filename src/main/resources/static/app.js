@@ -25,6 +25,8 @@ angular.module('NAProject', ['ui.router'])
                         $http.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem("token");
                         AuthService.user = JSON.parse(localStorage.getItem("user"));
                     }).error(function () {
+                        AuthService.user = null;
+                        $rootScope.$broadcast('LogoutSuccessful');
                         // if authentication was not successful. Setting the error message.
                         $state.go('login');
                     });

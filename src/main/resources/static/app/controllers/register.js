@@ -1,6 +1,7 @@
 angular.module('NAProject')
 // Creating the Angular Controller
-    .controller('RegisterController', function ($http, $scope, AuthService) {
+    .controller('RegisterController', function ($http, $scope, $rootScope) {
+        $rootScope.$broadcast('hideload');
         $scope.submit = function () {
             $http.post('register', $scope.appUser).success(function (res) {
                 $scope.appUser = null;

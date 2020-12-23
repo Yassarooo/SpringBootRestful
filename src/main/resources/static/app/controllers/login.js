@@ -1,8 +1,10 @@
 angular.module('NAProject')
 // Creating the Angular Controller
     .controller('LoginController', function ($http, $scope, $state, AuthService, $rootScope) {
+        $rootScope.$broadcast('hideload');
         // method for login
         $scope.login = function () {
+            $scope.loginload = true;
             // requesting the token by usename and passoword
             $http({
                 url: 'authenticate',
@@ -30,15 +32,20 @@ angular.module('NAProject')
                     localStorage.setItem("user", JSON.stringify(res.user));
 
                     $rootScope.$broadcast('LoginSuccessful');
+                    $scope.loginload = false;
+
+                    $rootScope.$broadcast('showload');
 
                     // going to the home page
                     $state.go('home');
                 } else {
+                    $scope.loginload = false;
                     // if the token is not present in the response then the
                     // authentication was not successful. Setting the error message.
                     $scope.message = 'Authetication Failed !';
                 }
             }).error(function (error) {
+                $scope.loginload = false;
                 // if authentication was not successful. Setting the error message.
                 $scope.message = 'Authetication Failed !';
             });

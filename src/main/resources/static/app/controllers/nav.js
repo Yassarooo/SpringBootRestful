@@ -13,7 +13,7 @@ angular.module('NAProject')
             $scope.mainload = true;
             $timeout(function () {
                 $scope.mainload = false;
-            }, 3000);
+            }, 7000);
 
         });
 

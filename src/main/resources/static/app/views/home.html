@@ -87,18 +87,107 @@
         margin-bottom: 15px;
     }
 
+    .css-typing p {
+        border-right: .15em solid orange;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .css-typing p:nth-child(1) {
+        width: 40em;
+        -webkit-animation: type 5s steps(50, end), blink .5s step-end infinite alternate;
+        animation: type 5s steps(50, end), blink .5s step-end infinite alternate;
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+    }
+
+    .css-typing p:nth-child(2) {
+        width: 32em;
+        opacity: 0;
+        -webkit-animation: type2 4s steps(60, end), blink .5s step-end infinite alternate;
+        animation: type2 4s steps(60, end), blink .5s step-end infinite alternate;
+        animation-delay: 5s;
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes type {
+        0% {
+            width: 0;
+        }
+        99.9% {
+            border-right: .15em solid orange;
+        }
+        100% {
+            border: none;
+        }
+    }
+
+    @-webkit-keyframes type {
+        0% {
+            width: 0;
+        }
+        99.9% {
+            border-right: .15em solid orange;
+        }
+        100% {
+            border: none;
+        }
+    }
+
+    @keyframes type2 {
+        0% {
+            width: 0;
+        }
+        1% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @-webkit-keyframes type2 {
+        0% {
+            width: 0;
+        }
+        1% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @keyframes blink {
+        50% {
+            border-color: transparent;
+        }
+    }
+
+    @-webkit-keyframes blink {
+        50% {
+            border-color: transparent;
+        }
+    }
 </style>
 
 <main role="main">
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
 
-        <h1 class="display-3"><img src="http://25.58.58.15/app/views/cheers.png" width="75" height="75"> Hello,
-            {{user.username}}!</h1>
-        <p>This is a project for a car management system. It includes most of spring boot examples. Created By
-            Jazara Debuggers Team. Have a look at the sections below</p>
+        <h1 class="display-3"><img src="{{ipaddress}}cheers.png" width="75" height="75"> Hello,
+            {{user.username}} !</h1>
+        <div class="css-typing">
+            <p>
+                This is a project for a car management system. It includes most of spring boot examples.
+            </p>
+            <p>
+                Created By Jazara Debuggers Team. Have a look at the sections below.
+            </p>
+        </div>
         <p><a class="btn btn-primary" ui-sref="about" role="button" href="#/about"><img
-                src="http://25.58.58.15/app/views/carrot.png" width="25" height="25"> Jazara Debuggers »</a></p>
+                src="{{ipaddress}}carrot.png" width="25" height="25"> Jazara Debuggers »</a></p>
     </div>
 
     <div class="container">
@@ -174,7 +263,8 @@
                                         <div class="name">
                                             JWT Authentication
                                         </div>
-                                        <div class="text col-md-12">Register,Login,Logout, Authorization and Authentication
+                                        <div class="text col-md-12">Register,Login,Logout, Authorization and
+                                            Authentication
                                             and
                                             with Jason Web Token.
                                         </div>
@@ -197,7 +287,8 @@
                                         <div class="name">
                                             Caches
                                         </div>
-                                        <div class="text col-md-12">Added cache on parameters entity so it will be stored in
+                                        <div class="text col-md-12">Added cache on parameters entity so it will be
+                                            stored in
                                             cache
                                             memory.
                                         </div>
@@ -209,7 +300,8 @@
                                         <div class="name">
                                             Aspect
                                         </div>
-                                        <div class="text col-md-12">Added Log that allows us to know all operations on the
+                                        <div class="text col-md-12">Added Log that allows us to know all operations on
+                                            the
                                             system
                                             such as database operations and who it's done by.
                                         </div>
@@ -221,7 +313,8 @@
                                         <div class="name">
                                             Testing
                                         </div>
-                                        <div class="text col-md-12">Added integration test using in memory database with database mocking.
+                                        <div class="text col-md-12">Added integration test using in memory database with
+                                            database mocking.
                                         </div>
                                     </div>
                                 </div>
@@ -233,6 +326,9 @@
             </div>
         </div>
         <hr>
+
+        <!--foote_bottom_ul_amrc ends here-->
+        <p class="text-center">Copyright @2021 | Designed With <i class="fa fa-heart" style="color:red"></i> by <a ui-sref="about" href="#/about">Jazara Debuggers</a></p>
     </div> <!-- /container -->
 
 </main>

@@ -25,7 +25,7 @@ public class CarRestController {
 
 
     /**
-     * Web service for getting all the appUsers in the application.
+     * Web service for getting all the cars in the application.
      *
      * @return list of all cars
      */

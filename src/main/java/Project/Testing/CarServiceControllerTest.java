@@ -61,7 +61,7 @@ public class CarServiceControllerTest extends AbstractTest {
                 .content(inputJson)).andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        assertEquals(201, status);
+        assertEquals(200, status);
     }
 
     @Test

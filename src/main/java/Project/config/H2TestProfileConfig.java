@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableJpaRepositories(basePackages = {
-        "Project.repository"
+        "Pro0ject.repository"
 })
 @EnableTransactionManagement
 public class H2TestProfileConfig {

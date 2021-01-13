@@ -70,8 +70,8 @@ Here's Some of major features the project has :
 ### Login,Register
 <br />
   <a href="https://networkapplications.herokuapp.com">
-    <img src="login.png" alt="Logo" width="425" height="250">
-    <img src="reg.png" alt="Logo" width="425" height="250">
+    <img src="login.png" alt="Logo" width="650" height="375">
+    <img src="reg.png" alt="Logo" width="650" height="375">
   </a>
   <br />
   

@@ -1,6 +1,5 @@
 package Project;
 
-import Project.domain.Parameters;
 import Project.service.ParamsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

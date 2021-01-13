@@ -78,24 +78,24 @@ Here's Some of major features the project has :
   ### Home
 <br />
   <a href="https://networkapplications.herokuapp.com">
-    <img src="home1.png" alt="Logo" width="425" height="250">
-    <img src="home2.png" alt="Logo" width="425" height="250">
+    <img src="home1.png" alt="Logo" width="650" height="375">
+    <img src="home2.png" alt="Logo" width="650" height="375">
   </a>
   <br />
   
   ### Parameters,Cars
 <br />
   <a href="https://networkapplications.herokuapp.com">
-    <img src="params.png" alt="Logo" width="425" height="250">
-    <img src="cars1.png" alt="Logo" width="425" height="250">
+    <img src="params.png" alt="Logo" width="650" height="375">
+    <img src="cars1.png" alt="Logo" width="650" height="375">
   </a>
   <br />
   
   ### Sell Car
 <br />
   <a href="https://networkapplications.herokuapp.com">
-    <img src="sellcar1.png" alt="Logo" width="425" height="250">
-    <img src="sellcar2.png" alt="Logo" width="425" height="250">
+    <img src="sellcar1.png" alt="Logo" width="650" height="375">
+    <img src="sellcar2.png" alt="Logo" width="650" height="375">
   </a>
   <br />
 

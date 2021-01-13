@@ -5,7 +5,7 @@ angular.module('NAProject', ['ui.router'])
 // the following method will run at the time of initializing the module. That
 // means it will run only one time.
     .run(function ($http, AuthService, $rootScope, $state) {
-        $rootScope.ipaddress = "http://networkapplications.herokuapp.com/app/views/";
+        $rootScope.ipaddress = "/app/views/";
         // For implementing the authentication with ui-router we need to listen the
         // state change. For every state change the ui-router module will broadcast
         // the '$stateChangeStart'.

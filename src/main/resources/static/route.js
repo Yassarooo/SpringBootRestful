@@ -14,13 +14,15 @@ angular.module('NAProject').config(function ($stateProvider, $urlRouterProvider)
             }
         }
     }).state('login', {
-        child: 'nav' ,
         parent: 'nav',
         url: '/login',
         views: {
             'content@': {
                 templateUrl: 'app/views/login.html',
                 controller: 'LoginController'
+            },
+            "footer" : {
+                templateUrl:"app/views/footer.html"
             }
         }
     }).state('users', {

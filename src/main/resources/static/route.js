@@ -14,6 +14,7 @@ angular.module('NAProject').config(function ($stateProvider, $urlRouterProvider)
             }
         }
     }).state('login', {
+        child: 'nav' ,
         parent: 'nav',
         url: '/login',
         views: {

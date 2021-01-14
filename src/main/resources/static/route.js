@@ -20,9 +20,6 @@ angular.module('NAProject').config(function ($stateProvider, $urlRouterProvider)
             'content@': {
                 templateUrl: 'app/views/login.html',
                 controller: 'LoginController'
-            },
-            'footer@layout' : {
-                templateUrl:"app/views/footer.html"
             }
         }
     }).state('users', {
@@ -35,9 +32,6 @@ angular.module('NAProject').config(function ($stateProvider, $urlRouterProvider)
             'content@': {
                 templateUrl: 'app/views/users.html',
                 controller: 'UsersController',
-            },
-            'footer@layout' : {
-                templateUrl:"app/views/footer.html"
             }
         }
     }).state('params', {
@@ -50,9 +44,6 @@ angular.module('NAProject').config(function ($stateProvider, $urlRouterProvider)
             'content@': {
                 templateUrl: 'app/views/params.html',
                 controller: 'ParamsController',
-            },
-            'footer@layout' : {
-                templateUrl:"app/views/footer.html"
             }
         }
     }).state('cars', {
@@ -62,9 +53,6 @@ angular.module('NAProject').config(function ($stateProvider, $urlRouterProvider)
             'content@': {
                 templateUrl: 'app/views/cars.html',
                 controller: 'CarsController',
-            },
-            'footer@layout' : {
-                templateUrl:"app/views/footer.html"
             }
         }
     }).state('sellcar', {
@@ -74,9 +62,6 @@ angular.module('NAProject').config(function ($stateProvider, $urlRouterProvider)
             'content@': {
                 templateUrl: 'app/views/sellcar.html',
                 controller: 'SellCarController',
-            },
-            'footer@layout' : {
-                templateUrl:"app/views/footer.html"
             }
         }
     }).state('MQ', {
@@ -86,9 +71,6 @@ angular.module('NAProject').config(function ($stateProvider, $urlRouterProvider)
             'content@': {
                 templateUrl: 'app/views/MQ.html',
                 controller: 'MQController',
-            },
-            'footer@layout' : {
-                templateUrl:"app/views/footer.html"
             }
         }
     }).state('about', {
@@ -98,9 +80,6 @@ angular.module('NAProject').config(function ($stateProvider, $urlRouterProvider)
             'content@': {
                 templateUrl: 'app/views/about.html',
                 controller: 'AboutController',
-            },
-            'footer@layout' : {
-                templateUrl:"app/views/footer.html"
             }
         }
     }).state('home', {
@@ -110,9 +89,6 @@ angular.module('NAProject').config(function ($stateProvider, $urlRouterProvider)
             'content@': {
                 templateUrl: 'app/views/home.html',
                 controller: 'HomeController'
-            },
-            'footer@layout' : {
-                templateUrl:"app/views/footer.html"
             }
         }
     }).state('page-not-found', {
@@ -140,9 +116,6 @@ angular.module('NAProject').config(function ($stateProvider, $urlRouterProvider)
             'content@': {
                 templateUrl: 'app/views/register.html',
                 controller: 'RegisterController'
-            },
-            'footer@layout' : {
-                templateUrl:"app/views/footer.html"
             }
         }
     });

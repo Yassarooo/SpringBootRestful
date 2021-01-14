@@ -21,7 +21,7 @@ angular.module('NAProject').config(function ($stateProvider, $urlRouterProvider)
                 templateUrl: 'app/views/login.html',
                 controller: 'LoginController'
             },
-            "footer" : {
+            'layout@footer' : {
                 templateUrl:"app/views/footer.html"
             }
         }
@@ -36,7 +36,7 @@ angular.module('NAProject').config(function ($stateProvider, $urlRouterProvider)
                 templateUrl: 'app/views/users.html',
                 controller: 'UsersController',
             },
-            "footer" : {
+            'layout@footer' : {
                 templateUrl:"app/views/footer.html"
             }
         }
@@ -51,7 +51,7 @@ angular.module('NAProject').config(function ($stateProvider, $urlRouterProvider)
                 templateUrl: 'app/views/params.html',
                 controller: 'ParamsController',
             },
-            "footer" : {
+            'layout@footer' : {
                 templateUrl:"app/views/footer.html"
             }
         }
@@ -63,7 +63,7 @@ angular.module('NAProject').config(function ($stateProvider, $urlRouterProvider)
                 templateUrl: 'app/views/cars.html',
                 controller: 'CarsController',
             },
-            "footer" : {
+            'layout@footer' : {
                 templateUrl:"app/views/footer.html"
             }
         }
@@ -75,7 +75,7 @@ angular.module('NAProject').config(function ($stateProvider, $urlRouterProvider)
                 templateUrl: 'app/views/sellcar.html',
                 controller: 'SellCarController',
             },
-            "footer" : {
+            'layout@footer' : {
                 templateUrl:"app/views/footer.html"
             }
         }
@@ -87,7 +87,7 @@ angular.module('NAProject').config(function ($stateProvider, $urlRouterProvider)
                 templateUrl: 'app/views/MQ.html',
                 controller: 'MQController',
             },
-            "footer" : {
+            'layout@footer' : {
                 templateUrl:"app/views/footer.html"
             }
         }
@@ -99,7 +99,7 @@ angular.module('NAProject').config(function ($stateProvider, $urlRouterProvider)
                 templateUrl: 'app/views/about.html',
                 controller: 'AboutController',
             },
-            "footer" : {
+            'layout@footer' : {
                 templateUrl:"app/views/footer.html"
             }
         }
@@ -111,7 +111,7 @@ angular.module('NAProject').config(function ($stateProvider, $urlRouterProvider)
                 templateUrl: 'app/views/home.html',
                 controller: 'HomeController'
             },
-            "footer" : {
+            'layout@footer' : {
                 templateUrl:"app/views/footer.html"
             }
         }
@@ -141,7 +141,7 @@ angular.module('NAProject').config(function ($stateProvider, $urlRouterProvider)
                 templateUrl: 'app/views/register.html',
                 controller: 'RegisterController'
             },
-            "footer" : {
+            'layout@footer' : {
                 templateUrl:"app/views/footer.html"
             }
         }

@@ -6,7 +6,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -17,7 +16,7 @@ public class ParamsService {
     @Autowired
     ParametersRepository paramsRepository;
 
-    @Cacheable(value = "params")
+    //@Cacheable(value = "params")
     public List<Parameters> getAllParams() {
         List<Parameters> list = (List<Parameters>) paramsRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
 
@@ -38,7 +37,7 @@ public class ParamsService {
         }
     }
 
-    @CacheEvict(value = "params", allEntries = true)
+    //@CacheEvict(value = "params", allEntries = true)
     public void delete(Long id) throws RuntimeException {
         Optional<Parameters> param = paramsRepository.findById(id);
 
@@ -49,7 +48,7 @@ public class ParamsService {
         }
     }
 
-    @CacheEvict(value = "params", allEntries = true)
+    //@CacheEvict(value = "params", allEntries = true)
     public Parameters createOrUpdateParams(Parameters c, Boolean update) throws RuntimeException {
         Optional<Parameters> param;
         if (update) {

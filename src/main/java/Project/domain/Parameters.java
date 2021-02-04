@@ -11,6 +11,9 @@ public class Parameters implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name")
+    private String name;
+
     @Column(name = "seats")
     private Integer seats = 4;
 
@@ -22,7 +25,8 @@ public class Parameters implements Serializable {
 
     }
 
-    public Parameters(Integer seats, Float percentage) {
+    public Parameters(String name, Integer seats, Float percentage) {
+        this.name = name;
         this.seats = seats;
         this.percentage = percentage;
     }
@@ -35,13 +39,17 @@ public class Parameters implements Serializable {
         this.id = id;
     }
 
-    public Integer getSeats() {
-        return seats;
+    public String getName() {
+        return name;
     }
 
-    public void setSeats(Integer seats) {
-        this.seats = seats;
+    public Integer getSeats() { return seats; }
+
+    public void setName(String name) {
+        this.name = name;
     }
+
+    public void setSeats(Integer seats) { this.seats = seats; }
 
     public Float getPercentage() {
         return percentage;

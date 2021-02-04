@@ -19,7 +19,7 @@ public class ParamsService {
     @Autowired
     ParametersRepository paramsRepository;
 
-    @Cacheable(value="params")
+    @Cacheable(value = "params")
     public List<Parameters> getAllParams() {
         List<Parameters> list = (List<Parameters>) paramsRepository.findAll();
 
@@ -40,7 +40,7 @@ public class ParamsService {
         }
     }
 
-    @CacheEvict(value = "params",allEntries = true)
+    @CacheEvict(value = "params", allEntries = true)
     public void delete(Long id) throws RuntimeException {
         Optional<Parameters> param = paramsRepository.findById(id);
 
@@ -51,7 +51,7 @@ public class ParamsService {
         }
     }
 
-    @CacheEvict(value = "params", allEntries=true)
+    @CacheEvict(value = "params", allEntries = true)
     public Parameters createOrUpdateParams(Parameters c, Boolean update) throws RuntimeException {
         Optional<Parameters> param;
         if (update) {
@@ -59,6 +59,7 @@ public class ParamsService {
             if (param.isPresent()) {
                 Parameters newEntity = param.get();
                 newEntity.setSeats(c.getSeats());
+                newEntity.setName(c.getName());
                 newEntity.setPercentage(c.getPercentage());
                 newEntity = paramsRepository.save(newEntity);
 

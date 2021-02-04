@@ -23,9 +23,12 @@ public class AppUser implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-
     @Column(unique = true)
     private String username;
+    @Column(unique = true)
+    private String email;
+    private String gender;
+    private Long phonenumber;
     @JsonProperty(access = Access.WRITE_ONLY)
     private String password;
     @ElementCollection

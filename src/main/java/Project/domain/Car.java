@@ -39,9 +39,16 @@ public class Car implements Serializable {
     @Column(name = "paramid")
     private Integer paramid;
 
+    @Column(name = "specsid")
+    private Integer specsid;
+
     @ManyToOne
     @JoinColumn(name = "Params_ID")
     private Parameters params;
+
+    @OneToOne
+    @JoinColumn(name = "Specs_ID")
+    private Specs specs;
 
     public Car() {
 
@@ -141,4 +148,20 @@ public class Car implements Serializable {
     public Integer getVersion() { return version; }
 
     public void setVersion(Integer version) { this.version = version; }
+
+    public Integer getSpecsid() {
+        return specsid;
+    }
+
+    public void setSpecsid(Integer specsid) {
+        this.specsid = specsid;
+    }
+
+    public Specs getSpecs() {
+        return specs;
+    }
+
+    public void setSpecs(Specs specs) {
+        this.specs = specs;
+    }
 }

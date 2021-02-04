@@ -9,9 +9,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ParamsService {
@@ -24,6 +22,13 @@ public class ParamsService {
         List<Parameters> list = (List<Parameters>) paramsRepository.findAll();
 
         if (list.size() > 0) {
+            Collections.sort(list, new Comparator<Parameters>() {
+
+                public int compare(Parameters o1, Parameters o2) {
+                    // compare two instance of `Score` and return `int` as result.
+                    return o2.getId().compareTo(o1.getId());
+                }
+            });
             return list;
         } else {
             return new ArrayList<Parameters>();

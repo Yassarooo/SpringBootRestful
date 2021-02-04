@@ -37,7 +37,7 @@ public class Car implements Serializable {
     private String level;
 
     @Column(name = "rate")
-    private Float rate;
+    private Double rate;
 
     @Column(name = "sold")
     private Boolean sold;
@@ -61,7 +61,7 @@ public class Car implements Serializable {
 
     }
 
-    public Car(String name, Float price, Integer seats, String buyername, Float sellprice, Date selldate, Boolean sold, Integer paramid) {
+    public Car(String name, Float price, Integer seats, String buyername, Float sellprice, Date selldate, Boolean sold, Integer paramid,String level,double rate) {
         this.price = price;
         this.name = name;
         this.seats = seats;
@@ -70,6 +70,8 @@ public class Car implements Serializable {
         this.selldate = selldate;
         this.sold = sold;
         this.paramid = paramid;
+        this.level = level;
+        this.rate = rate;
     }
 
     public Long getId() {
@@ -180,11 +182,11 @@ public class Car implements Serializable {
         this.level = level;
     }
 
-    public Float getRate() {
+    public Double getRate() {
         return rate;
     }
 
-    public void setRate(Float rate) {
+    public void setRate(Double rate) {
         this.rate = rate;
     }
 }

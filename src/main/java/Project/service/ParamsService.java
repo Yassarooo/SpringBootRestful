@@ -2,9 +2,11 @@ package Project.service;
 
 import Project.domain.Parameters;
 import Project.repository.ParametersRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -17,10 +19,9 @@ public class ParamsService {
 
     @Cacheable(value = "params")
     public List<Parameters> getAllParams() {
-        List<Parameters> list = (List<Parameters>) paramsRepository.findAll();
+        List<Parameters> list = (List<Parameters>) paramsRepository.findAllByOrderByIdAsc();
 
         if (list.size() > 0) {
-            Collections.sort(list);
             return list;
         } else {
             return new ArrayList<Parameters>();

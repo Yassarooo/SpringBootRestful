@@ -56,6 +56,22 @@ public class SpecsService {
             spec = specsRepository.findById(c.getId());
             if (spec.isPresent()) {
                 Specs newEntity = spec.get();
+                newEntity.setAbs(c.getAbs());
+                newEntity.setAcceleration(c.getAcceleration());
+                newEntity.setCar(c.getCar());
+                newEntity.setCarid(c.getCarid());
+                newEntity.setConsumption(c.getConsumption());
+                newEntity.setDoors(c.getDoors());
+                newEntity.setDrive(c.getDrive());
+                newEntity.setFrontstabilizer(c.getFrontstabilizer());
+                newEntity.setFueltype(c.getFueltype());
+                newEntity.setPower(c.getPower());
+                newEntity.setRearstabilizer(c.getRearstabilizer());
+                newEntity.setTank(c.getTank());
+                newEntity.setTopspeed(c.getTopspeed());
+                newEntity.setTransmission(c.getTransmission());
+                newEntity.setTurnangle(c.getTurnangle());
+                newEntity.setYear(c.getYear());
                 newEntity = specsRepository.save(newEntity);
 
                 return newEntity;

@@ -1,8 +1,6 @@
 package Project.service;
 
-import Project.domain.Car;
 import Project.domain.Parameters;
-import Project.repository.CarRepository;
 import Project.repository.ParametersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -22,13 +20,7 @@ public class ParamsService {
         List<Parameters> list = (List<Parameters>) paramsRepository.findAll();
 
         if (list.size() > 0) {
-            Collections.sort(list, new Comparator<Parameters>() {
-
-                public int compare(Parameters o1, Parameters o2) {
-                    // compare two instance of `Score` and return `int` as result.
-                    return o2.getId().compareTo(o1.getId());
-                }
-            });
+            Collections.sort(list);
             return list;
         } else {
             return new ArrayList<Parameters>();

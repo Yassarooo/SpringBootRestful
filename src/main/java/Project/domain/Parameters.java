@@ -6,7 +6,7 @@ import java.io.Serializable;
 @Entity
 
 @Table(name = "parameters")
-public class Parameters implements Serializable {
+public class Parameters implements Serializable, Comparable< Parameters > {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,6 +29,11 @@ public class Parameters implements Serializable {
         this.name = name;
         this.seats = seats;
         this.percentage = percentage;
+    }
+
+    @Override
+    public int compareTo(Parameters o) {
+        return this.getId().compareTo(o.getId());
     }
 
     public Long getId() {

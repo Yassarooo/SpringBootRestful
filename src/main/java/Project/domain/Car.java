@@ -46,8 +46,7 @@ public class Car implements Serializable {
     @JoinColumn(name = "Params_ID")
     private Parameters params;
 
-    @OneToOne
-    @JoinColumn(name = "Specs_ID")
+    @OneToOne(mappedBy = "car")
     private Specs specs;
 
     public Car() {

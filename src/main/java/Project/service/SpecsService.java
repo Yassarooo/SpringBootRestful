@@ -73,7 +73,6 @@ public class SpecsService {
                 newEntity.setTurnangle(c.getTurnangle());
                 newEntity.setYear(c.getYear());
                 newEntity = specsRepository.save(newEntity);
-
                 return newEntity;
             } else {
                 c = specsRepository.save(c);

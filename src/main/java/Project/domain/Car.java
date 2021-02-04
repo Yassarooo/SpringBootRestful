@@ -46,7 +46,9 @@ public class Car implements Serializable {
     @JoinColumn(name = "Params_ID")
     private Parameters params;
 
-    @OneToOne(mappedBy = "car")
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "car")
     private Specs specs;
 
     public Car() {

@@ -62,8 +62,8 @@ public class Specs implements Serializable {
     @Column(name = "carid")
     private Integer carid;
 
-    @OneToOne
-    @JoinColumn(name = "carid")
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "carid", nullable = false)
     private Car car;
 
     public Specs() {

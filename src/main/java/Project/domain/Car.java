@@ -33,6 +33,12 @@ public class Car implements Serializable {
     @Column(name = "sellprice")
     private Float sellprice;
 
+    @Column(name = "level")
+    private String level;
+
+    @Column(name = "rate")
+    private Float rate;
+
     @Column(name = "sold")
     private Boolean sold;
 
@@ -164,5 +170,21 @@ public class Car implements Serializable {
 
     public void setSpecs(Specs specs) {
         this.specs = specs;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public Float getRate() {
+        return rate;
+    }
+
+    public void setRate(Float rate) {
+        this.rate = rate;
     }
 }

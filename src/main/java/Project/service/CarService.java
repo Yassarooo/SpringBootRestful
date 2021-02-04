@@ -64,6 +64,10 @@ public class CarService {
                         newEntity.setSelldate(c.getSelldate());
                         newEntity.setSellprice(c.getSellprice());
                         newEntity.setSold(c.getSold());
+                        newEntity.setSpecs(c.getSpecs());
+                        newEntity.setSpecsid(c.getSpecsid());
+                        newEntity.setLevel(c.getLevel());
+                        newEntity.setRate(c.getRate());
                         newEntity = carRepository.save(newEntity);
                         return newEntity;
                     }

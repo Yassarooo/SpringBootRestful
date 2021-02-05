@@ -46,7 +46,8 @@ public class CarRestController {
         List<Car> NotSoldCars = new ArrayList<Car>();
         for (Car c : cars) {
             if (!c.getSold()) {
-                float sellprice = c.getPrice() + (c.getParams().getPercentage() * (c.getPrice())) / 100;
+                Parameters def = paramsService.getParamsById((long) c.getParamid());
+                float sellprice = c.getPrice() + (def.getPercentage() * (c.getPrice())) / 100;
                 c.setSellprice(sellprice);
 
                 NotSoldCars.add(c);

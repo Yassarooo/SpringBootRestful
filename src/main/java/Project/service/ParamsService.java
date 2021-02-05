@@ -19,15 +19,15 @@ public class ParamsService {
     //@Cacheable(value = "params")
     public List<Parameters> getAllParams() {
         List<Parameters> list = (List<Parameters>) paramsRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
-
         if (list.size() > 0) {
+            Collections.sort(list);
             return list;
         } else {
             return new ArrayList<Parameters>();
         }
     }
 
-    public Parameters getParamsById(Long id) throws RuntimeException {
+    public Parameters getParamById(Long id) throws RuntimeException {
         Optional<Parameters> param = paramsRepository.findById(id);
 
         if (param.isPresent()) {
@@ -49,7 +49,7 @@ public class ParamsService {
     }
 
     //@CacheEvict(value = "params", allEntries = true)
-    public Parameters createOrUpdateParams(Parameters c, Boolean update) throws RuntimeException {
+    public Parameters createOrUpdateParam(Parameters c, Boolean update) throws RuntimeException {
         Optional<Parameters> param;
         if (update) {
             param = paramsRepository.findById(c.getId());

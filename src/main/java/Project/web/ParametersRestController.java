@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -20,7 +21,7 @@ public class ParametersRestController {
      */
     @RequestMapping(value = "/params", method = RequestMethod.GET)
     public List<Parameters> params() {
-        return (List<Parameters>) paramsService.getAllParams();
+        return paramsService.getAllParams();
     }
 
     /**
@@ -31,7 +32,7 @@ public class ParametersRestController {
      */
     @RequestMapping(value = "/params/{id}", method = RequestMethod.GET)
     public ResponseEntity<Parameters> userByUserName(@PathVariable Long id) {
-        Parameters param = paramsService.getParamsById(id);
+        Parameters param = paramsService.getParamById(id);
         if (param == null) {
             return new ResponseEntity<Parameters>(HttpStatus.NO_CONTENT);
         } else {
@@ -47,7 +48,7 @@ public class ParametersRestController {
      */
     @RequestMapping(value = "/params/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Parameters> deleteParam(@PathVariable Long id) {
-        Parameters param = paramsService.getParamsById(id);
+        Parameters param = paramsService.getParamById(id);
         if (param == null) {
             return new ResponseEntity<Parameters>(HttpStatus.NO_CONTENT);
         } else {
@@ -65,7 +66,7 @@ public class ParametersRestController {
      */
     @RequestMapping(value = "/params", method = RequestMethod.POST)
     public ResponseEntity<Parameters> createParam(@RequestBody Parameters param) {
-        return new ResponseEntity<Parameters>(paramsService.createOrUpdateParams(param,false), HttpStatus.CREATED);
+        return new ResponseEntity<Parameters>(paramsService.createOrUpdateParam(param,false), HttpStatus.CREATED);
     }
 
     /**
@@ -75,11 +76,11 @@ public class ParametersRestController {
      */
     @RequestMapping(value = "/params", method = RequestMethod.PUT)
     public Parameters updateParam(@RequestBody Parameters param) {
-        if (paramsService.getParamsById(param.getId()) != null
-                && paramsService.getParamsById(param.getId()).getId() != param.getId()) {
+        if (paramsService.getParamById(param.getId()) != null
+                && paramsService.getParamById(param.getId()).getId() != param.getId()) {
             throw new RuntimeException("param already exist");
         }
-        return paramsService.createOrUpdateParams(param,true);
+        return paramsService.createOrUpdateParam(param,true);
     }
 
 }

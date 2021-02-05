@@ -6,7 +6,7 @@ import java.io.Serializable;
 @Entity
 
 @Table(name = "parameters")
-public class Parameters implements Serializable {
+public class Parameters implements Serializable, Comparable<Parameters> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,6 +30,7 @@ public class Parameters implements Serializable {
         this.seats = seats;
         this.percentage = percentage;
     }
+
     public Long getId() {
         return id;
     }
@@ -42,13 +43,17 @@ public class Parameters implements Serializable {
         return name;
     }
 
-    public Integer getSeats() { return seats; }
+    public Integer getSeats() {
+        return seats;
+    }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setSeats(Integer seats) { this.seats = seats; }
+    public void setSeats(Integer seats) {
+        this.seats = seats;
+    }
 
     public Float getPercentage() {
         return percentage;
@@ -58,4 +63,8 @@ public class Parameters implements Serializable {
         this.percentage = percentage;
     }
 
+    @Override
+    public int compareTo(Parameters o) {
+        return this.getName().compareTo(o.getName());
+    }
 }

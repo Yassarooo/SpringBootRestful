@@ -83,7 +83,7 @@ public class CarRestController {
     @RequestMapping(value = "/cars", method = RequestMethod.POST)
     public ResponseEntity<Car> createCar(@RequestBody Car car) {
         car.setSold(false);
-        Parameters def = paramsService.getParamsById((long) car.getParamid());
+        Parameters def = paramsService.getParamById((long) car.getParamid());
         if (def == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         car.setParams(def);

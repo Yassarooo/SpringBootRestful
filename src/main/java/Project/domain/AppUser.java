@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Model class for application user
  *
- * @author Hendi Santika
+ * @author
  */
 @Entity
 public class AppUser implements UserDetails {
@@ -114,4 +114,27 @@ public class AppUser implements UserDetails {
         return username;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public Long getPhonenumber() {
+        return phonenumber;
+    }
+
+    public void setPhonenumber(Long phonenumber) {
+        this.phonenumber = phonenumber;
+    }
 }

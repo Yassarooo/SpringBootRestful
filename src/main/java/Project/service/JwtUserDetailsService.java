@@ -1,4 +1,4 @@
-package Project.config;
+package Project.service;
 
 import Project.domain.AppUser;
 import Project.repository.AppUserRepository;
@@ -39,8 +39,10 @@ public class JwtUserDetailsService implements UserDetailsService {
     public AppUser save(AppUser user) {
         AppUser newUser = new AppUser();
         newUser.setUsername(user.getUsername());
-        newUser.setName(user.getUsername());
+        newUser.setName(user.getName());
         newUser.setRoles(user.getRoles());
+        newUser.setGender(user.getGender());
+        newUser.setPhonenumber(user.getPhonenumber());
         newUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return userRepository.save(newUser);
     }

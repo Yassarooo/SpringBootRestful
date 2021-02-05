@@ -6,7 +6,7 @@ import java.security.Principal;
 import java.util.*;
 
 import Project.config.JwtTokenUtil;
-import Project.config.JwtUserDetailsService;
+import Project.service.JwtUserDetailsService;
 import Project.domain.AppUser;
 import Project.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

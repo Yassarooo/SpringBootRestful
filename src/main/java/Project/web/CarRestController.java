@@ -60,7 +60,7 @@ public class CarRestController {
      *
      * @return list of all cars
      */
-    @RequestMapping(value = "/carsbyname", method = RequestMethod.GET)
+    @RequestMapping(value = "/carsbyprice", method = RequestMethod.GET)
     public List<Car> getAllCarsByPrice() {
         List<Car> cars = carService.getAllCarsOrderBy(Comparator.comparing(Car::getPrice));
         return (List<Car>) cars;

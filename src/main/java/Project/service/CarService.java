@@ -72,6 +72,7 @@ public class CarService {
                         return newEntity;
                     }
                 } else {
+                    c.setSold(false);
                     c = carRepository.save(c);
                     return c;
                 }

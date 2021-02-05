@@ -84,7 +84,7 @@ public class CarRestController {
         car.setSold(false);
         Parameters def = paramsService.getParamsById((long) car.getParamid());
         if (def == null)
-            def = paramsService.getParamsById((long) 1);
+            return new ResponseEntity<>( HttpStatus.NOT_FOUND);
         car.setParams(def);
         if (car.getSeats() == null) {
             car.setSeats(def.getSeats());

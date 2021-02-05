@@ -53,7 +53,7 @@ public class CarServiceControllerTest extends AbstractTest {
     @Test
     public void createCarTest() throws Exception {
         String uri = "/api/cars";
-        Car car = new Car("test", 7540f, null, "yassar", 8000f, new Date(), true, 1);
+        Car car = new Car("test", 7540f, null, "yassar", 8000f, new Date(), true, 1,"Good",3.5);
 
         String inputJson = super.mapToJson(car);
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
@@ -67,7 +67,7 @@ public class CarServiceControllerTest extends AbstractTest {
     @Test
     public void updateCar() throws Exception {
         String uri = "/api/cars";
-        Car car = new Car("test", 7540f, 4, "yassar", 8000f, new Date(), true, 1);
+        Car car = new Car("test", 7540f, 4, "yassar", 8000f, new Date(), true, 1,"Good",3.5);
 
         String inputJson = super.mapToJson(car);
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.put(uri)

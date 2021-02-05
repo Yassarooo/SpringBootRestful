@@ -29,6 +29,7 @@ public class CarService {
         List<Car> carList = (List<Car>) carRepository.findAll();
 
         if (carList.size() > 0) {
+
             return carList;
         } else {
             return new ArrayList<Car>();
@@ -68,6 +69,7 @@ public class CarService {
                         newEntity.setSpecsid(c.getSpecsid());
                         newEntity.setLevel(c.getLevel());
                         newEntity.setRate(c.getRate());
+                        newEntity.setYear(c.getYear());
                         newEntity = carRepository.save(newEntity);
                         return newEntity;
                     }

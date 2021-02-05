@@ -21,6 +21,9 @@ public class Car implements Serializable {
     @Column(name = "price")
     private Float price;
 
+    @Column(name = "year")
+    private Date year;
+
     @Column(name = "seats")
     private Integer seats;
 
@@ -61,7 +64,7 @@ public class Car implements Serializable {
 
     }
 
-    public Car(String name, Float price, Integer seats, String buyername, Float sellprice, Date selldate, Boolean sold, Integer paramid,String level,double rate) {
+    public Car(String name, Float price, Integer seats, String buyername, Float sellprice, Date selldate, Boolean sold, Integer paramid,String level,double rate,Date year) {
         this.price = price;
         this.name = name;
         this.seats = seats;
@@ -72,6 +75,7 @@ public class Car implements Serializable {
         this.paramid = paramid;
         this.level = level;
         this.rate = rate;
+        this.year = year;
     }
 
     public Long getId() {
@@ -188,5 +192,13 @@ public class Car implements Serializable {
 
     public void setRate(Double rate) {
         this.rate = rate;
+    }
+
+    public Date getYear() {
+        return year;
+    }
+
+    public void setYear(Date year) {
+        this.year = year;
     }
 }

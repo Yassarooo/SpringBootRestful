@@ -16,11 +16,21 @@ public class ParamsService {
     @Autowired
     ParametersRepository paramsRepository;
 
-    //@Cacheable(value = "params")
+    @Cacheable(value = "params")
     public List<Parameters> getAllParams() {
         List<Parameters> list = (List<Parameters>) paramsRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
         if (list.size() > 0) {
             Collections.sort(list);
+            return list;
+        } else {
+            return new ArrayList<Parameters>();
+        }
+    }
+    @Cacheable(value = "params")
+    public List<Parameters> getAllParamsOrderBy(Comparator<Parameters> c) {
+        List<Parameters> list = (List<Parameters>) paramsRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
+        if (list.size() > 0) {
+            list.sort(c);
             return list;
         } else {
             return new ArrayList<Parameters>();
@@ -37,7 +47,7 @@ public class ParamsService {
         }
     }
 
-    //@CacheEvict(value = "params", allEntries = true)
+    @CacheEvict(value = "params", allEntries = true)
     public void delete(Long id) throws RuntimeException {
         Optional<Parameters> param = paramsRepository.findById(id);
 

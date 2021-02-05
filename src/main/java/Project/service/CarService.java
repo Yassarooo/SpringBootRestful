@@ -1,12 +1,14 @@
 package Project.service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
 import Project.aspect.UserAspect;
 import Project.domain.Car;
+import Project.domain.Parameters;
 import Project.repository.CarRepository;
 import org.hibernate.dialect.lock.OptimisticEntityLockException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,17 @@ public class CarService {
 
         if (carList.size() > 0) {
 
+            return carList;
+        } else {
+            return new ArrayList<Car>();
+        }
+    }
+
+    public List<Car> getAllCarsOrderBy(Comparator<Car> c) {
+        List<Car> carList = (List<Car>) carRepository.findAll();
+
+        if (carList.size() > 0) {
+            carList.sort(c);
             return carList;
         } else {
             return new ArrayList<Car>();

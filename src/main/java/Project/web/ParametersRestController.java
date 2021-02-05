@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @RestController
@@ -22,6 +23,34 @@ public class ParametersRestController {
     @RequestMapping(value = "/params", method = RequestMethod.GET)
     public List<Parameters> params() {
         return paramsService.getAllParams();
+    }
+    /**
+     * @return
+     */
+    @RequestMapping(value = "/paramsbyid", method = RequestMethod.GET)
+    public List<Parameters> paramsById() {
+        return paramsService.getAllParamsOrderBy(Comparator.comparing(Parameters::getId));
+    }
+    /**
+     * @return
+     */
+    @RequestMapping(value = "/paramsbyname", method = RequestMethod.GET)
+    public List<Parameters> paramsByName() {
+        return paramsService.getAllParamsOrderBy(Comparator.comparing(Parameters::getName));
+    }
+    /**
+     * @return
+     */
+    @RequestMapping(value = "/paramsbyseats", method = RequestMethod.GET)
+    public List<Parameters> paramsBySeats() {
+        return paramsService.getAllParamsOrderBy(Comparator.comparing(Parameters::getSeats));
+    }
+    /**
+     * @return
+     */
+    @RequestMapping(value = "/paramsbypercent", method = RequestMethod.GET)
+    public List<Parameters> paramsByPercent() {
+        return paramsService.getAllParamsOrderBy(Comparator.comparing(Parameters::getPercentage));
     }
 
     /**

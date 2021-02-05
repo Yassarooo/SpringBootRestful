@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -32,6 +33,46 @@ public class CarRestController {
     @RequestMapping(value = "/cars", method = RequestMethod.GET)
     public List<Car> getAllCars() {
         List<Car> cars = carService.getAllCars();
+        return (List<Car>) cars;
+    }
+    /**
+     * Web service for getting all the cars in the application.
+     *
+     * @return list of all cars
+     */
+    @RequestMapping(value = "/carsbyid", method = RequestMethod.GET)
+    public List<Car> getAllCarsById() {
+        List<Car> cars = carService.getAllCarsOrderBy(Comparator.comparing(Car::getId));
+        return (List<Car>) cars;
+    }
+    /**
+     * Web service for getting all the cars in the application.
+     *
+     * @return list of all cars
+     */
+    @RequestMapping(value = "/carsbyname", method = RequestMethod.GET)
+    public List<Car> getAllCarsByName() {
+        List<Car> cars = carService.getAllCarsOrderBy(Comparator.comparing(Car::getName));
+        return (List<Car>) cars;
+    }
+    /**
+     * Web service for getting all the cars in the application.
+     *
+     * @return list of all cars
+     */
+    @RequestMapping(value = "/carsbyname", method = RequestMethod.GET)
+    public List<Car> getAllCarsByPrice() {
+        List<Car> cars = carService.getAllCarsOrderBy(Comparator.comparing(Car::getPrice));
+        return (List<Car>) cars;
+    }
+    /**
+     * Web service for getting all the cars in the application.
+     *
+     * @return list of all cars
+     */
+    @RequestMapping(value = "/carsbyrate", method = RequestMethod.GET)
+    public List<Car> getAllCarsByRate() {
+        List<Car> cars = carService.getAllCarsOrderBy(Comparator.comparing(Car::getRate));
         return (List<Car>) cars;
     }
 

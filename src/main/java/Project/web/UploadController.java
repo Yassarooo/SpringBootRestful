@@ -29,7 +29,7 @@ public class UploadController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         //Save the uploaded file to this folder
-        String UPLOADED_FOLDER = "E://" + auth.getName() + "//";
+        String UPLOADED_FOLDER = "//" + auth.getName() + "//";
 
         File directory = new File(UPLOADED_FOLDER);
         if (!directory.exists()) {

@@ -33,7 +33,7 @@ public class UploadController {
 
         File directory = new File(UPLOADED_FOLDER);
         if (!directory.exists()) {
-            directory.mkdir();
+            directory.mkdirs();
         }
         if (file.isEmpty()) {
             return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);

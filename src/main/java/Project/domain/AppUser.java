@@ -32,7 +32,7 @@ public class AppUser implements UserDetails {
     @Column(unique = true)
     private String email;
     private String gender;
-    private Long phonenumber;
+    private String phonenumber;
     @JsonProperty(access = Access.WRITE_ONLY)
     private String password;
     @ElementCollection
@@ -130,11 +130,11 @@ public class AppUser implements UserDetails {
         this.gender = gender;
     }
 
-    public Long getPhonenumber() {
+    public String getPhonenumber() {
         return phonenumber;
     }
 
-    public void setPhonenumber(Long phonenumber) {
+    public void setPhonenumber(String phonenumber) {
         this.phonenumber = phonenumber;
     }
 }

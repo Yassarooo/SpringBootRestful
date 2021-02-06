@@ -68,9 +68,9 @@ public class JwtAuthenticationController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ResponseEntity<?> createUser(@RequestBody AppUser user) throws Exception {
+    public ResponseEntity<?> createUser(@RequestBody AppUser user) {
         if (appUserRepository.findByUsername(user.getUsername()) != null) {
-            throw new RuntimeException("Username already exist");
+            return new ResponseEntity(HttpStatus.CONFLICT);
         }
         List<String> roles = new ArrayList<>();
         //roles.add("USER");

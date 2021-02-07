@@ -69,7 +69,7 @@ public class JwtAuthenticationController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity<?> createUser(@RequestBody AppUser user) {
-        if (appUserRepository.findByUsername(user.getUsername()) != null) {
+        if (appUserRepository.findByUsername(user.getUsername()) != null || appUserRepository.findByEmail(user.getEmail()) != null) {
             return new ResponseEntity(HttpStatus.CONFLICT);
         }
         List<String> roles = new ArrayList<>();

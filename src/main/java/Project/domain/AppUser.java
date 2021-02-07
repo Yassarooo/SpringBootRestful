@@ -12,6 +12,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,6 +36,7 @@ public class AppUser implements UserDetails {
     private String phonenumber;
     @JsonProperty(access = Access.WRITE_ONLY)
     private String password;
+    private Date dob;
     @ElementCollection
     private List<String> roles = new ArrayList<>();
 
@@ -136,5 +138,13 @@ public class AppUser implements UserDetails {
 
     public void setPhonenumber(String phonenumber) {
         this.phonenumber = phonenumber;
+    }
+
+    public Date getDob() {
+        return dob;
+    }
+
+    public void setDob(Date dob) {
+        this.dob = dob;
     }
 }

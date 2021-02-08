@@ -11,6 +11,7 @@ import Project.domain.User;
 import Project.service.JwtUserDetailsService;
 import Project.repository.UserRepository;
 import Project.service.RoleService;
+import org.graalvm.compiler.replacements.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -87,6 +88,8 @@ public class JwtAuthenticationController {
         }
 
         user.setRoles(roleSet);
+
+        Log.print("jazaaaaaaaaaaaaaaaraaaaaaaaaaaaaaaaaaa");
         return ResponseEntity.ok(userDetailsService.save(user));
     }
 

@@ -28,7 +28,7 @@ public class ParamsService {
         }
     }
 
-    public Parameters getParamsById(Long id) throws RuntimeException {
+    public Parameters getParamById(Long id) throws RuntimeException {
         Optional<Parameters> param = paramsRepository.findById(id);
 
         if (param.isPresent()) {
@@ -50,7 +50,7 @@ public class ParamsService {
     }
 
     @CacheEvict(value = "params", allEntries = true)
-    public Parameters createOrUpdateParams(Parameters c, Boolean update) throws RuntimeException {
+    public Parameters createOrUpdateParam(Parameters c, Boolean update) throws RuntimeException {
         Optional<Parameters> param;
         if (update) {
             param = paramsRepository.findById(c.getId());

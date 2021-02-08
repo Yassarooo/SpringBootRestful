@@ -64,7 +64,7 @@ public class JwtAuthenticationController {
 
         if (token != null) {
             tokenMap.put("token", token);
-            tokenMap.put("appUser", appUser);
+            tokenMap.put("user", appUser);
 
             return new ResponseEntity<Map<String, Object>>(tokenMap, HttpStatus.OK);
         } else {
@@ -76,7 +76,6 @@ public class JwtAuthenticationController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity<?> createUser(@RequestBody AppUser appUser) {
 
-        logger.info("jazaaaaaaaaaaaaaaaraaaaaaaaaaaaaaaaaaa");
         if (appUserRepository.findByUsername(appUser.getUsername()) != null) {
             return new ResponseEntity(HttpStatus.CONFLICT);
         }
@@ -84,7 +83,6 @@ public class JwtAuthenticationController {
             return new ResponseEntity(HttpStatus.MULTI_STATUS);
         }
 
-        logger.info("jazaaaaaaaaaaaaaaaraaaaaaaaaaaaaaaaaaa2");
         Role role = roleService.findByName("USER");
         Set<Role> roleSet = new HashSet<>();
         roleSet.add(role);
@@ -96,7 +94,6 @@ public class JwtAuthenticationController {
 
         appUser.setRoles(roleSet);
 
-        logger.info("jazaaaaaaaaaaaaaaaraaaaaaaaaaaaaaaaaaa3");
         return ResponseEntity.ok(userDetailsService.save(appUser));
     }
 

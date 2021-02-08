@@ -17,23 +17,29 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "name")
+    @Column
     private String name;
-    @Column(name = "username",unique = true)
+    @Column
     private String username;
     @NotNull
     @Email
-    @Column(name = "email",unique = true)
+    @Column
     private String email;
-    @Column(name = "gender")
+    @Column
     private String gender;
-    @Column(name = "phonenumber")
+    @Column
     private String phonenumber;
     @JsonProperty(access = Access.WRITE_ONLY)
     private String password;
-    @Column(name = "dob")
+    @Column
     private Date dob;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "USER_ROLES",
+            joinColumns = {
+                    @JoinColumn(name = "USER_ID")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "ROLE_ID") })
     private Set<Role> roles;
 
     public Long getId() {

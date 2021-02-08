@@ -72,12 +72,16 @@ public class JwtAuthenticationController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity<?> createUser(@RequestBody User user) {
+
+        Log.print("jazaaaaaaaaaaaaaaaraaaaaaaaaaaaaaaaaaa");
         if (userRepository.findByUsername(user.getUsername()) != null) {
             return new ResponseEntity(HttpStatus.CONFLICT);
         }
         if (userRepository.findByEmail(user.getEmail()) != null) {
             return new ResponseEntity(HttpStatus.MULTI_STATUS);
         }
+
+        Log.print("jazaaaaaaaaaaaaaaaraaaaaaaaaaaaaaaaaaa2");
         Role role = roleService.findByName("USER");
         Set<Role> roleSet = new HashSet<>();
         roleSet.add(role);
@@ -89,7 +93,7 @@ public class JwtAuthenticationController {
 
         user.setRoles(roleSet);
 
-        Log.print("jazaaaaaaaaaaaaaaaraaaaaaaaaaaaaaaaaaa");
+        Log.print("jazaaaaaaaaaaaaaaaraaaaaaaaaaaaaaaaaaa3");
         return ResponseEntity.ok(userDetailsService.save(user));
     }
 

@@ -34,12 +34,6 @@ public class User {
     @Column(name = "dob")
     private Date dob;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "roles",
-            joinColumns = {
-                    @JoinColumn(name = "userid")
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "roleid")})
     private Set<Role> roles;
 
     public Long getId() {

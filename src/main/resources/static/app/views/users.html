@@ -9,7 +9,7 @@
                         <div class="form-group"
                              ng-class="{ 'has-error': userForm.name.$invalid && userForm.name.$dirty }">
                             <label for="name">Name:</label> <input type="text" required
-                                                                   class="form-control" ng-model="appUser.name"
+                                                                   class="form-control" ng-model="user.name"
                                                                    id="name"
                                                                    name="name">
                         </div>
@@ -18,7 +18,7 @@
                              ng-class="{ 'has-error': userForm.username.$invalid && userForm.username.$dirty }">
                             <label for="username">Username:</label> <input type="text"
                                                                            required class="form-control"
-                                                                           ng-model="appUser.username"
+                                                                           ng-model="user.username"
                                                                            id="username" name="username">
                         </div>
 
@@ -26,7 +26,7 @@
                              ng-class="{ 'has-error': userForm.username.$invalid && userForm.username.$dirty }">
                             <label for="role">Role:</label> <select required
                                                                     multiple="multiple" class="form-control"
-                                                                    ng-model="appUser.roles" id="role" name="role">
+                                                                    ng-model="user.roles" id="role" name="role">
                             <option value="ADMIN">Administrator</option>
                             <option value="USER">User</option>
                         </select>
@@ -36,7 +36,7 @@
                              ng-class="{ 'has-error': userForm.password.$invalid && userForm.password.$dirty }">
                             <label for="pwd">Password:</label> <input type="password"
                                                                       required class="form-control" id="pwd"
-                                                                      ng-model="appUser.password" name="password">
+                                                                      ng-model="user.password" name="password">
                         </div>
                         <button type="submit" class="btn btn-primary"
                                 ng-disabled="userForm.$invalid">{{buttonText}}

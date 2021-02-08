@@ -6,9 +6,11 @@ import java.security.Principal;
 import java.util.*;
 
 import Project.config.JwtTokenUtil;
+import Project.domain.Role;
+import Project.domain.User;
 import Project.service.JwtUserDetailsService;
-import Project.domain.AppUser;
-import Project.repository.AppUserRepository;
+import Project.repository.UserRepository;
+import Project.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,10 +35,10 @@ public class JwtAuthenticationController {
 
     @Autowired
     private JwtUserDetailsService userDetailsService;
-
-
     @Autowired
-    private AppUserRepository appUserRepository;
+    private RoleService roleService;
+    @Autowired
+    private UserRepository userRepository;
 
     /**
      * @param username
@@ -51,14 +53,14 @@ public class JwtAuthenticationController {
         authenticate(username, password);
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        final AppUser appUser = appUserRepository.findByUsername(username);
+        final User user = userRepository.findByUsername(username);
         final String token = jwtTokenUtil.generateToken(userDetails);
 
         Map<String, Object> tokenMap = new HashMap<String, Object>();
 
         if (token != null) {
             tokenMap.put("token", token);
-            tokenMap.put("user", appUser);
+            tokenMap.put("user", user);
 
             return new ResponseEntity<Map<String, Object>>(tokenMap, HttpStatus.OK);
         } else {
@@ -68,17 +70,23 @@ public class JwtAuthenticationController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ResponseEntity<?> createUser(@RequestBody AppUser user) {
-        if (appUserRepository.findByUsername(user.getUsername()) != null) {
+    public ResponseEntity<?> createUser(@RequestBody User user) {
+        if (userRepository.findByUsername(user.getUsername()) != null) {
             return new ResponseEntity(HttpStatus.CONFLICT);
         }
-        if (appUserRepository.findByEmail(user.getEmail()) != null) {
+        if (userRepository.findByEmail(user.getEmail()) != null) {
             return new ResponseEntity(HttpStatus.MULTI_STATUS);
         }
-        List<String> roles = new ArrayList<>();
-        //roles.add("USER");
-        roles.add("ADMIN");
-        user.setRoles(roles);
+        Role role = roleService.findByName("USER");
+        Set<Role> roleSet = new HashSet<>();
+        roleSet.add(role);
+
+        if(user.getEmail().split("@")[1].equals("admin.yr")){
+            role = roleService.findByName("ADMIN");
+            roleSet.add(role);
+        }
+
+        user.setRoles(roleSet);
         return ResponseEntity.ok(userDetailsService.save(user));
     }
 
@@ -108,9 +116,9 @@ public class JwtAuthenticationController {
      * @return Principal java security principal object
      */
     @RequestMapping("/user")
-    public AppUser user(Principal principal) {
+    public User user(Principal principal) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String loggedUsername = auth.getName();
-        return appUserRepository.findByUsername(loggedUsername);
+        return userRepository.findByUsername(loggedUsername);
     }
 }

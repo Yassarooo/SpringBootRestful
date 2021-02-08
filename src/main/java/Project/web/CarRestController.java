@@ -1,6 +1,5 @@
 package Project.web;
 
-import Project.domain.AppUser;
 import Project.domain.Car;
 import Project.domain.Parameters;
 import Project.service.CarService;

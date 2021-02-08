@@ -8,7 +8,7 @@
                     <div class="form-group"
                          ng-class="{ 'has-error': register.name.$invalid && register.name.$dirty }">
                         <label for="name">Name:</label> <input type="text" required
-                                                               class="form-control" ng-model="appUser.name" id="name"
+                                                               class="form-control" ng-model="user.name" id="name"
                                                                name="name">
                     </div>
 
@@ -17,7 +17,7 @@
                         <label for="username">Username:</label>
                         <input type="text"
                                required class="form-control"
-                               ng-model="appUser.username"
+                               ng-model="user.username"
                                id="username" name="username" placeholder="Username">
                     </div>
 
@@ -25,7 +25,7 @@
                          ng-class="{ 'has-error': register.password.$invalid && register.password.$dirty }">
                         <label for="pwd">Password:</label> <input type="password" required
                                                                   class="form-control" id="pwd"
-                                                                  ng-model="appUser.password"
+                                                                  ng-model="user.password"
                                                                   name="password">
                     </div>
 
@@ -38,12 +38,12 @@
                     </div>
 
                     <div class="alert alert-warning margin-top-5"
-                         ng-show="confirmPassword != appUser.password ">Password Not
+                         ng-show="confirmPassword != user.password ">Password Not
                         Matching
                     </div>
 
                     <button type="submit" class="btn btn-primary"
-                            ng-disabled="register.$invalid || (confirmPassword != appUser.password)"> <span class="glyphicon glyphicon-new-window"></span> Register
+                            ng-disabled="register.$invalid || (confirmPassword != user.password)"> <span class="glyphicon glyphicon-new-window"></span> Register
                     </button>
                     <button class="btn btn-default" ng-click="showload()" ui-sref="login">Login</button>
                     <div class="alert alert-info margin-top-5" ng-show="message">{{message}}</div>

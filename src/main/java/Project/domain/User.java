@@ -10,10 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Model class for application user
@@ -21,7 +18,7 @@ import java.util.List;
  * @author
  */
 @Entity
-public class AppUser implements UserDetails {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -37,8 +34,14 @@ public class AppUser implements UserDetails {
     @JsonProperty(access = Access.WRITE_ONLY)
     private String password;
     private Date dob;
-    @ElementCollection
-    private List<String> roles = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "USER_ROLES",
+            joinColumns = {
+                    @JoinColumn(name = "USER_ID")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "ROLE_ID")})
+    private Set<Role> roles;
 
     public Long getId() {
         return id;
@@ -56,11 +59,11 @@ public class AppUser implements UserDetails {
         this.name = name;
     }
 
-    public List<String> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<String> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
@@ -70,50 +73,6 @@ public class AppUser implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    @JsonIgnore
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
-    @JsonIgnore
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @JsonIgnore
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @JsonIgnore
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @JsonIgnore
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        Collection<GrantedAuthority> authorities = new ArrayList<>();
-        for (String role : roles) {
-            authorities.add(new SimpleGrantedAuthority(role));
-        }
-        return authorities;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return username;
     }
 
     public String getEmail() {
@@ -146,5 +105,13 @@ public class AppUser implements UserDetails {
 
     public void setDob(Date dob) {
         this.dob = dob;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }

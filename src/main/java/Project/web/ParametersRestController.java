@@ -35,7 +35,7 @@ public class ParametersRestController {
      * @return param
      */
     @RequestMapping(value = "/params/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Parameters> userByUserName(@PathVariable Long id) {
+    public ResponseEntity<Parameters> paramById(@PathVariable Long id) {
         Parameters param = paramsService.getParamById(id);
         if (param == null) {
             return new ResponseEntity<Parameters>(HttpStatus.NO_CONTENT);

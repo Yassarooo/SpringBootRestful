@@ -1,9 +1,8 @@
 package Project.service;
 
-import Project.domain.AppUser;
-import Project.repository.AppUserRepository;
+import Project.domain.User;
+import Project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,28 +15,28 @@ import static java.util.Collections.emptyList;
 public class JwtUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private AppUserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public JwtUserDetailsService(AppUserRepository userRepository) {
+    public JwtUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        AppUser appUser = userRepository.findByUsername(username);
-        if (appUser == null) {
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
             System.err.println("Username Not Found");
             throw new UsernameNotFoundException(username);
         }
 
-        return new User(appUser.getUsername(), appUser.getPassword(), emptyList());
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), emptyList());
     }
 
-    public AppUser save(AppUser user) {
-        AppUser newUser = new AppUser();
+    public User save(User user) {
+        User newUser = new User();
         newUser.setUsername(user.getUsername());
         newUser.setName(user.getName());
         newUser.setRoles(user.getRoles());
@@ -48,5 +47,7 @@ public class JwtUserDetailsService implements UserDetailsService {
         newUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return userRepository.save(newUser);
     }
+
+
 
 }

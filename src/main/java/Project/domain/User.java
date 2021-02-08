@@ -34,12 +34,12 @@ public class User {
     @Column(name = "dob")
     private Date dob;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "ROLES",
+    @JoinTable(name = "roles",
             joinColumns = {
-                    @JoinColumn(name = "USER_ID")
+                    @JoinColumn(name = "user_id")
             },
             inverseJoinColumns = {
-                    @JoinColumn(name = "ROLE_ID")})
+                    @JoinColumn(name = "role_id")})
     private Set<Role> roles;
 
     public Long getId() {

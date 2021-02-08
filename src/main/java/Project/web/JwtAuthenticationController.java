@@ -12,6 +12,8 @@ import Project.service.JwtUserDetailsService;
 import Project.repository.UserRepository;
 import Project.service.RoleService;
 import org.graalvm.compiler.replacements.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +42,8 @@ public class JwtAuthenticationController {
     private RoleService roleService;
     @Autowired
     private UserRepository userRepository;
+
+    private static final Logger logger = LoggerFactory.getLogger(FileController.class);
 
     /**
      * @param username
@@ -73,7 +77,7 @@ public class JwtAuthenticationController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity<?> createUser(@RequestBody User user) {
 
-        Log.print("jazaaaaaaaaaaaaaaaraaaaaaaaaaaaaaaaaaa");
+        logger.info("jazaaaaaaaaaaaaaaaraaaaaaaaaaaaaaaaaaa");
         if (userRepository.findByUsername(user.getUsername()) != null) {
             return new ResponseEntity(HttpStatus.CONFLICT);
         }
@@ -81,7 +85,7 @@ public class JwtAuthenticationController {
             return new ResponseEntity(HttpStatus.MULTI_STATUS);
         }
 
-        Log.print("jazaaaaaaaaaaaaaaaraaaaaaaaaaaaaaaaaaa2");
+        logger.info("jazaaaaaaaaaaaaaaaraaaaaaaaaaaaaaaaaaa2");
         Role role = roleService.findByName("USER");
         Set<Role> roleSet = new HashSet<>();
         roleSet.add(role);
@@ -93,7 +97,7 @@ public class JwtAuthenticationController {
 
         user.setRoles(roleSet);
 
-        Log.print("jazaaaaaaaaaaaaaaaraaaaaaaaaaaaaaaaaaa3");
+        logger.info("jazaaaaaaaaaaaaaaaraaaaaaaaaaaaaaaaaaa3");
         return ResponseEntity.ok(userDetailsService.save(user));
     }
 

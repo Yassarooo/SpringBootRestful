@@ -2,13 +2,14 @@ package Project.service;
 
 import Project.domain.Parameters;
 import Project.repository.ParametersRepository;
-import org.springframework.data.domain.Sort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ParamsService {
@@ -19,25 +20,15 @@ public class ParamsService {
     @Cacheable(value = "params")
     public List<Parameters> getAllParams() {
         List<Parameters> list = (List<Parameters>) paramsRepository.findAll();
+
         if (list.size() > 0) {
-            //Collections.sort(list);
-            return list;
-        } else {
-            return new ArrayList<Parameters>();
-        }
-    }
-    @Cacheable(value = "params")
-    public List<Parameters> getAllParamsOrderBy(Comparator<Parameters> c) {
-        List<Parameters> list = (List<Parameters>) paramsRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
-        if (list.size() > 0) {
-            list.sort(c);
             return list;
         } else {
             return new ArrayList<Parameters>();
         }
     }
 
-    public Parameters getParamById(Long id) throws RuntimeException {
+    public Parameters getParamsById(Long id) throws RuntimeException {
         Optional<Parameters> param = paramsRepository.findById(id);
 
         if (param.isPresent()) {
@@ -58,8 +49,8 @@ public class ParamsService {
         }
     }
 
-    //@CacheEvict(value = "params", allEntries = true)
-    public Parameters createOrUpdateParam(Parameters c, Boolean update) throws RuntimeException {
+    @CacheEvict(value = "params", allEntries = true)
+    public Parameters createOrUpdateParams(Parameters c, Boolean update) throws RuntimeException {
         Optional<Parameters> param;
         if (update) {
             param = paramsRepository.findById(c.getId());

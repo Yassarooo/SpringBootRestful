@@ -11,5 +11,4 @@ import java.util.List;
 @Repository
 public interface ParametersRepository extends CrudRepository<Parameters, Long> {
 
-    List<Parameters> findAll(Sort name);
 }

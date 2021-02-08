@@ -1,7 +1,7 @@
 package Project.web;
 
-import Project.domain.User;
-import Project.repository.UserRepository;
+import Project.domain.AppUser;
+import Project.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,17 +20,17 @@ import java.util.List;
 @RequestMapping(value = "/api")
 public class UserRestController {
     @Autowired
-    private UserRepository userRepository;
+    private AppUserRepository appUserRepository;
 
     /**
      * Web service for getting all the appUsers in the application.
      *
-     * @return list of all User
+     * @return list of all AppUser
      */
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public List<User> users() {
-        return (List<User>) userRepository.findAll();
+    public List<AppUser> users() {
+        return (List<AppUser>) appUserRepository.findAll();
     }
 
     /**
@@ -41,12 +41,12 @@ public class UserRestController {
      */
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/users/{username}", method = RequestMethod.GET)
-    public ResponseEntity<User> userByUserName(@PathVariable String username) {
-        User user = userRepository.findByUsername(username);
-        if (user == null) {
-            return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<AppUser> userByUserName(@PathVariable String username) {
+        AppUser appUser = appUserRepository.findByUsername(username);
+        if (appUser == null) {
+            return new ResponseEntity<AppUser>(HttpStatus.NO_CONTENT);
         } else {
-            return new ResponseEntity<User>(user, HttpStatus.OK);
+            return new ResponseEntity<AppUser>(appUser, HttpStatus.OK);
         }
     }
 
@@ -58,50 +58,50 @@ public class UserRestController {
      */
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/users/{username}", method = RequestMethod.DELETE)
-    public ResponseEntity<User> deleteUser(@PathVariable String username) {
-        User user = userRepository.findByUsername(username);
+    public ResponseEntity<AppUser> deleteUser(@PathVariable String username) {
+        AppUser appUser = appUserRepository.findByUsername(username);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String loggedUsername = auth.getName();
-        if (user == null) {
-            return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
-        } else if (user.getUsername().equalsIgnoreCase(loggedUsername)) {
+        if (appUser == null) {
+            return new ResponseEntity<AppUser>(HttpStatus.NO_CONTENT);
+        } else if (appUser.getUsername().equalsIgnoreCase(loggedUsername)) {
             throw new RuntimeException("You cannot delete your account");
         } else {
-            userRepository.delete(user);
-            return new ResponseEntity<User>(user, HttpStatus.OK);
+            appUserRepository.delete(appUser);
+            return new ResponseEntity<AppUser>(appUser, HttpStatus.OK);
         }
 
     }
 
     /**
-     * Method for adding a user
+     * Method for adding a appUser
      *
-     * @param user
+     * @param appUser
      * @return
      */
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/users", method = RequestMethod.POST)
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        if (userRepository.findByUsername(user.getUsername()) != null) {
+    public ResponseEntity<AppUser> createUser(@RequestBody AppUser appUser) {
+        if (appUserRepository.findByUsername(appUser.getUsername()) != null) {
             throw new RuntimeException("Username already exist");
         }
-        return new ResponseEntity<User>(userRepository.save(user), HttpStatus.CREATED);
+        return new ResponseEntity<AppUser>(appUserRepository.save(appUser), HttpStatus.CREATED);
     }
 
     /**
-     * Method for editing an user details
+     * Method for editing an appUser details
      *
-     * @param user
-     * @return modified user
+     * @param appUser
+     * @return modified appUser
      */
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/users", method = RequestMethod.PUT)
-    public User updateUser(@RequestBody User user) {
-        if (userRepository.findByUsername(user.getUsername()) != null
-                && userRepository.findByUsername(user.getUsername()).getId() != user.getId()) {
+    public AppUser updateUser(@RequestBody AppUser appUser) {
+        if (appUserRepository.findByUsername(appUser.getUsername()) != null
+                && appUserRepository.findByUsername(appUser.getUsername()).getId() != appUser.getId()) {
             throw new RuntimeException("Username already exist");
         }
-        return userRepository.save(user);
+        return appUserRepository.save(appUser);
     }
 
 }

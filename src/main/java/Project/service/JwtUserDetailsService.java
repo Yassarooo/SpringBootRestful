@@ -1,7 +1,7 @@
 package Project.service;
 
-import Project.domain.User;
-import Project.repository.UserRepository;
+import Project.domain.AppUser;
+import Project.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,37 +15,37 @@ import static java.util.Collections.emptyList;
 public class JwtUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private UserRepository userRepository;
+    private AppUserRepository appUserRepository;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public JwtUserDetailsService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public JwtUserDetailsService(AppUserRepository appUserRepository) {
+        this.appUserRepository = appUserRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
-        if (user == null) {
+        AppUser appUser = appUserRepository.findByUsername(username);
+        if (appUser == null) {
             System.err.println("Username Not Found");
             throw new UsernameNotFoundException(username);
         }
 
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), emptyList());
+        return new org.springframework.security.core.userdetails.User(appUser.getUsername(), appUser.getPassword(), emptyList());
     }
 
-    public User save(User user) {
-        User newUser = new User();
-        newUser.setUsername(user.getUsername());
-        newUser.setName(user.getName());
-        newUser.setRoles(user.getRoles());
-        newUser.setGender(user.getGender());
-        newUser.setEmail(user.getEmail());
-        newUser.setPhonenumber(user.getPhonenumber());
-        newUser.setDob(user.getDob());
-        newUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        return userRepository.save(newUser);
+    public AppUser save(AppUser appUser) {
+        AppUser newAppUser = new AppUser();
+        newAppUser.setUsername(appUser.getUsername());
+        newAppUser.setName(appUser.getName());
+        newAppUser.setRoles(appUser.getRoles());
+        newAppUser.setGender(appUser.getGender());
+        newAppUser.setEmail(appUser.getEmail());
+        newAppUser.setPhonenumber(appUser.getPhonenumber());
+        newAppUser.setDob(appUser.getDob());
+        newAppUser.setPassword(bCryptPasswordEncoder.encode(appUser.getPassword()));
+        return appUserRepository.save(newAppUser);
     }
 
 

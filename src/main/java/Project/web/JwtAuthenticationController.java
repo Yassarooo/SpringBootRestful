@@ -6,10 +6,10 @@ import java.security.Principal;
 import java.util.*;
 
 import Project.config.JwtTokenUtil;
+import Project.domain.AppUser;
 import Project.domain.Role;
-import Project.domain.User;
 import Project.service.JwtUserDetailsService;
-import Project.repository.UserRepository;
+import Project.repository.AppUserRepository;
 import Project.service.RoleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +40,7 @@ public class JwtAuthenticationController {
     @Autowired
     private RoleService roleService;
     @Autowired
-    private UserRepository userRepository;
+    private AppUserRepository appUserRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);
 
@@ -57,14 +57,14 @@ public class JwtAuthenticationController {
         authenticate(username, password);
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        final User user = userRepository.findByUsername(username);
+        final AppUser appUser = appUserRepository.findByUsername(username);
         final String token = jwtTokenUtil.generateToken(userDetails);
 
         Map<String, Object> tokenMap = new HashMap<String, Object>();
 
         if (token != null) {
             tokenMap.put("token", token);
-            tokenMap.put("user", user);
+            tokenMap.put("appUser", appUser);
 
             return new ResponseEntity<Map<String, Object>>(tokenMap, HttpStatus.OK);
         } else {
@@ -74,13 +74,13 @@ public class JwtAuthenticationController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ResponseEntity<?> createUser(@RequestBody User user) {
+    public ResponseEntity<?> createUser(@RequestBody AppUser appUser) {
 
         logger.info("jazaaaaaaaaaaaaaaaraaaaaaaaaaaaaaaaaaa");
-        if (userRepository.findByUsername(user.getUsername()) != null) {
+        if (appUserRepository.findByUsername(appUser.getUsername()) != null) {
             return new ResponseEntity(HttpStatus.CONFLICT);
         }
-        if (userRepository.findByEmail(user.getEmail()) != null) {
+        if (appUserRepository.findByEmail(appUser.getEmail()) != null) {
             return new ResponseEntity(HttpStatus.MULTI_STATUS);
         }
 
@@ -89,15 +89,15 @@ public class JwtAuthenticationController {
         Set<Role> roleSet = new HashSet<>();
         roleSet.add(role);
 
-        if(user.getEmail().split("@")[1].equals("admin.yr")){
+        if(appUser.getEmail().split("@")[1].equals("admin.yr")){
             role = roleService.findByName("ADMIN");
             roleSet.add(role);
         }
 
-        user.setRoles(roleSet);
+        appUser.setRoles(roleSet);
 
         logger.info("jazaaaaaaaaaaaaaaaraaaaaaaaaaaaaaaaaaa3");
-        return ResponseEntity.ok(userDetailsService.save(user));
+        return ResponseEntity.ok(userDetailsService.save(appUser));
     }
 
     @RequestMapping(value = "/checktoken", method = RequestMethod.POST)
@@ -126,9 +126,9 @@ public class JwtAuthenticationController {
      * @return Principal java security principal object
      */
     @RequestMapping("/user")
-    public User user(Principal principal) {
+    public AppUser user(Principal principal) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String loggedUsername = auth.getName();
-        return userRepository.findByUsername(loggedUsername);
+        return appUserRepository.findByUsername(loggedUsername);
     }
 }

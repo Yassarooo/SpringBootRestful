@@ -9,7 +9,7 @@
                         <div class="form-group"
                              ng-class="{ 'has-error': userForm.name.$invalid && userForm.name.$dirty }">
                             <label for="name">Name:</label> <input type="text" required
-                                                                   class="form-control" ng-model="user.name"
+                                                                   class="form-control" ng-model="appUser.name"
                                                                    id="name"
                                                                    name="name">
                         </div>
@@ -18,7 +18,7 @@
                              ng-class="{ 'has-error': userForm.username.$invalid && userForm.username.$dirty }">
                             <label for="username">Username:</label> <input type="text"
                                                                            required class="form-control"
-                                                                           ng-model="user.username"
+                                                                           ng-model="appUser.username"
                                                                            id="username" name="username">
                         </div>
 
@@ -26,7 +26,7 @@
                              ng-class="{ 'has-error': userForm.username.$invalid && userForm.username.$dirty }">
                             <label for="role">Role:</label> <select required
                                                                     multiple="multiple" class="form-control"
-                                                                    ng-model="user.roles" id="role" name="role">
+                                                                    ng-model="appUser.roles" id="role" name="role">
                             <option value="ADMIN">Administrator</option>
                             <option value="USER">User</option>
                         </select>
@@ -36,7 +36,7 @@
                              ng-class="{ 'has-error': userForm.password.$invalid && userForm.password.$dirty }">
                             <label for="pwd">Password:</label> <input type="password"
                                                                       required class="form-control" id="pwd"
-                                                                      ng-model="user.password" name="password">
+                                                                      ng-model="appUser.password" name="password">
                         </div>
                         <button type="submit" class="btn btn-primary"
                                 ng-disabled="userForm.$invalid">{{buttonText}}
@@ -72,22 +72,22 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="user in users">
+                    <tr ng-repeat="appUser in users">
                         <td>{{$index+1}}</td>
-                        <td>{{user.name}}</td>
-                        <td>{{user.username}}</td>
-                        <td><span ng-repeat="role in user.roles">{{role}}<span
-                                ng-if="$index < (user.roles.length-1)">,</span>
+                        <td>{{appUser.name}}</td>
+                        <td>{{appUser.username}}</td>
+                        <td><span ng-repeat="role in appUser.roles">{{role}}<span
+                                ng-if="$index < (appUser.roles.length-1)">,</span>
 							</span></td>
                         <td>
                             <button type="button" class="btn btn-primary btn-sm"
-                                    ng-click="initEdit(user)">
+                                    ng-click="initEdit(appUser)">
                                 <span class="glyphicon glyphicon-edit"></span>
                             </button>
                         </td>
                         <td>
                             <button type="button" class="btn btn-primary btn-sm"
-                                    ng-click="deleteUser(user)">
+                                    ng-click="deleteUser(appUser)">
                                 <span class="glyphicon glyphicon-trash"></span>
                             </button>
                         </td>

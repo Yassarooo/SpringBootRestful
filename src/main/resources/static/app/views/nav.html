@@ -1,5 +1,5 @@
 <style>
-    .user {
+    .appUser {
         font-weight: bold;
     }
 
@@ -102,36 +102,36 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li ng-show="user.username" ng-click="showload()"><a ui-sref="params"><span
+                <li ng-show="appUser.username" ng-click="showload()"><a ui-sref="params"><span
                         class="fa fa-database"></span> Parameters</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav">
-                <li ng-show="user.username" ng-click="showload()"><a ui-sref="cars"> <span class="fa fa-car"></span>
+                <li ng-show="appUser.username" ng-click="showload()"><a ui-sref="cars"> <span class="fa fa-car"></span>
                     Cars</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav">
-                <li ng-show="user.username" ng-click="showload()"><a ui-sref="sellcar"> <span
+                <li ng-show="appUser.username" ng-click="showload()"><a ui-sref="sellcar"> <span
                         class="glyphicon glyphicon-usd"></span> Sell Car</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav">
-                <li ng-show="user.username" ng-click="showload()"><a ui-sref="MQ"><span
+                <li ng-show="appUser.username" ng-click="showload()"><a ui-sref="MQ"><span
                         class="glyphicon glyphicon-send"></span> MQ</a>
 
-                <li ng-show="user.username" ng-click="showload()"><a ui-sref="about"><span
+                <li ng-show="appUser.username" ng-click="showload()"><a ui-sref="about"><span
                         class="fa fa-info-circle"></span> About us</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
 
-                <li ng-show="user.username"><a> <span class="user">Hi,
-							{{user.username}} </span> <span ng-click="logout();showload()" href=""
+                <li ng-show="appUser.username"><a> <span class="appUser">Hi,
+							{{appUser.username}} </span> <span ng-click="logout();showload()" href=""
                                                             class="logout"><span
                         class="glyphicon glyphicon-log-out"></span> Logout</span>
                 </a></li>
-                <li ng-show="!user.username" ng-click="showload()"><a ui-sref="register">Register</a></li>
+                <li ng-show="!appUser.username" ng-click="showload()"><a ui-sref="register">Register</a></li>
             </ul>
         </div>
         <!--/.nav-collapse -->

@@ -22,20 +22,24 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "name")
     private String name;
-    @Column(unique = true)
+    @Column(name = "username",unique = true)
     private String username;
     @NotNull
     @Email
-    @Column(unique = true)
+    @Column(name = "email",unique = true)
     private String email;
+    @Column(name = "gender")
     private String gender;
+    @Column(name = "phonenumber")
     private String phonenumber;
     @JsonProperty(access = Access.WRITE_ONLY)
     private String password;
+    @Column(name = "dob")
     private Date dob;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "USER_ROLES",
+    @JoinTable(name = "ROLES",
             joinColumns = {
                     @JoinColumn(name = "USER_ID")
             },

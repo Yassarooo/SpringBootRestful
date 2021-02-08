@@ -1,7 +1,9 @@
 package Project;
 
 import Project.config.FileStorageProperties;
+import Project.domain.Role;
 import Project.service.ParamsService;
+import Project.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -30,7 +32,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class SpringBootSessionApplication implements CommandLineRunner {
 
     @Autowired
-    ParamsService paramsService;
+    RoleService roleService;
 
     public static void main(String[] args) {
 
@@ -44,6 +46,15 @@ public class SpringBootSessionApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        Role uRole = new Role();
+        uRole.setName("USER");
+        uRole.setDescription("USER Role (Only Manage cars without managing users)");
+        roleService.CreateRole(uRole);
+        Role aRole = new Role();
+        aRole.setName("ADMIN");
+        aRole.setDescription("ADMIN Role (Manage cars and users)");
+        roleService.CreateRole(aRole);
+
     }
 
 }

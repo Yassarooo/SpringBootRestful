@@ -18,9 +18,9 @@ public class ParamsService {
 
     @Cacheable(value = "params")
     public List<Parameters> getAllParams() {
-        List<Parameters> list = (List<Parameters>) paramsRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
+        List<Parameters> list = (List<Parameters>) paramsRepository.findAll();
         if (list.size() > 0) {
-            Collections.sort(list);
+            //Collections.sort(list);
             return list;
         } else {
             return new ArrayList<Parameters>();

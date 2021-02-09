@@ -45,19 +45,16 @@ public class AppUser implements UserDetails {
             },
             inverseJoinColumns = {
                     @JoinColumn(name = "ROLE_ID")})
-    private Collection<Role> roles;
+    private List<Role> authorities;
 
 
-    @SuppressWarnings("unchecked")
+    public void setAuthorities(List<Role> authorities) {
+        this.authorities = authorities;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        HashSet<GrantedAuthority> authorities = new HashSet<GrantedAuthority>(roles.size());
-
-        for (Role role : roles)
-            authorities.add(new SimpleGrantedAuthority(role.getName()));
-
-        authorities.addAll((Collection<? extends GrantedAuthority>) getRoles());
-        return authorities;
+        return (Collection<? extends GrantedAuthority>) this.authorities;
     }
 
     @Override
@@ -94,14 +91,6 @@ public class AppUser implements UserDetails {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Collection<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Collection<Role> roles) {
-        this.roles = roles;
     }
 
     public void setUsername(String username) {

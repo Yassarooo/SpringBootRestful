@@ -55,7 +55,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.csrf().disable()
                 // dont authenticate this particular request
                 .authorizeRequests().antMatchers("/", "/index.html", "/app.js", "/route.js", "/app/**", "/register", "/authenticate","/checktoken", "/favicon.ico", "/prometheus/**", "/actuator/**", "/metrics/**").permitAll()
-                .antMatchers("/admin/**","/admin","/admin/users").hasRole("ADMIN")
                 // all other requests need to be authenticated
                         .anyRequest().authenticated().and().formLogin().loginPage("/login")
                 .defaultSuccessUrl("/home", true)

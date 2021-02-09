@@ -45,14 +45,14 @@ public class AppUser implements UserDetails {
             },
             inverseJoinColumns = {
                     @JoinColumn(name = "ROLE_ID")})
-    private List<Role> authorities;
+    private List<Role> roles;
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
-        for (Role auth : this.authorities)
-            grantedAuthorities.add(new SimpleGrantedAuthority(auth.getName()));
+        for (Role role : this.roles)
+            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
 
         return grantedAuthorities;
     }
@@ -141,7 +141,11 @@ public class AppUser implements UserDetails {
         return password;
     }
 
-    public void setAuthorities(List<Role> authorities) {
-        this.authorities = authorities;
+    public void setRoles(List<Role> authorities) {
+        this.roles = authorities;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
     }
 }

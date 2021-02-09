@@ -3,8 +3,13 @@ package Project.domain;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.sun.istack.NotNull;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -13,7 +18,7 @@ import java.util.*;
  * @author
  */
 @Entity
-public class AppUser {
+public class AppUser implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -39,8 +44,41 @@ public class AppUser {
                     @JoinColumn(name = "USER_ID")
             },
             inverseJoinColumns = {
-                    @JoinColumn(name = "ROLE_ID") })
+                    @JoinColumn(name = "ROLE_ID")})
     private Set<Role> roles;
+
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        HashSet<GrantedAuthority> authorities = new HashSet<GrantedAuthority>(roles.size());
+
+        for (Role role : roles)
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+
+        authorities.addAll((Collection<? extends GrantedAuthority>) getRoles());
+        return authorities;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 
     public Long getId() {
         return id;

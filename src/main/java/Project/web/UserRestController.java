@@ -32,7 +32,7 @@ public class UserRestController {
      *
      * @return lit of all AppUser
      */
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public ResponseEntity<List<AppUser>> getAllUsers() {
         List<AppUser> users = userDetailsService.getAllUsers();

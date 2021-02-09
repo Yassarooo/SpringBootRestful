@@ -48,13 +48,13 @@ public class AppUser implements UserDetails {
     private List<Role> authorities;
 
 
-    public void setAuthorities(List<Role> authorities) {
-        this.authorities = authorities;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return (Collection<? extends GrantedAuthority>) this.authorities;
+        List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
+        for (Role auth : this.authorities)
+            grantedAuthorities.add(new SimpleGrantedAuthority(auth.getName()));
+
+        return grantedAuthorities;
     }
 
     @Override
@@ -139,5 +139,9 @@ public class AppUser implements UserDetails {
 
     public String getPassword() {
         return password;
+    }
+
+    public void setAuthorities(List<Role> authorities) {
+        this.authorities = authorities;
     }
 }

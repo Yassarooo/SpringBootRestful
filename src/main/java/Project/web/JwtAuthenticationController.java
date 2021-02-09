@@ -85,7 +85,7 @@ public class JwtAuthenticationController {
         List<Role> roles = new ArrayList<Role>();
         roles.add(role);
 
-        if(appUser.getEmail().split("@")[1].equals("admin.yr")){
+        if (appUser.getEmail().split("@")[1].equals("admin.yr")) {
             role = roleService.findByName("ADMIN");
             roles.add(role);
         }

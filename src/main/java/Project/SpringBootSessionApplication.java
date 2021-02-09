@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ComponentScan
 @EntityScan(basePackages = {"Project.domain" })
 @EnableJpaRepositories(basePackages = {"Project.repository"})
-@SpringBootApplication
+@SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 @EnableTransactionManagement
 @EnableCaching
 public class SpringBootSessionApplication implements CommandLineRunner {

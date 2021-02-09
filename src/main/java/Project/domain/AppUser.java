@@ -52,7 +52,7 @@ public class AppUser implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
         for (Role role : this.roles)
-            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
+            grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_"+role.getName()));
 
         return grantedAuthorities;
     }

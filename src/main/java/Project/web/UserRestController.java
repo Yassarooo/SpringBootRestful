@@ -36,7 +36,7 @@ public class UserRestController {
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public ResponseEntity<List<AppUser>> getAllUsers() {
         List<AppUser> users = userDetailsService.getAllUsers();
-        return new ResponseEntity<List<AppUser>> (users,HttpStatus.OK);
+        return new ResponseEntity<List<AppUser>>(users, HttpStatus.OK);
     }
 
     /**
@@ -45,7 +45,7 @@ public class UserRestController {
      * @param username appUser username
      * @return appUser
      */
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/users/{username}", method = RequestMethod.GET)
     public ResponseEntity<AppUser> userByUserName(@PathVariable String username) {
         AppUser appUser = appUserRepository.findByUsername(username);
@@ -62,7 +62,7 @@ public class UserRestController {
      * @param username
      * @return
      */
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/users/{username}", method = RequestMethod.DELETE)
     public ResponseEntity<AppUser> deleteUser(@PathVariable String username) {
         AppUser appUser = appUserRepository.findByUsername(username);
@@ -84,7 +84,7 @@ public class UserRestController {
      * @param appUser
      * @return modified appUser
      */
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/users", method = RequestMethod.PUT)
     public AppUser updateUser(@RequestBody AppUser appUser) {
         return userDetailsService.updateUser(appUser);

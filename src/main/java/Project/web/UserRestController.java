@@ -34,9 +34,9 @@ public class UserRestController {
      */
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public List<AppUser> getAllUsers() {
+    public ResponseEntity<List<AppUser>> getAllUsers() {
         List<AppUser> users = userDetailsService.getAllUsers();
-        return (List<AppUser>) users;
+        return new ResponseEntity<List<AppUser>> (users,HttpStatus.OK);
     }
 
     /**

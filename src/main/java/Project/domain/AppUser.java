@@ -45,7 +45,7 @@ public class AppUser implements UserDetails {
             },
             inverseJoinColumns = {
                     @JoinColumn(name = "ROLE_ID")})
-    private Set<Role> roles;
+    private Collection<Role> roles;
 
 
     @SuppressWarnings("unchecked")
@@ -96,11 +96,11 @@ public class AppUser implements UserDetails {
         this.name = name;
     }
 
-    public Set<Role> getRoles() {
+    public Collection<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(Collection<Role> roles) {
         this.roles = roles;
     }
 

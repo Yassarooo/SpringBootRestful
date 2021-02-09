@@ -18,7 +18,7 @@ import java.util.List;
  * this rest controller will be only accessible for ADMIN users only
  */
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/admin")
 public class UserRestController {
 
     @Autowired
@@ -32,7 +32,6 @@ public class UserRestController {
      *
      * @return lit of all AppUser
      */
-    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public ResponseEntity<List<AppUser>> getAllUsers() {
         List<AppUser> users = userDetailsService.getAllUsers();
@@ -45,7 +44,6 @@ public class UserRestController {
      * @param username appUser username
      * @return appUser
      */
-    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/users/{username}", method = RequestMethod.GET)
     public ResponseEntity<AppUser> userByUserName(@PathVariable String username) {
         AppUser appUser = appUserRepository.findByUsername(username);
@@ -62,7 +60,6 @@ public class UserRestController {
      * @param username
      * @return
      */
-    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/users/{username}", method = RequestMethod.DELETE)
     public ResponseEntity<AppUser> deleteUser(@PathVariable String username) {
         AppUser appUser = appUserRepository.findByUsername(username);
@@ -84,7 +81,6 @@ public class UserRestController {
      * @param appUser
      * @return modified appUser
      */
-    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/users", method = RequestMethod.PUT)
     public AppUser updateUser(@RequestBody AppUser appUser) {
         return userDetailsService.updateUser(appUser);

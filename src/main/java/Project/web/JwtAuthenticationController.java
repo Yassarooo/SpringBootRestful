@@ -90,7 +90,7 @@ public class JwtAuthenticationController {
             roles.add(role);
         }
 
-        appUser.setAuthorities(roles);
+        appUser.setRoles(roles);
 
         return ResponseEntity.ok(userDetailsService.save(appUser));
     }

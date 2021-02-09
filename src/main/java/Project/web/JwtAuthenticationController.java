@@ -82,15 +82,15 @@ public class JwtAuthenticationController {
         }
 
         Role role = roleService.findByName("USER");
-        Set<Role> roleSet = new HashSet<>();
-        roleSet.add(role);
+        List<Role> roles = new ArrayList<Role>();
+        roles.add(role);
 
         if(appUser.getEmail().split("@")[1].equals("admin.yr")){
             role = roleService.findByName("ADMIN");
-            roleSet.add(role);
+            roles.add(role);
         }
 
-        appUser.setRoles(roleSet);
+        appUser.setAuthorities(roles);
 
         return ResponseEntity.ok(userDetailsService.save(appUser));
     }

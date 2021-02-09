@@ -2,6 +2,7 @@ package Project.web;
 
 import Project.domain.AppUser;
 import Project.repository.AppUserRepository;
+import Project.service.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,18 +20,23 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api")
 public class UserRestController {
+
     @Autowired
     private AppUserRepository appUserRepository;
+
+    @Autowired
+    private JwtUserDetailsService userDetailsService;
 
     /**
      * Web service for getting all the appUsers in the application.
      *
-     * @return list of all AppUser
+     * @return lit of all AppUser
      */
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public List<AppUser> users() {
-        return (List<AppUser>) appUserRepository.findAll();
+    public List<AppUser> getAllUsers() {
+        List<AppUser> users = userDetailsService.getAllUsers();
+        return (List<AppUser>) users;
     }
 
     /**
@@ -70,22 +76,6 @@ public class UserRestController {
             appUserRepository.delete(appUser);
             return new ResponseEntity<AppUser>(appUser, HttpStatus.OK);
         }
-
-    }
-
-    /**
-     * Method for adding a appUser
-     *
-     * @param appUser
-     * @return
-     */
-    @PreAuthorize("hasRole('ADMIN')")
-    @RequestMapping(value = "/users", method = RequestMethod.POST)
-    public ResponseEntity<AppUser> createUser(@RequestBody AppUser appUser) {
-        if (appUserRepository.findByUsername(appUser.getUsername()) != null) {
-            throw new RuntimeException("Username already exist");
-        }
-        return new ResponseEntity<AppUser>(appUserRepository.save(appUser), HttpStatus.CREATED);
     }
 
     /**
@@ -97,11 +87,7 @@ public class UserRestController {
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/users", method = RequestMethod.PUT)
     public AppUser updateUser(@RequestBody AppUser appUser) {
-        if (appUserRepository.findByUsername(appUser.getUsername()) != null
-                && appUserRepository.findByUsername(appUser.getUsername()).getId() != appUser.getId()) {
-            throw new RuntimeException("Username already exist");
-        }
-        return appUserRepository.save(appUser);
+        return userDetailsService.updateUser(appUser);
     }
 
 }

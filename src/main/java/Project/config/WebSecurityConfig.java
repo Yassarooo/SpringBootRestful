@@ -51,19 +51,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        // We don't need CSRF for this example
-        httpSecurity.csrf().disable()
-                // dont authenticate this particular request
-                .authorizeRequests().antMatchers("/", "/index.html", "/app.js", "/route.js", "/app/**", "/register", "/authenticate","/checktoken", "/favicon.ico", "/prometheus/**", "/actuator/**", "/metrics/**").permitAll()
-                // all other requests need to be authenticated
-                        .anyRequest().authenticated().and().formLogin().loginPage("/login")
-                .defaultSuccessUrl("/home", true)
-                .permitAll().and().
-                // make sure we use stateless session; session won't be used to
-                // store user's state.
-                        exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
+        httpSecurity
+                .sessionManagement().sessionCreationPolicy( SessionCreationPolicy.STATELESS ).and()
+                .exceptionHandling().authenticationEntryPoint( jwtAuthenticationEntryPoint ).and()
+                .authorizeRequests().antMatchers("/", "/index.html", "/app.js", "/route.js", "/app/**", "/register", "/authenticate", "/checktoken", "/favicon.ico", "/prometheus/**", "/actuator/**", "/metrics/**").permitAll()
+                .anyRequest().authenticated().and();
+
+        httpSecurity.csrf().disable();
         // Add a filter to validate the tokens with every request
         httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }

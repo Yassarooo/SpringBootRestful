@@ -2,7 +2,6 @@ package Project;
 
 import Project.config.FileStorageProperties;
 import Project.domain.Role;
-import Project.service.ParamsService;
 import Project.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

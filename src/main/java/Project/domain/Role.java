@@ -14,15 +14,6 @@ public class Role {
     @Column
     private String description;
 
-    public Role(){
-
-    }
-
-    public Role(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
-
     public long getId() {
         return id;
     }

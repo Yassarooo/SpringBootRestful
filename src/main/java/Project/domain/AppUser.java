@@ -47,6 +47,16 @@ public class AppUser implements UserDetails {
                     @JoinColumn(name = "ROLE_ID")})
     private List<Role> roles;
 
+    public AppUser(String name, String username, @Email String email, String gender, String phonenumber, String password, Date dob, List<Role> roles) {
+        this.name = name;
+        this.username = username;
+        this.email = email;
+        this.gender = gender;
+        this.phonenumber = phonenumber;
+        this.password = password;
+        this.dob = dob;
+        this.roles = roles;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

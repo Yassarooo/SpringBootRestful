@@ -1,8 +1,15 @@
 package Project;
 
 import Project.config.FileStorageProperties;
+import Project.domain.AppUser;
+import Project.domain.Car;
+import Project.domain.Parameters;
 import Project.domain.Role;
+import Project.service.CarService;
+import Project.service.ParamsService;
 import Project.service.RoleService;
+import Project.web.JwtAuthenticationController;
+import Project.web.SpringSessionController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -19,11 +26,15 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 @Configuration
 @EnableAutoConfiguration
 @EnableConfigurationProperties({FileStorageProperties.class})
 @ComponentScan
-@EntityScan(basePackages = {"Project.domain" })
+@EntityScan(basePackages = {"Project.domain"})
 @EnableJpaRepositories(basePackages = {"Project.repository"})
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 @EnableTransactionManagement
@@ -32,6 +43,13 @@ public class SpringBootSessionApplication implements CommandLineRunner {
 
     @Autowired
     RoleService roleService;
+    @Autowired
+    ParamsService paramsService;
+    @Autowired
+    CarService carService;
+
+    @Autowired
+    JwtAuthenticationController jwtAuthenticationController;
 
     public static void main(String[] args) {
 
@@ -45,15 +63,24 @@ public class SpringBootSessionApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Role uRole = new Role();
-        uRole.setName("USER");
-        uRole.setDescription("USER Role (Only Manage cars without managing users)");
+        Role uRole = new Role("USER", "USER Role (Only Manage cars without managing users)");
+        Role aRole = new Role("ADMIN", "ADMIN Role (Manage cars and users)");
         roleService.CreateRole(uRole);
-        Role aRole = new Role();
-        aRole.setName("ADMIN");
-        aRole.setDescription("ADMIN Role (Manage cars and users)");
         roleService.CreateRole(aRole);
 
+        List<Role> roles = new ArrayList<Role>();
+        roles.add(aRole);
+
+        AppUser admin = new AppUser("Yassar Hammami", "yassar", "yassarhammami@gmail.com", "Male", "0992156565", "yassar", new Date(1999, 7, 9), roles);
+        jwtAuthenticationController.createUser(admin);
+
+        Parameters param = new Parameters("SUV", 6, 8f);
+        Parameters param2 = new Parameters("Full-Size", 4, 5f);
+        paramsService.createOrUpdateParam(param, false);
+        paramsService.createOrUpdateParam(param2, false);
+
+        Car c = new Car("Kia Rio", 4000f, null, "", null, null, null, param2.getId().intValue() , "Very Good", 4, new Date(2009, 1, 1));
+        carService.createOrUpdateCar(c,false);
     }
 
 }

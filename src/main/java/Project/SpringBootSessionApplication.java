@@ -43,10 +43,6 @@ public class SpringBootSessionApplication implements CommandLineRunner {
 
     @Autowired
     RoleService roleService;
-    @Autowired
-    ParamsService paramsService;
-    @Autowired
-    CarService carService;
 
     @Autowired
     JwtAuthenticationController jwtAuthenticationController;
@@ -68,13 +64,17 @@ public class SpringBootSessionApplication implements CommandLineRunner {
         roleService.CreateRole(uRole);
         roleService.CreateRole(aRole);
 
-        Parameters param = new Parameters("SUV", 6, 8f);
-        Parameters param2 = new Parameters("Full-Size", 4, 5f);
-        paramsService.createOrUpdateParam(param, false);
-        paramsService.createOrUpdateParam(param2, false);
 
-        Car c = new Car("Kia Rio", 4000f, null, "", null, null, null, param2.getId().intValue() , "Very Good", 4, new Date(2009, 1, 1));
-        carService.createOrUpdateCar(c,false);
+        //AppUser admin = new AppUser("Yassar Hammami", "yassar", "yassarhammami@admin.yr", "Male", "0992156565", "yassar", new Date(1999, 7, 9), null);
+        //jwtAuthenticationController.createUser(admin);
+
+        //Parameters param = new Parameters("SUV", 6, 8f);
+        //Parameters param2 = new Parameters("Full-Size", 4, 5f);
+        //paramsService.createOrUpdateParam(param, false);
+        //paramsService.createOrUpdateParam(param2, false);
+
+        //Car c = new Car("Kia Rio", 4000f, null, "", null, null, null, param2.getId().intValue() , "Very Good", 4, new Date(2009, 1, 1));
+        //carService.createOrUpdateCar(c,false);
     }
 
 }

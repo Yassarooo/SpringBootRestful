@@ -68,9 +68,6 @@ public class SpringBootSessionApplication implements CommandLineRunner {
         roleService.CreateRole(uRole);
         roleService.CreateRole(aRole);
 
-        AppUser admin = new AppUser("Yassar Hammami", "yassar", "yassarhammami@admin.yr", "Male", "0992156565", "yassar", new Date(1999, 7, 9), null);
-        jwtAuthenticationController.createUser(admin);
-
         Parameters param = new Parameters("SUV", 6, 8f);
         Parameters param2 = new Parameters("Full-Size", 4, 5f);
         paramsService.createOrUpdateParam(param, false);

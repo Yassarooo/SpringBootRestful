@@ -49,6 +49,18 @@ public class CarService {
         }
     }
 
+
+    public List<Car> getAllCarsForParamId(Long paramid) {
+        List<Car> carList = (List<Car>) carRepository.findAllByparamid(paramid);
+
+        if (carList.size() > 0) {
+
+            return carList;
+        } else {
+            return new ArrayList<Car>();
+        }
+    }
+
     public Car getCarById(Long id) throws RuntimeException {
         Optional<Car> car = carRepository.findById(id);
 

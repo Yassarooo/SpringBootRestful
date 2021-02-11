@@ -37,6 +37,15 @@ public class ParamsService {
             throw new RuntimeException("No params record exist for given id");
         }
     }
+    public Parameters getParamByName(String name) throws RuntimeException {
+        Optional<Parameters> param = paramsRepository.findByName(name);
+
+        if (param.isPresent()) {
+            return param.get();
+        } else {
+            throw new RuntimeException("No params record exist for given name");
+        }
+    }
 
     @CacheEvict(value = "params", allEntries = true)
     public void delete(Long id) throws RuntimeException {

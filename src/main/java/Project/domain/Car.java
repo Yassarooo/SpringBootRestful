@@ -4,6 +4,7 @@ package Project.domain;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "cars")
@@ -15,8 +16,11 @@ public class Car implements Serializable {
     @Version
     private Integer version;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "brand")
+    private String brand;
+
+    @Column(name = "model")
+    private String model;
 
     @Column(name = "price")
     private Float price;
@@ -51,9 +55,13 @@ public class Car implements Serializable {
     @Column(name = "specsid")
     private Integer specsid;
 
+    @JoinColumn(name = "images")
+    private List<String> images;
+
     @ManyToOne
     @JoinColumn(name = "Params_ID")
     private Parameters params;
+
 
     @OneToOne(fetch = FetchType.LAZY,
             cascade =  CascadeType.ALL,
@@ -64,9 +72,10 @@ public class Car implements Serializable {
 
     }
 
-    public Car(String name, Float price, Integer seats, String buyername, Float sellprice, Date selldate, Boolean sold, Integer paramid,String level,double rate,Date year) {
+    public Car(String model,String brand, Float price, Integer seats, String buyername, Float sellprice, Date selldate, Boolean sold, Integer paramid,String level,double rate,List<String> images,Date year) {
         this.price = price;
-        this.name = name;
+        this.model = model;
+        this.brand = brand;
         this.seats = seats;
         this.buyername = buyername;
         this.sellprice = sellprice;
@@ -76,6 +85,7 @@ public class Car implements Serializable {
         this.level = level;
         this.rate = rate;
         this.year = year;
+        this.images = images;
     }
 
     public Long getId() {
@@ -86,12 +96,28 @@ public class Car implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getBrand() {
+        return brand;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
     }
 
     public Float getPrice() {

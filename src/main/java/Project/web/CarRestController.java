@@ -34,6 +34,14 @@ public class CarRestController {
         List<Car> cars = carService.getAllCars();
         return (List<Car>) cars;
     }
+
+    @RequestMapping(value = "/carsforparamid", method = RequestMethod.GET)
+    public List<Car> getAllCarsForParamId(String paramname) {
+        Parameters param = paramsService.getParamByName(paramname);
+        List<Car> cars = carService.getAllCarsForParamId(param.getId());
+        return (List<Car>) cars;
+    }
+
     /**
      * Web service for getting all the cars in the application.
      *
@@ -49,9 +57,9 @@ public class CarRestController {
      *
      * @return list of all cars
      */
-    @RequestMapping(value = "/carsbyname", method = RequestMethod.GET)
-    public List<Car> getAllCarsByName() {
-        List<Car> cars = carService.getAllCarsOrderBy(Comparator.comparing(Car::getName));
+    @RequestMapping(value = "/carsbymodel", method = RequestMethod.GET)
+    public List<Car> getAllCarsByModel() {
+        List<Car> cars = carService.getAllCarsOrderBy(Comparator.comparing(Car::getModel));
         return (List<Car>) cars;
     }
     /**

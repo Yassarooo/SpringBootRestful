@@ -14,9 +14,6 @@ public class Specs implements Serializable {
     @Version
     private Integer version;
 
-    @Column(name = "year")
-    private Integer year;
-
     @Column(name = "doors")
     private Integer doors;
 
@@ -85,13 +82,6 @@ public class Specs implements Serializable {
         this.version = version;
     }
 
-    public Integer getYear() {
-        return year;
-    }
-
-    public void setYear(Integer year) {
-        this.year = year;
-    }
 
     public Integer getDoors() {
         return doors;

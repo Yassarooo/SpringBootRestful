@@ -23,9 +23,9 @@ public class CarServiceAspect {
     public void beforecreateCar(Car c, Boolean update) {
         auth = SecurityContextHolder.getContext().getAuthentication();
         if (update) {
-            System.out.println("update Car -" + c.getId() + "-" + c.getName() + " - by " + auth.getName());
+            System.out.println("update Car -" + c.getId() + "-" + c.getModel() + " - by " + auth.getName());
         } else {
-            System.out.println("Create New Car -" + c.getName() + " - by " + auth.getName());
+            System.out.println("Create New Car -" + c.getModel() + " - by " + auth.getName());
         }
     }
 
@@ -33,9 +33,9 @@ public class CarServiceAspect {
     public void aftercreateCar(Car c, Boolean update) {
         auth = SecurityContextHolder.getContext().getAuthentication();
         if (update) {
-            System.out.println("updated Car -" + c.getId() + "-" + c.getName() + " - by " + auth.getName());
+            System.out.println("updated Car -" + c.getId() + "-" + c.getModel() + " - by " + auth.getName());
         } else {
-            System.out.println("Created New Car -" + c.getName() + " - by " + auth.getName());
+            System.out.println("Created New Car -" + c.getModel() + " - by " + auth.getName());
         }
     }
 

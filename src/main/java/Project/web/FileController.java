@@ -46,18 +46,21 @@ public class FileController {
     }
 
     @PostMapping("/uploadCarimage")
-    public UploadFileResponse uploadCarImage(@RequestParam("image") MultipartFile file,@RequestBody Car car) {
+    public UploadFileResponse uploadCarImage(@RequestParam("image") MultipartFile file,@RequestHeader Long id) {
         String fileName = fileStorageService.storeFile(file);
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/downloadFile/")
                 .path(fileName)
                 .toUriString();
+        Car car = carService.getCarById(id);
+
         List<String> imgs = new ArrayList<String>();
         imgs = car.getImages();
         imgs.add(fileDownloadUri);
         car.setImages(imgs);
         carService.createOrUpdateCar(car, true);
+
         return new UploadFileResponse(fileName, fileDownloadUri,
                 file.getContentType(), file.getSize());
     }

@@ -101,9 +101,7 @@ public class CarService {
                         return newEntity;
                     }
                 } else {
-                    c.setSold(false);
-                    c = carRepository.save(c);
-                    return c;
+                    throw new RuntimeException("No car record exist for given id");
                 }
             } else {
                 c = carRepository.save(c);

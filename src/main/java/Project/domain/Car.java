@@ -27,7 +27,7 @@ public class Car implements Serializable {
     private Float price;
 
     @Column(name = "year")
-    private Date year;
+    private Integer year;
 
     @Column(name = "seats")
     private Integer seats;
@@ -74,7 +74,7 @@ public class Car implements Serializable {
 
     }
 
-    public Car(String model,String brand, Float price, Integer seats, String buyername, Float sellprice, Date selldate, Boolean sold, Integer paramid,String level,double rate,List<String> images,Date year) {
+    public Car(String model,String brand, Float price, Integer seats, String buyername, Float sellprice, Date selldate, Boolean sold, Integer paramid,String level,double rate,List<String> images,int year) {
         this.price = price;
         this.model = model;
         this.brand = brand;
@@ -222,11 +222,11 @@ public class Car implements Serializable {
         this.rate = rate;
     }
 
-    public Date getYear() {
+    public int getYear() {
         return year;
     }
 
-    public void setYear(Date year) {
+    public void setYear(int year) {
         this.year = year;
     }
 }

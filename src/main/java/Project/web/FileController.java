@@ -45,6 +45,14 @@ public class FileController {
                 file.getContentType(), file.getSize());
     }
 
+    @PostMapping("/uploadMultipleFiles")
+    public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
+        return Arrays.asList(files)
+                .stream()
+                .map(file -> uploadFile(file))
+                .collect(Collectors.toList());
+    }
+
     @PostMapping("/uploadCarimage")
     public UploadFileResponse uploadCarImage(@RequestParam("image") MultipartFile file,@RequestHeader Long id) {
         String fileName = fileStorageService.storeFile(file);
@@ -65,11 +73,11 @@ public class FileController {
                 file.getContentType(), file.getSize());
     }
 
-    @PostMapping("/uploadMultipleFiles")
-    public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
+    @PostMapping("/uploadCarimages")
+    public List<UploadFileResponse> uploadCarImages(@RequestParam("images") MultipartFile[] files,@RequestHeader Long id) {
         return Arrays.asList(files)
                 .stream()
-                .map(file -> uploadFile(file))
+                .map(file -> uploadCarImage(file,id))
                 .collect(Collectors.toList());
     }
 

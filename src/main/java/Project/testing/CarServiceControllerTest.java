@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -53,7 +54,7 @@ public class CarServiceControllerTest extends AbstractTest {
     @Test
     public void createCarTest() throws Exception {
         String uri = "/api/cars";
-        Car car = new Car("test", 7540f, null, "yassar", 8000f, new Date(), true, 1,"Good",3.5,new Date());
+        Car car = new Car("test","testbrand", 7540f, null, "yassar", 8000f, new Date(), true, 1,"Good",3.5,new ArrayList(),new Date());
 
         String inputJson = super.mapToJson(car);
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
@@ -67,7 +68,7 @@ public class CarServiceControllerTest extends AbstractTest {
     @Test
     public void updateCar() throws Exception {
         String uri = "/api/cars";
-        Car car = new Car("test", 7540f, 4, "yassar", 8000f, new Date(), true, 1,"Good",3.5,new Date());
+        Car car = new Car("test","testbrand", 7540f, null, "yassar", 8000f, new Date(), true, 1,"Good",3.5,new ArrayList(),new Date());
 
         String inputJson = super.mapToJson(car);
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.put(uri)

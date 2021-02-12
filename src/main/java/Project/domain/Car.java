@@ -56,7 +56,8 @@ public class Car implements Serializable {
     @Column(name = "specsid")
     private Integer specsid;
 
-    @JoinColumn(name = "images")
+    @ElementCollection
+    @CollectionTable(name="listOfImages")
     private List<String> images = new ArrayList<String>();
 
     @ManyToOne

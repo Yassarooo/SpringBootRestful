@@ -94,10 +94,6 @@ public class CarRestController {
         List<Car> NotSoldCars = new ArrayList<Car>();
         for (Car c : cars) {
             if (!c.getSold()) {
-                //Parameters def = paramsService.getParamsById((long) c.getParamid());
-                float sellprice = c.getPrice() + (c.getParams().getPercentage() * (c.getPrice())) / 100;
-                c.setSellprice(sellprice);
-
                 NotSoldCars.add(c);
             }
         }
@@ -138,6 +134,8 @@ public class CarRestController {
         if (car.getSeats() == null) {
             car.setSeats(def.getSeats());
         }
+        float sellprice = car.getPrice() + (car.getParams().getPercentage() * (car.getPrice())) / 100;
+        car.setSellprice(sellprice);
         return new ResponseEntity<Car>(carService.createOrUpdateCar(car, false), HttpStatus.CREATED);
     }
 

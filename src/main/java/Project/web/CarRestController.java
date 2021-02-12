@@ -24,11 +24,7 @@ public class CarRestController {
     ParamsService paramsService;
 
 
-    /**
-     * Web service for getting all the cars in the application.
-     *
-     * @return list of all cars
-     */
+
     @RequestMapping(value = "/cars", method = RequestMethod.GET)
     public List<Car> getAllCars() {
         List<Car> cars = carService.getAllCars();
@@ -42,52 +38,32 @@ public class CarRestController {
         return (List<Car>) cars;
     }
 
-    /**
-     * Web service for getting all the cars in the application.
-     *
-     * @return list of all cars
-     */
+
     @RequestMapping(value = "/carsbyid", method = RequestMethod.GET)
     public List<Car> getAllCarsById() {
         List<Car> cars = carService.getAllCarsOrderBy(Comparator.comparing(Car::getId));
         return (List<Car>) cars;
     }
-    /**
-     * Web service for getting all the cars in the application.
-     *
-     * @return list of all cars
-     */
+
     @RequestMapping(value = "/carsbymodel", method = RequestMethod.GET)
     public List<Car> getAllCarsByModel() {
         List<Car> cars = carService.getAllCarsOrderBy(Comparator.comparing(Car::getModel));
         return (List<Car>) cars;
     }
-    /**
-     * Web service for getting all the cars in the application.
-     *
-     * @return list of all cars
-     */
+
     @RequestMapping(value = "/carsbyprice", method = RequestMethod.GET)
     public List<Car> getAllCarsByPrice() {
         List<Car> cars = carService.getAllCarsOrderBy(Comparator.comparing(Car::getPrice));
         return (List<Car>) cars;
     }
-    /**
-     * Web service for getting all the cars in the application.
-     *
-     * @return list of all cars
-     */
+
     @RequestMapping(value = "/carsbyrate", method = RequestMethod.GET)
     public List<Car> getAllCarsByRate() {
         List<Car> cars = carService.getAllCarsOrderBy(Comparator.comparing(Car::getRate));
         return (List<Car>) cars;
     }
 
-    /**
-     * Web service for getting all the appUsers in the application.
-     *
-     * @return list of all cars
-     */
+
     @RequestMapping(value = "/sellcar", method = RequestMethod.GET)
     public List<Car> getNotSoldCars() {
         List<Car> cars = carService.getAllCars();
@@ -101,12 +77,6 @@ public class CarRestController {
     }
 
 
-    /**
-     * Web service for getting a car by its ID
-     *
-     * @param id Car cid
-     * @return car
-     */
     @RequestMapping(value = "/cars/{id}", method = RequestMethod.GET)
     public ResponseEntity<Car> getCarById(@PathVariable("id") Long id)
             throws RuntimeException {
@@ -118,12 +88,7 @@ public class CarRestController {
         }
     }
 
-    /**
-     * Method for adding a car
-     *
-     * @param car
-     * @return
-     */
+
     @RequestMapping(value = "/cars", method = RequestMethod.POST)
     public ResponseEntity<Car> createCar(@RequestBody Car car) {
         car.setSold(false);
@@ -131,7 +96,7 @@ public class CarRestController {
         if (def == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         car.setParams(def);
-        if (car.getSeats() == null) {
+        if (car.getSeats() == null || car.getSeats() == 0) {
             car.setSeats(def.getSeats());
         }
         float sellprice = car.getPrice() + (car.getParams().getPercentage() * (car.getPrice())) / 100;
@@ -140,35 +105,20 @@ public class CarRestController {
     }
 
 
-    /**
-     * Method for editing an car details
-     *
-     * @param car
-     * @return modified car
-     */
+
     @RequestMapping(value = "/cars", method = RequestMethod.PUT)
     public Car updateCar(@RequestBody Car car) {
         return carService.createOrUpdateCar(car, true);
     }
 
-    /**
-     * Method for editing an car details
-     *
-     * @param car
-     * @return modified car
-     */
+
     @RequestMapping(value = "/sellcar", method = RequestMethod.PUT)
     public Car sellCar(@RequestBody Car car) {
         car.setSold(true);
         return carService.createOrUpdateCar(car, true);
     }
 
-    /**
-     * Method for deleting a car by its ID
-     *
-     * @param id
-     * @return
-     */
+
     @RequestMapping(value = "/cars/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Car> deleteCar(@PathVariable Long id) {
         Car car = carService.getCarById(id);

@@ -1,6 +1,8 @@
 package Project.web;
 
+import Project.domain.Car;
 import Project.payload.UploadFileResponse;
+import Project.service.CarService;
 import Project.service.FileStorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,12 +16,16 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 public class FileController {
+
+    @Autowired
+    private CarService carService;
 
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);
 
@@ -35,6 +41,23 @@ public class FileController {
                 .path(fileName)
                 .toUriString();
 
+        return new UploadFileResponse(fileName, fileDownloadUri,
+                file.getContentType(), file.getSize());
+    }
+
+    @PostMapping("/uploadCarimage")
+    public UploadFileResponse uploadCarImage(@RequestParam("image") MultipartFile file,@RequestBody Car car) {
+        String fileName = fileStorageService.storeFile(file);
+
+        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/downloadFile/")
+                .path(fileName)
+                .toUriString();
+        List<String> imgs = new ArrayList<String>();
+        imgs = car.getImages();
+        imgs.add(fileDownloadUri);
+        car.setImages(imgs);
+        carService.createOrUpdateCar(car, true);
         return new UploadFileResponse(fileName, fileDownloadUri,
                 file.getContentType(), file.getSize());
     }

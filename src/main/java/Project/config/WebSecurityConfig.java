@@ -55,7 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity
                 .sessionManagement().sessionCreationPolicy( SessionCreationPolicy.STATELESS ).and()
                 .exceptionHandling().authenticationEntryPoint( jwtAuthenticationEntryPoint ).and()
-                .authorizeRequests().antMatchers("/", "/index.html", "/app.js", "/route.js", "/app/**", "/register", "/authenticate", "/checktoken", "/favicon.ico", "/prometheus/**", "/actuator/**", "/metrics/**").permitAll()
+                .authorizeRequests().antMatchers("/", "/index.html", "/app.js", "/route.js", "/app/**", "/register", "/authenticate", "/checktoken", "/favicon.ico", "/prometheus/**", "/actuator/**", "/metrics/**","/downloadFile","/downloadFile/**").permitAll()
                 .anyRequest().authenticated().and();
 
         httpSecurity.csrf().disable();

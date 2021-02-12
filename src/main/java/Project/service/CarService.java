@@ -82,7 +82,8 @@ public class CarService {
                     if (c.getVersion() < newEntity.getVersion()) {
                         throw new OptimisticEntityLockException(c, "Optimistic Lock Error");
                     } else {
-                        newEntity.setName(c.getName());
+                        newEntity.setModel(c.getModel());
+                        newEntity.setBrand(c.getBrand());
                         newEntity.setPrice(c.getPrice());
                         newEntity.setSeats(c.getSeats());
                         newEntity.setParams(c.getParams());
@@ -95,6 +96,7 @@ public class CarService {
                         newEntity.setLevel(c.getLevel());
                         newEntity.setRate(c.getRate());
                         newEntity.setYear(c.getYear());
+                        newEntity.setImages(c.getImages());
                         newEntity = carRepository.save(newEntity);
                         return newEntity;
                     }

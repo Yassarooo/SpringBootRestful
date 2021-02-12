@@ -71,7 +71,6 @@ public class SpecsService {
                 newEntity.setTopspeed(c.getTopspeed());
                 newEntity.setTransmission(c.getTransmission());
                 newEntity.setTurnangle(c.getTurnangle());
-                newEntity.setYear(c.getYear());
                 newEntity = specsRepository.save(newEntity);
                 return newEntity;
             } else {

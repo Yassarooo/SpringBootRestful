@@ -3,6 +3,7 @@ package Project.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -56,7 +57,7 @@ public class Car implements Serializable {
     private Integer specsid;
 
     @JoinColumn(name = "images")
-    private List<String> images;
+    private List<String> images = new ArrayList<String>();
 
     @ManyToOne
     @JoinColumn(name = "Params_ID")

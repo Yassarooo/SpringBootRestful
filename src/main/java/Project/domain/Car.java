@@ -62,8 +62,6 @@ public class Car implements Serializable {
     private Integer specsid;
 
     @ElementCollection
-    @CollectionTable(name="listOfImages")
-    @JsonIgnore
     private List<String> images = new ArrayList<String>();
 
     @ManyToOne

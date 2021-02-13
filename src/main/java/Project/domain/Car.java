@@ -1,6 +1,8 @@
 package Project.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -61,6 +63,7 @@ public class Car implements Serializable {
 
     @ElementCollection
     @CollectionTable(name="listOfImages")
+    @JsonIgnore
     private List<String> images = new ArrayList<String>();
 
     @ManyToOne

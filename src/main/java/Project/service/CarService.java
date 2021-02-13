@@ -86,6 +86,7 @@ public class CarService {
                         newEntity.setBrand(c.getBrand());
                         newEntity.setPrice(c.getPrice());
                         newEntity.setSeats(c.getSeats());
+                        newEntity.setType(c.getType());
                         newEntity.setParams(c.getParams());
                         newEntity.setBuyername(c.getBuyername());
                         newEntity.setSelldate(c.getSelldate());

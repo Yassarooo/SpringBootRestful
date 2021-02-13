@@ -101,6 +101,7 @@ public class CarRestController {
         }
         float sellprice = car.getPrice() + (car.getParams().getPercentage() * (car.getPrice())) / 100;
         car.setSellprice(sellprice);
+        car.setType(car.getParams().getName());
         return new ResponseEntity<Car>(carService.createOrUpdateCar(car, false), HttpStatus.CREATED);
     }
 

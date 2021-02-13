@@ -33,6 +33,8 @@ public class AppUser implements UserDetails {
     @Column
     private String gender;
     @Column
+    private String profilepic = "https://www.w3schools.com/w3images/avatar2.png";
+    @Column
     private String phonenumber;
     @JsonProperty(access = Access.WRITE_ONLY)
     private String password;
@@ -147,5 +149,13 @@ public class AppUser implements UserDetails {
 
     public List<Role> getRoles() {
         return roles;
+    }
+
+    public String getProfilepic() {
+        return profilepic;
+    }
+
+    public void setProfilepic(String profilepic) {
+        this.profilepic = profilepic;
     }
 }

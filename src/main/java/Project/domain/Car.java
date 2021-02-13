@@ -32,6 +32,9 @@ public class Car implements Serializable {
     @Column(name = "seats")
     private Integer seats;
 
+    @Column(name = "type")
+    private String type;
+
     @Column(name = "buyername")
     private String buyername;
 
@@ -128,6 +131,18 @@ public class Car implements Serializable {
 
     public void setPrice(Float price) {
         this.price = price;
+    }
+
+    public void setYear(Integer year) {
+        this.year = year;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public Integer getSeats() {

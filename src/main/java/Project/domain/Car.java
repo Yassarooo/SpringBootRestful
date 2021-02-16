@@ -22,6 +22,9 @@ public class Car implements Serializable {
     @Column(name = "brand")
     private String brand;
 
+    @Column(name = "brandlogo")
+    private String brandlogo;
+
     @Column(name = "model")
     private String model;
 
@@ -108,6 +111,14 @@ public class Car implements Serializable {
 
     public void setBrand(String brand) {
         this.brand = brand;
+    }
+
+    public String getBrandlogo() {
+        return brandlogo;
+    }
+
+    public void setBrandlogo(String brandlogo) {
+        this.brandlogo = brandlogo;
     }
 
     public List<String> getImages() {

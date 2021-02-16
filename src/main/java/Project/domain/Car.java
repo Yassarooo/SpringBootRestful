@@ -22,7 +22,7 @@ public class Car implements Serializable {
     @Column(name = "brand")
     private String brand;
 
-    @Column(name = "brandlogo")
+    @Column(name = "brandlogo", length = 1024)
     private String brandlogo;
 
     @Column(name = "model")

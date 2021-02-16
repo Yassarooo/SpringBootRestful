@@ -74,7 +74,7 @@ public class CarService {
     @Transactional
     public Car createOrUpdateCar(Car c, Boolean update) throws RuntimeException {
         try {
-            c.setBrandlogo(this.setBrandLogo(c.getBrand()));
+            c.setBrandlogo(this.setBrandLogo(c.getBrand().toLowerCase().trim()));
             Optional<Car> car;
             if (update) {
                 car = carRepository.findById(c.getId());
@@ -83,20 +83,20 @@ public class CarService {
                     if (c.getVersion() < newEntity.getVersion()) {
                         throw new OptimisticEntityLockException(c, "Optimistic Lock Error");
                     } else {
-                        newEntity.setModel((c.getModel().toLowerCase()).trim());
-                        newEntity.setBrand((c.getBrand().toLowerCase()).trim());
-                        newEntity.setBrandlogo((c.getBrandlogo().toLowerCase()).trim());
+                        newEntity.setModel(c.getModel().trim());
+                        newEntity.setBrand(c.getBrand().trim());
+                        newEntity.setBrandlogo(c.getBrandlogo());
                         newEntity.setPrice(c.getPrice());
                         newEntity.setSeats(c.getSeats());
-                        newEntity.setType((c.getParams().getName().toLowerCase()).trim());
+                        newEntity.setType(c.getParams().getName().trim());
                         newEntity.setParams(c.getParams());
-                        newEntity.setBuyername((c.getBuyername().toLowerCase()).trim());
+                        newEntity.setBuyername(c.getBuyername().trim());
                         newEntity.setSelldate(c.getSelldate());
                         newEntity.setSellprice(c.getSellprice());
                         newEntity.setSold(c.getSold());
                         newEntity.setSpecs(c.getSpecs());
                         newEntity.setSpecsid(c.getSpecsid());
-                        newEntity.setLevel((c.getLevel().toLowerCase()).trim());
+                        newEntity.setLevel(c.getLevel().trim());
                         newEntity.setRate(c.getRate());
                         newEntity.setYear(c.getYear());
                         newEntity.setImages(c.getImages());

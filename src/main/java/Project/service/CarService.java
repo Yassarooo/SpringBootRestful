@@ -74,7 +74,7 @@ public class CarService {
     @Transactional
     public Car createOrUpdateCar(Car c, Boolean update) throws RuntimeException {
         try {
-            c.setBrandlogo(setBrandLogo(c.getParams().getName()));
+            c.setBrandlogo(this.setBrandLogo(c.getBrand()));
             Optional<Car> car;
             if (update) {
                 car = carRepository.findById(c.getId());

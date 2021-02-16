@@ -47,11 +47,11 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     public AppUser save(AppUser appUser) {
         AppUser newAppUser = new AppUser();
-        newAppUser.setUsername(appUser.getUsername());
-        newAppUser.setName(appUser.getName());
+        newAppUser.setUsername(appUser.getUsername().toLowerCase().trim());
+        newAppUser.setName(appUser.getName().trim());
         newAppUser.setRoles(appUser.getRoles());
-        newAppUser.setGender(appUser.getGender());
-        newAppUser.setEmail(appUser.getEmail());
+        newAppUser.setGender(appUser.getGender().toLowerCase().trim());
+        newAppUser.setEmail(appUser.getEmail().toLowerCase().trim());
         newAppUser.setPhonenumber(appUser.getPhonenumber());
         newAppUser.setDob(appUser.getDob());
         newAppUser.setPassword(bCryptPasswordEncoder.encode(appUser.getPassword()));
@@ -71,10 +71,12 @@ public class JwtUserDetailsService implements UserDetailsService {
     @Transactional
     public AppUser updateUser(AppUser u) {
         try {
+            u.setUsername(u.getUsername().toLowerCase().trim());
+            u.setEmail(u.getEmail().toLowerCase().trim());
+            u.setGender(u.getGender().toLowerCase().trim());
             u = appUserRepository.save(u);
             return u;
-        }
-        catch(ObjectOptimisticLockingFailureException e){
+        } catch (ObjectOptimisticLockingFailureException e) {
             log.severe("Somebody has already updated the amount for item:{} in concurrent transaction.");
             throw e;
         }

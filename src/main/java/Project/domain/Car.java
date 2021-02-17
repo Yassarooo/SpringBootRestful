@@ -64,10 +64,7 @@ public class Car implements Serializable {
     @Column(name = "specsid")
     private Integer specsid;
 
-    @ElementCollection
-    @OneToOne(fetch = FetchType.EAGER,
-            cascade =  CascadeType.ALL,
-            mappedBy = "car")
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> images = new ArrayList<String>();
 
     @ManyToOne
@@ -76,7 +73,7 @@ public class Car implements Serializable {
 
 
     @OneToOne(fetch = FetchType.LAZY,
-            cascade =  CascadeType.ALL,
+            cascade = CascadeType.ALL,
             mappedBy = "car")
     private Specs specs;
 
@@ -84,7 +81,7 @@ public class Car implements Serializable {
 
     }
 
-    public Car(String model,String brand, Float price, Integer seats, String buyername, Float sellprice, Date selldate, Boolean sold, Integer paramid,String level,double rate,List<String> images,int year) {
+    public Car(String model, String brand, Float price, Integer seats, String buyername, Float sellprice, Date selldate, Boolean sold, Integer paramid, String level, double rate, List<String> images, int year) {
         this.price = price;
         this.model = model;
         this.brand = brand;
@@ -216,9 +213,13 @@ public class Car implements Serializable {
         this.paramid = paramid;
     }
 
-    public Integer getVersion() { return version; }
+    public Integer getVersion() {
+        return version;
+    }
 
-    public void setVersion(Integer version) { this.version = version; }
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
 
     public Integer getSpecsid() {
         return specsid;

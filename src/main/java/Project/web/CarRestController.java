@@ -24,7 +24,6 @@ public class CarRestController {
     ParamsService paramsService;
 
 
-
     @RequestMapping(value = "/cars", method = RequestMethod.GET)
     public List<Car> getAllCars() {
         List<Car> cars = carService.getAllCars();
@@ -108,15 +107,15 @@ public class CarRestController {
 
 
     @RequestMapping(value = "/cars", method = RequestMethod.PUT)
-    public Car updateCar(@RequestBody Car car) {
-        return carService.createOrUpdateCar(car, true);
+    public ResponseEntity<Car> updateCar(@RequestBody Car car) {
+        return new ResponseEntity<Car>(carService.createOrUpdateCar(car, true), HttpStatus.OK);
     }
 
 
     @RequestMapping(value = "/sellcar", method = RequestMethod.PUT)
-    public Car sellCar(@RequestBody Car car) {
+    public ResponseEntity<Car> sellCar(@RequestBody Car car) {
         car.setSold(true);
-        return carService.createOrUpdateCar(car, true);
+        return new ResponseEntity<Car>(carService.createOrUpdateCar(car, true), HttpStatus.OK);
     }
 
 

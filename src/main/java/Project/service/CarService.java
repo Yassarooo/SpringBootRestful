@@ -140,7 +140,7 @@ public class CarService {
         else if (brand.contains("tesla"))
             return "https://www.carlogos.org/car-logos/tesla-logo-2200x2800.png";
         else if (brand.contains("honda"))
-            return "https://toppng.com/uploads/preview/vertu-honda-vertu-honda-honda-logo-11563173846s3pxjeynqe.png";
+            return "https://www.freeiconspng.com/uploads/honda-logo-transparent-background-0.jpg";
         else if (brand.contains("hyundai"))
             return "https://logos-download.com/wp-content/uploads/2016/03/Hyundai_Motor_Company_logo.png";
         else if (brand.contains("jaguar"))

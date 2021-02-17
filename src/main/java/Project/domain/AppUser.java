@@ -9,14 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import java.io.Serializable;
 import java.util.*;
 
-/**
- * Model class for application user
- *
- * @author
- */
 @Entity
 public class AppUser implements UserDetails {
     @Id

@@ -50,7 +50,7 @@ public class SpecsService {
     }
 
     @CacheEvict(value = "specs", allEntries = true)
-    public Specs createOrUpdateParams(Specs c, Boolean update) throws RuntimeException {
+    public Specs createOrUpdateSpecs(Specs c, Boolean update) throws RuntimeException {
         Optional<Specs> spec;
         if (update) {
             spec = specsRepository.findById(c.getId());

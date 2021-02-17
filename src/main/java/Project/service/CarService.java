@@ -130,7 +130,7 @@ public class CarService {
 
     private String setBrandLogo(String brand) throws RuntimeException {
         if (brand.contains("bmw"))
-            return "http://pngimg.com/uploads/bmw_logo/bmw_logo_PNG19707.png";
+            return "https://www.pinclipart.com/picdir/big/361-3619725_bmw-clip-art.png";
         else if (brand.contains("kia"))
             return "https://cdn.freebiesupply.com/logos/large/2x/kia-logo-png-transparent.png";
         else if (brand.contains("toyota"))

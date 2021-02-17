@@ -65,6 +65,9 @@ public class Car implements Serializable {
     private Integer specsid;
 
     @ElementCollection
+    @OneToOne(fetch = FetchType.EAGER,
+            cascade =  CascadeType.ALL,
+            mappedBy = "car")
     private List<String> images = new ArrayList<String>();
 
     @ManyToOne

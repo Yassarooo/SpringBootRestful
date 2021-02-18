@@ -63,7 +63,7 @@ public class Specs implements Serializable {
     private Boolean abs;
 
     @Column(name = "carid")
-    private Integer carid;
+    private Long carid;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "car_id", nullable = false)
@@ -193,11 +193,11 @@ public class Specs implements Serializable {
         this.abs = abs;
     }
 
-    public Integer getCarid() {
+    public Long getCarid() {
         return carid;
     }
 
-    public void setCarid(Integer carid) {
+    public void setCarid(Long carid) {
         this.carid = carid;
     }
 

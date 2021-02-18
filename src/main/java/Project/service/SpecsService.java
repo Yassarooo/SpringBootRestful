@@ -1,5 +1,6 @@
 package Project.service;
 
+import Project.domain.Car;
 import Project.domain.Specs;
 import Project.repository.SpecsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ public class SpecsService {
 
     @Autowired
     SpecsRepository specsRepository;
+
+    @Autowired
+    CarService carService;
 
     @Cacheable(value = "specs")
     public List<Specs> getAllSpecs() {
@@ -78,7 +82,13 @@ public class SpecsService {
                 return c;
             }
         } else {
-            c = specsRepository.save(c);
+            Car car = carService.getCarById((Long) c.getCarid());
+            if (car != null) {
+                c.setCar(car);
+                c = specsRepository.save(c);
+            }
+            else
+                throw new RuntimeException("Car not found for the given id");
 
             return c;
         }

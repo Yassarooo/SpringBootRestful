@@ -23,6 +23,9 @@ public class Specs implements Serializable {
     @Column(name = "fueltype")
     private String fueltype;
 
+    @Column(name = "shift")
+    private String shift;
+
     @Column(name = "power")
     private Float power;
 
@@ -156,6 +159,14 @@ public class Specs implements Serializable {
 
     public void setDrive(String drive) {
         this.drive = drive;
+    }
+
+    public String getShift() {
+        return shift;
+    }
+
+    public void setShift(String shift) {
+        this.shift = shift;
     }
 
     public Float getTurnangle() {

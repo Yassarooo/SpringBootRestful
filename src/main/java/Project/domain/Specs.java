@@ -1,6 +1,7 @@
 package Project.domain;
 
 import javax.persistence.*;
+import java.awt.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -18,7 +19,7 @@ public class Specs implements Serializable {
     private Integer doors;
 
     @Column(name = "color")
-    private String color;
+    private Color color;
 
     @Column(name = "fueltype")
     private String fueltype;
@@ -209,11 +210,11 @@ public class Specs implements Serializable {
         this.car = car;
     }
 
-    public String getColor() {
+    public Color getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(Color color) {
         this.color = color;
     }
 

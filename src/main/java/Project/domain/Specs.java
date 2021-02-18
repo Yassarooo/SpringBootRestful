@@ -18,7 +18,7 @@ public class Specs implements Serializable {
     private Integer doors;
 
     @Column(name = "color")
-    private Integer color;
+    private String color;
 
     @Column(name = "fueltype")
     private String fueltype;
@@ -172,6 +172,14 @@ public class Specs implements Serializable {
 
     public void setTurbo(Boolean turbo) {
         this.turbo = turbo;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public Boolean getFrontstabilizer() {

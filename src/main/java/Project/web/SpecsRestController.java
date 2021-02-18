@@ -62,9 +62,9 @@ public class SpecsRestController {
         return specsService.createOrUpdateSpecs(spec, true);
     }
 
-    @RequestMapping(value = "/specs", method = RequestMethod.GET)
-    public ResponseEntity<Specs> specByCarId(@RequestParam Long carid) {
-        Car car = carService.getCarById(carid);
+    @RequestMapping(value = "/getcarspecs/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Specs> specByCarId(@PathVariable Long id) {
+        Car car = carService.getCarById(id);
 
         if (car.getSpecs() != null)
             return new ResponseEntity<Specs>(car.getSpecs(), HttpStatus.OK);

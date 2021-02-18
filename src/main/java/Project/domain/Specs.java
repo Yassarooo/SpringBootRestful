@@ -23,8 +23,8 @@ public class Specs implements Serializable {
     @Column(name = "fueltype")
     private String fueltype;
 
-    @Column(name = "shift")
-    private String shift;
+    @Column(name = "gears")
+    private String gears;
 
     @Column(name = "power")
     private Float power;
@@ -33,7 +33,7 @@ public class Specs implements Serializable {
     private Integer tank;
 
     @Column(name = "transmission")
-    private Integer transmission;
+    private String transmission;
 
     @Column(name = "topspeed")
     private Integer topspeed;
@@ -121,11 +121,11 @@ public class Specs implements Serializable {
         this.tank = tank;
     }
 
-    public Integer getTransmission() {
+    public String getTransmission() {
         return transmission;
     }
 
-    public void setTransmission(Integer transmission) {
+    public void setTransmission(String transmission) {
         this.transmission = transmission;
     }
 
@@ -161,36 +161,12 @@ public class Specs implements Serializable {
         this.drive = drive;
     }
 
-    public String getShift() {
-        return shift;
-    }
-
-    public void setShift(String shift) {
-        this.shift = shift;
-    }
-
     public Float getTurnangle() {
         return turnangle;
     }
 
     public void setTurnangle(Float turnangle) {
         this.turnangle = turnangle;
-    }
-
-    public Boolean getTurbo() {
-        return turbo;
-    }
-
-    public void setTurbo(Boolean turbo) {
-        this.turbo = turbo;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
     }
 
     public Boolean getFrontstabilizer() {
@@ -231,5 +207,29 @@ public class Specs implements Serializable {
 
     public void setCar(Car car) {
         this.car = car;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getGears() {
+        return gears;
+    }
+
+    public void setGears(String gears) {
+        this.gears = gears;
+    }
+
+    public Boolean getTurbo() {
+        return turbo;
+    }
+
+    public void setTurbo(Boolean turbo) {
+        this.turbo = turbo;
     }
 }

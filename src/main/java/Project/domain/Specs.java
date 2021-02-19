@@ -18,7 +18,7 @@ public class Specs implements Serializable {
     @Column(name = "doors")
     private Integer doors;
 
-    @Column(name = "color")
+    @Column(name = "clr")
     private String color;
 
     @Column(name = "fueltype")

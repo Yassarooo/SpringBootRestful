@@ -19,7 +19,7 @@ public class Specs implements Serializable {
     private Integer doors;
 
     @Column(name = "color")
-    private Long color;
+    private String color;
 
     @Column(name = "fueltype")
     private String fueltype;
@@ -210,11 +210,11 @@ public class Specs implements Serializable {
         this.car = car;
     }
 
-    public Long getColor() {
+    public String getColor() {
         return color;
     }
 
-    public void setColor(Long color) {
+    public void setColor(String color) {
         this.color = color;
     }
 

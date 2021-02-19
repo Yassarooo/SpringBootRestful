@@ -33,7 +33,7 @@ public class Specs implements Serializable {
     @Column(name = "tank")
     private Integer tank;
 
-    @Column(name = "transmission")
+    @Column(name = "trans")
     private String transmission;
 
     @Column(name = "topspeed")

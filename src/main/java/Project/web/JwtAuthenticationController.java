@@ -11,6 +11,7 @@ import Project.domain.Role;
 import Project.service.JwtUserDetailsService;
 import Project.repository.AppUserRepository;
 import Project.service.RoleService;
+import io.jsonwebtoken.ExpiredJwtException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,11 +98,16 @@ public class JwtAuthenticationController {
 
     @RequestMapping(value = "/checktoken", method = RequestMethod.POST)
     public ResponseEntity<?> checktoken(@RequestParam String token) {
-        if (jwtTokenUtil.isTokenExpired(token))
+        try {
+            if (jwtTokenUtil.isTokenExpired(token))
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            else {
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+        } catch (ExpiredJwtException e) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        else {
-            return new ResponseEntity<>(HttpStatus.OK);
         }
+
     }
 
     private void authenticate(String username, String password) throws Exception {

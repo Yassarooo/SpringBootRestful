@@ -12,6 +12,8 @@ import Project.domain.Parameters;
 import Project.repository.CarRepository;
 import org.hibernate.dialect.lock.OptimisticEntityLockException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -23,6 +25,9 @@ public class CarService {
 
     @Autowired
     CarRepository carRepository;
+
+    @Autowired
+    ParamsService paramsService;
 
     private final static Logger log = Logger.getLogger(UserAspect.class.getName());
 
@@ -79,6 +84,12 @@ public class CarService {
             if (update) {
                 car = carRepository.findById(c.getId());
                 if (car.isPresent()) {
+
+                    Parameters def = paramsService.getParamById((long) c.getParamid());
+                    if (def == null)
+                        throw new RuntimeException("No default params record exist for given id " + c.getId());
+                    c.setParams(def);
+
                     Car newEntity = car.get();
                     if (c.getVersion() < newEntity.getVersion()) {
                         throw new OptimisticEntityLockException(c, "Optimistic Lock Error");

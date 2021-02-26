@@ -95,7 +95,7 @@ public class CarService {
                         newEntity.setSellprice(c.getSellprice());
                         newEntity.setSold(c.getSold());
                         newEntity.setSpecs(c.getSpecs());
-                        newEntity.setSpecsid(c.getSpecsid());
+                        newEntity.setSpecsid(c.getSpecsid() == -1 ? newEntity.getSpecsid() : c.getSpecsid());
                         newEntity.setLevel(c.getLevel().trim());
                         newEntity.setRate(c.getRate());
                         newEntity.setYear(c.getYear());

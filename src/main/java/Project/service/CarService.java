@@ -104,7 +104,7 @@ public class CarService {
                         return newEntity;
                     }
                 } else {
-                    throw new RuntimeException("No car record exist for given id");
+                    throw new RuntimeException("No car record exist for given id " + c.getId());
                 }
             } else {
                 c = carRepository.save(c);

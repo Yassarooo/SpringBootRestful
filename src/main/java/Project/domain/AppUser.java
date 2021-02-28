@@ -43,12 +43,19 @@ public class AppUser implements UserDetails {
                     @JoinColumn(name = "ROLE_ID")})
     private List<Role> roles;
 
+    private boolean enabled;
+
+    public AppUser() {
+        super();
+        this.enabled = false;
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
         for (Role role : this.roles)
-            grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_"+role.getName()));
+            grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
 
         return grantedAuthorities;
     }
@@ -70,7 +77,11 @@ public class AppUser implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return enabled;
+    }
+
+    public void setEnabled(final boolean enabled) {
+        this.enabled = enabled;
     }
 
     public Long getId() {

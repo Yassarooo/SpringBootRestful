@@ -2,7 +2,9 @@ package Project.service;
 
 import Project.aspect.UserAspect;
 import Project.domain.AppUser;
+import Project.domain.VerificationToken;
 import Project.repository.AppUserRepository;
+import Project.repository.VerificationTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,11 +14,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Logger;
-
-import static java.util.Collections.emptyList;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
@@ -27,6 +26,15 @@ public class JwtUserDetailsService implements UserDetailsService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+
+    @Autowired
+    private VerificationTokenRepository tokenRepository;
+
+
+    public static final String TOKEN_INVALID = "invalidToken";
+    public static final String TOKEN_EXPIRED = "expired";
+    public static final String TOKEN_VALID = "valid";
+
     private final static Logger log = Logger.getLogger(UserAspect.class.getName());
 
 
@@ -35,14 +43,31 @@ public class JwtUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        AppUser appUser = appUserRepository.findByUsername(username);
-        if (appUser == null) {
-            System.err.println("Username Not Found");
-            throw new UsernameNotFoundException(username);
-        }
+    public UserDetails loadUserByUsername(String UsernameOrEmail) throws UsernameNotFoundException {
+        boolean enabled = true;
+        boolean accountNonExpired = true;
+        boolean credentialsNonExpired = true;
+        boolean accountNonLocked = true;
 
-        return new org.springframework.security.core.userdetails.User(appUser.getUsername(), appUser.getPassword(), appUser.getAuthorities());
+        AppUser appUser = appUserRepository.findByUsername(UsernameOrEmail);
+        if (appUser != null) {
+            return new org.springframework.security.core.userdetails.User(
+                    appUser.getUsername(),
+                    appUser.getPassword(),
+                    appUser.isEnabled(),
+                    accountNonExpired,
+                    credentialsNonExpired,
+                    accountNonLocked,
+                    appUser.getAuthorities());
+        } else {
+            appUser = appUserRepository.findByEmail(UsernameOrEmail);
+            if (appUser != null) {
+                return new org.springframework.security.core.userdetails.User(appUser.getUsername(), appUser.getPassword(), appUser.getAuthorities());
+            } else {
+                System.err.println("Username Not Found");
+                throw new UsernameNotFoundException(UsernameOrEmail);
+            }
+        }
     }
 
     public AppUser save(AppUser appUser) {
@@ -58,11 +83,12 @@ public class JwtUserDetailsService implements UserDetailsService {
         return appUserRepository.save(newAppUser);
     }
 
-    public List<AppUser> getAllUsers() {
-        List<AppUser> carList = (List<AppUser>) appUserRepository.findAll();
 
-        if (carList.size() > 0) {
-            return carList;
+    public List<AppUser> getAllUsers() {
+        List<AppUser> usersList = (List<AppUser>) appUserRepository.findAll();
+
+        if (usersList.size() > 0) {
+            return usersList;
         } else {
             return new ArrayList<AppUser>();
         }
@@ -80,6 +106,80 @@ public class JwtUserDetailsService implements UserDetailsService {
             log.severe("Somebody has already updated the amount for item:{} in concurrent transaction.");
             throw e;
         }
+    }
+
+    public AppUser getUser(final String verificationToken) {
+        final VerificationToken token = tokenRepository.findByToken(verificationToken);
+        if (token != null) {
+            return token.getUser();
+        }
+        return null;
+    }
+
+    public VerificationToken getVerificationToken(final String VerificationToken) {
+        return tokenRepository.findByToken(VerificationToken);
+    }
+
+    public void saveRegisteredUser(final AppUser user) {
+        appUserRepository.save(user);
+    }
+
+    public void deleteUser(final AppUser user) {
+        final VerificationToken verificationToken = tokenRepository.findByUser(user);
+
+        if (verificationToken != null) {
+            tokenRepository.delete(verificationToken);
+        }
+
+        appUserRepository.delete(user);
+    }
+
+    public void createVerificationTokenForUser(final AppUser user, final String token) {
+        final VerificationToken myToken = new VerificationToken(token, user);
+        tokenRepository.save(myToken);
+    }
+
+    public VerificationToken generateNewVerificationToken(final String existingVerificationToken) {
+        VerificationToken vToken = tokenRepository.findByToken(existingVerificationToken);
+        vToken.updateToken(UUID.randomUUID()
+                .toString());
+        vToken = tokenRepository.save(vToken);
+        return vToken;
+    }
+
+
+    public Optional<AppUser> getUserByID(final long id) {
+        return appUserRepository.findById(id);
+    }
+
+    public void changeUserPassword(final AppUser user, final String password) {
+        user.setPassword(bCryptPasswordEncoder.encode(password));
+        appUserRepository.save(user);
+    }
+
+    public boolean checkIfValidOldPassword(final AppUser user, final String oldPassword) {
+        return bCryptPasswordEncoder.matches(oldPassword, user.getPassword());
+    }
+
+    public String validateVerificationToken(String token) {
+        final VerificationToken verificationToken = tokenRepository.findByToken(token);
+        if (verificationToken == null) {
+            return TOKEN_INVALID;
+        }
+
+        final AppUser user = verificationToken.getUser();
+        final Calendar cal = Calendar.getInstance();
+        if ((verificationToken.getExpiryDate()
+                .getTime() - cal.getTime()
+                .getTime()) <= 0) {
+            tokenRepository.delete(verificationToken);
+            return TOKEN_EXPIRED;
+        }
+
+        user.setEnabled(true);
+        // tokenRepository.delete(verificationToken);
+        appUserRepository.save(user);
+        return TOKEN_VALID;
     }
 
 

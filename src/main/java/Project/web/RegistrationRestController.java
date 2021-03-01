@@ -45,7 +45,7 @@ public class RegistrationRestController {
 
     // Registration
     @PostMapping("/registration")
-    public ResponseEntity<String> registerUserAccount(@Valid final AppUser accountDto, final HttpServletRequest request) {
+    public ResponseEntity<String> registerUserAccount(@RequestBody AppUser accountDto, final HttpServletRequest request) {
         LOGGER.debug("Registering user account with information: {}", accountDto);
 
         final AppUser registered = userService.save(accountDto);

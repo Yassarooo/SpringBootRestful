@@ -44,7 +44,7 @@ public class RegistrationRestController {
     }
 
     // Registration
-    @PostMapping("/user/registration")
+    @PostMapping("/registration")
     public ResponseEntity<String> registerUserAccount(@Valid final AppUser accountDto, final HttpServletRequest request) {
         LOGGER.debug("Registering user account with information: {}", accountDto);
 
@@ -54,7 +54,7 @@ public class RegistrationRestController {
     }
 
     // User activation - verification
-    @GetMapping("/user/resendRegistrationToken")
+    @GetMapping("/resendRegistrationToken")
     public ResponseEntity<String> resendRegistrationToken(final HttpServletRequest request, @RequestParam("token") final String existingToken) {
         final VerificationToken newToken = userService.generateNewVerificationToken(existingToken);
         final AppUser user = userService.getUser(newToken.getToken());

@@ -42,7 +42,7 @@ public class AppUser implements UserDetails {
             inverseJoinColumns = {
                     @JoinColumn(name = "ROLE_ID")})
     private List<Role> roles;
-
+    @Column
     private boolean enabled;
 
     public AppUser() {

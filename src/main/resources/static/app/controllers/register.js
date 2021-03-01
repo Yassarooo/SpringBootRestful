@@ -1,4 +1,4 @@
-angular.module('NAProject')
+angular.module('NAProject')z
 // Creating the Angular Controller
     .controller('RegisterController', function ($http, $scope, $rootScope) {
         $rootScope.$broadcast('hideload');

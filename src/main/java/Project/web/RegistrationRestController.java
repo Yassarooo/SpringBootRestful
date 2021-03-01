@@ -62,7 +62,7 @@ public class RegistrationRestController {
     }
 
     // confirm activation
-    @RequestMapping(value = "/#/registrationConfirm", method = RequestMethod.GET)
+    @RequestMapping(value = "/registrationConfirm", method = RequestMethod.GET)
     public ResponseEntity<AppUser> registrationConfirm(@RequestParam("token") String token) {
         return new ResponseEntity<AppUser>(userService.ActivateUser(token), HttpStatus.OK);
     }

@@ -34,7 +34,7 @@ angular.module('NAProject', ['ui.router'])
                 }
                 // To avoiding the infinite looping of state change we have to add a
                 // if condition.
-                else if (toState.name != 'login' && toState.name != 'register') {
+                else if (toState.name != 'login' && toState.name != 'register' && toState.name != 'registrationConfirm') {
                     event.preventDefault();
                     $state.go('login');
                 }

@@ -1,5 +1,5 @@
 angular.module('NAProject')
-    .controller('registrationConfirmController', ['$scope', '$routeParams', function ($http, $scope, $routeParams, $rootScope) {
+    .controller('registrationConfirmController', function ($http, $scope, $rootScope) {
 
         $scope.message = "Please Wait ... ";
 
@@ -32,4 +32,4 @@ angular.module('NAProject')
         }).error(function (error) {
             $scope.message = error.message;
         });
-    }]);
+    });

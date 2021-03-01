@@ -116,6 +116,18 @@ public class JwtUserDetailsService implements UserDetailsService {
         return null;
     }
 
+    public AppUser ActivateUser(final String verificationToken) {
+        final AppUser user = getUser(verificationToken);
+        if (user != null) {
+            user.setEnabled(true);
+            appUserRepository.save(user);
+            return user;
+        } else {
+            System.err.println("Username Not Found");
+            throw new UsernameNotFoundException(verificationToken);
+        }
+    }
+
     public VerificationToken getVerificationToken(final String VerificationToken) {
         return tokenRepository.findByToken(VerificationToken);
     }

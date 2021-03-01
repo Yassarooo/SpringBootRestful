@@ -50,7 +50,7 @@ public class RegistrationRestController {
 
         final AppUser registered = userService.save(accountDto);
         eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, request.getLocale(), getAppUrl(request)));
-        return new ResponseEntity<String>("success",HttpStatus.OK);
+        return new ResponseEntity<String>("success", HttpStatus.OK);
     }
 
     // User activation - verification
@@ -59,7 +59,13 @@ public class RegistrationRestController {
         final VerificationToken newToken = userService.generateNewVerificationToken(existingToken);
         final AppUser user = userService.getUser(newToken.getToken());
         mailSender.send(constructResendVerificationTokenEmail(getAppUrl(request), request.getLocale(), newToken, user));
-        return new ResponseEntity<String>("Email sent successfully",HttpStatus.OK);
+        return new ResponseEntity<String>("Email sent successfully", HttpStatus.OK);
+    }
+
+    // confirm activation
+    @RequestMapping(value = "/registrationConfirm", method = RequestMethod.GET)
+    public ResponseEntity<AppUser> registrationConfirm(@RequestParam("token") String token) {
+        return new ResponseEntity<AppUser>(userService.ActivateUser(token), HttpStatus.OK);
     }
 
     // ============== NON-API ============

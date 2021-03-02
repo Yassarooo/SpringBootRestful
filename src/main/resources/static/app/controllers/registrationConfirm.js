@@ -1,5 +1,4 @@
 angular.module('NAProject')
 // Creating the Angular Controller
-    .controller('registrationConfirmController', function ($http, $scope) {
-
+    .controller('registrationConfirmController', function ($http, $scope, AuthService) {
     });

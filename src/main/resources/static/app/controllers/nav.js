@@ -16,7 +16,6 @@ angular.module('NAProject')
             }, 7000);
 
         });
-
         $scope.$on('hideload', function () {
             $scope.mainload = false;
         });

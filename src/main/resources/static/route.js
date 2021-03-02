@@ -3,6 +3,11 @@ angular.module('NAProject').config(function ($stateProvider, $urlRouterProvider)
     // the ui router will redirect if a invalid state has come.
     $urlRouterProvider.otherwise('/');
 
+    $urlRouterProvider.when('/registrationConfirm/:token', {
+        templateUrl: 'app/views/registrationConfirm.html',
+        controller: 'registrationConfirmController'
+    });
+
     // parent view - navigation state
     $stateProvider.state('nav', {
         abstract: true,

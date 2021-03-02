@@ -1,12 +1,6 @@
 angular.module('NAProject')
 // Creating the Angular Controller
-    .controller('registrationConfirmController', function ($http, $scope) {
-        $scope.message = "Registration Confirmed successfully ! ";
-
-        var queryString = window.location.search;
-        var urlParams = new URLSearchParams(queryString);
-        var token = urlParams.get('token')
-
+    .controller('registrationConfirmController', ['$scope', '$routeParams', function ($scope, $routeParams) {
+        var token = $routeParams.token;
         alert(token);
-
-    });
+    }]);

@@ -18,11 +18,11 @@ public class AppUser implements UserDetails {
     private Long id;
     @Column
     private String name;
-    @Column
+    @Column(unique=true)
     private String username;
     @NotNull
     @Email
-    @Column
+    @Column(unique=true)
     private String email;
     @Column
     private String gender;

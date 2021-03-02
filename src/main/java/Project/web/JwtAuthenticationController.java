@@ -56,7 +56,10 @@ public class JwtAuthenticationController {
         authenticate(username, password);
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        final AppUser appUser = appUserRepository.findByUsername(username);
+        AppUser appUser = appUserRepository.findByUsername(username);
+        if(appUser==null){
+            appUser = appUserRepository.findByEmail(username);
+        }
         final String token = jwtTokenUtil.generateToken(userDetails);
 
         Map<String, Object> tokenMap = new HashMap<String, Object>();

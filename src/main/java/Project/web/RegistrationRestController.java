@@ -48,6 +48,9 @@ public class RegistrationRestController {
         LOGGER.debug("Registering user account with information: {}", accountDto);
 
         final AppUser registered = userService.save(accountDto);
+        if (registered == null) {
+            return new ResponseEntity<String>("failed", HttpStatus.CONFLICT);
+        }
         eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, request.getLocale(), getAppUrl(request)));
         return new ResponseEntity<String>("success", HttpStatus.OK);
     }
@@ -66,6 +69,16 @@ public class RegistrationRestController {
     public ResponseEntity<AppUser> registrationConfirm(@RequestParam("token") String token) {
         return new ResponseEntity<AppUser>(userService.ActivateUser(token), HttpStatus.OK);
     }
+
+    //check if username or email is used or no
+    @PostMapping("/checkusername")
+    public ResponseEntity<String> checkUsernameOrEmail(@RequestParam String username) {
+        if (userService.loadUserByUsername(username) == null)
+            return new ResponseEntity<String>("success", HttpStatus.OK);
+        else if (userService.loadUserByUsername(username) != null) ;
+        return new ResponseEntity<String>("failed", HttpStatus.CONFLICT);
+    }
+
 
     // ============== NON-API ============
 

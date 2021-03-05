@@ -44,7 +44,6 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String UsernameOrEmail) throws UsernameNotFoundException {
-        boolean enabled = true;
         boolean accountNonExpired = true;
         boolean credentialsNonExpired = true;
         boolean accountNonLocked = true;
@@ -65,22 +64,26 @@ public class JwtUserDetailsService implements UserDetailsService {
                 return new org.springframework.security.core.userdetails.User(appUser.getUsername(), appUser.getPassword(), appUser.getAuthorities());
             } else {
                 System.err.println("Username Not Found");
-                throw new UsernameNotFoundException(UsernameOrEmail);
+                return null;
             }
         }
     }
 
     public AppUser save(AppUser appUser) {
-        AppUser newAppUser = new AppUser();
-        newAppUser.setUsername(appUser.getUsername().toLowerCase().trim());
-        newAppUser.setName(appUser.getName().trim());
-        newAppUser.setRoles(appUser.getRoles());
-        newAppUser.setGender(appUser.getGender().toLowerCase().trim());
-        newAppUser.setEmail(appUser.getEmail().toLowerCase().trim());
-        newAppUser.setPhonenumber(appUser.getPhonenumber());
-        newAppUser.setDob(appUser.getDob());
-        newAppUser.setPassword(bCryptPasswordEncoder.encode(appUser.getPassword()));
-        return appUserRepository.save(newAppUser);
+        if (this.loadUserByUsername(appUser.getEmail()) != null || this.loadUserByUsername(appUser.getUsername()) != null)
+            return null;
+        else {
+            AppUser newAppUser = new AppUser();
+            newAppUser.setUsername(appUser.getUsername().toLowerCase().trim());
+            newAppUser.setName(appUser.getName().trim());
+            newAppUser.setRoles(appUser.getRoles());
+            newAppUser.setGender(appUser.getGender().toLowerCase().trim());
+            newAppUser.setEmail(appUser.getEmail().toLowerCase().trim());
+            newAppUser.setPhonenumber(appUser.getPhonenumber());
+            newAppUser.setDob(appUser.getDob());
+            newAppUser.setPassword(bCryptPasswordEncoder.encode(appUser.getPassword()));
+            return appUserRepository.save(newAppUser);
+        }
     }
 
 

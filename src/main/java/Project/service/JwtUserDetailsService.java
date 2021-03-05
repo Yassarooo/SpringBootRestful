@@ -112,9 +112,14 @@ public class JwtUserDetailsService implements UserDetailsService {
     }
 
     public AppUser getUser(final String verificationToken) {
-        final VerificationToken token = tokenRepository.findByToken(verificationToken);
+        VerificationToken token = tokenRepository.findByToken(verificationToken);
         if (token != null) {
             return token.getUser();
+        } else {
+            token = tokenRepository.findByCode(verificationToken);
+            if (token != null) {
+                return token.getUser();
+            }
         }
         return null;
     }
@@ -135,9 +140,6 @@ public class JwtUserDetailsService implements UserDetailsService {
         return tokenRepository.findByToken(VerificationToken);
     }
 
-    public void saveRegisteredUser(final AppUser user) {
-        appUserRepository.save(user);
-    }
 
     public void deleteUser(final AppUser user) {
         final VerificationToken verificationToken = tokenRepository.findByUser(user);
@@ -149,15 +151,17 @@ public class JwtUserDetailsService implements UserDetailsService {
         appUserRepository.delete(user);
     }
 
-    public void createVerificationTokenForUser(final AppUser user, final String token) {
-        final VerificationToken myToken = new VerificationToken(token, user);
+    public void createVerificationTokenForUser(final AppUser user, final String token, final String code) {
+        final VerificationToken myToken = new VerificationToken(token, code, user);
         tokenRepository.save(myToken);
     }
 
     public VerificationToken generateNewVerificationToken(final String existingVerificationToken) {
+        Random rnd = new Random();
+        int code = rnd.nextInt(999999);
         VerificationToken vToken = tokenRepository.findByToken(existingVerificationToken);
         vToken.updateToken(UUID.randomUUID()
-                .toString());
+                .toString(), String.format("%06d", code));
         vToken = tokenRepository.save(vToken);
         return vToken;
     }

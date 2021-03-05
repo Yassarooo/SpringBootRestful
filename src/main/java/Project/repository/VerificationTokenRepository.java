@@ -13,6 +13,8 @@ public interface VerificationTokenRepository extends CrudRepository<Verification
 
     VerificationToken findByToken(String token);
 
+    VerificationToken findByCode(String code);
+
     VerificationToken findByUser(AppUser user);
 
     Stream<VerificationToken> findAllByExpiryDateLessThan(Date now);

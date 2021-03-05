@@ -16,6 +16,8 @@ public class VerificationToken {
 
     private String token;
 
+    private String code;
+
     @OneToOne(targetEntity = AppUser.class, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, name = "user_id", foreignKey = @ForeignKey(name = "FK_VERIFY_USER"))
     private AppUser user;
@@ -26,17 +28,19 @@ public class VerificationToken {
         super();
     }
 
-    public VerificationToken(final String token) {
+    public VerificationToken(final String token, final String code) {
         super();
 
         this.token = token;
+        this.code = code;
         this.expiryDate = calculateExpiryDate(EXPIRATION);
     }
 
-    public VerificationToken(final String token, final AppUser user) {
+    public VerificationToken(final String token, final String code, final AppUser user) {
         super();
 
         this.token = token;
+        this.code = code;
         this.user = user;
         this.expiryDate = calculateExpiryDate(EXPIRATION);
     }
@@ -51,6 +55,14 @@ public class VerificationToken {
 
     public void setToken(final String token) {
         this.token = token;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(final String code) {
+        this.code = code;
     }
 
     public AppUser getUser() {
@@ -76,11 +88,11 @@ public class VerificationToken {
         return new Date(cal.getTime().getTime());
     }
 
-    public void updateToken(final String token) {
+    public void updateToken(final String token,final String code) {
         this.token = token;
+        this.code = code;
         this.expiryDate = calculateExpiryDate(EXPIRATION);
     }
-
     //
 
     @Override

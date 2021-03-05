@@ -1,6 +1,7 @@
 package Project.registration.listener;
 
 
+import java.util.Random;
 import java.util.UUID;
 
 import Project.domain.AppUser;
@@ -37,21 +38,24 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
     }
 
     private void confirmRegistration(final OnRegistrationCompleteEvent event) {
+        Random rnd = new Random();
+        String code = String.format("%06d", rnd.nextInt(999999));
+
         final AppUser user = event.getUser();
         final String token = UUID.randomUUID().toString();
-        service.createVerificationTokenForUser(user, token);
+        service.createVerificationTokenForUser(user, token, code);
 
-        final SimpleMailMessage email = constructEmailMessage(event, user, token);
+        final SimpleMailMessage email = constructEmailMessage(event, user, token,code);
         mailSender.send(email);
     }
 
     //
 
-    private SimpleMailMessage constructEmailMessage(final OnRegistrationCompleteEvent event, final AppUser user, final String token) {
+    private SimpleMailMessage constructEmailMessage(final OnRegistrationCompleteEvent event, final AppUser user, final String token, final String code) {
         final String recipientAddress = user.getEmail();
         final String subject = "Registration Confirmation";
         final String confirmationUrl = event.getAppUrl() + "/#/registrationConfirm/" + token;
-        final String message = messages.getMessage("message.regSuccLink", null, "You have registered successfully. To confirm your registration, please click on the below link.", event.getLocale());
+        final String message = messages.getMessage("message.regSuccLink", null, "You have registered successfully. To confirm your registration, please enter this code:\n "+code+"\n or click on the below link.", event.getLocale());
         final SimpleMailMessage email = new SimpleMailMessage();
         email.setTo(recipientAddress);
         email.setSubject(subject);

@@ -56,8 +56,8 @@ public class RegistrationRestController {
     }
 
     // User activation - verification
-    @GetMapping("/resendRegistrationToken")
-    public ResponseEntity<String> resendRegistrationToken(final HttpServletRequest request, @RequestParam("token") final String email) {
+    @GetMapping("/resendEmail")
+    public ResponseEntity<String> resendRegistrationToken(final HttpServletRequest request, @RequestParam("email") final String email) {
 
         final VerificationToken newToken = userService.generateNewVerificationToken(email);
         mailSender.send(constructResendVerificationTokenEmail(getAppUrl(request), request.getLocale(), newToken, email));

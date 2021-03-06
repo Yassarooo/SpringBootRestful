@@ -132,8 +132,10 @@ public class JwtUserDetailsService implements UserDetailsService {
                 appUserRepository.save(user);
                 return user;
             }
-            else
+            else {
+                System.err.println("Also Username Not Found");
                 throw new UsernameNotFoundException(verificationToken);
+            }
 
         } else {
             System.err.println("Username Not Found");

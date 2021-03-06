@@ -85,7 +85,7 @@ public class RegistrationRestController {
 
     private SimpleMailMessage constructResendVerificationTokenEmail(final String contextPath, final Locale locale, final VerificationToken newToken, final String emailaddress) {
         final String confirmationUrl = contextPath + "/registrationConfirm.html?token=" + newToken.getToken();
-        final String message = messages.getMessage("message.resendToken", null, locale);
+        final String message = messages.getMessage("message.regSuccLink", null, locale);
         return constructEmail("Resend Registration Token", message + " \r\n" + confirmationUrl, emailaddress);
     }
 

@@ -124,12 +124,17 @@ public class JwtUserDetailsService implements UserDetailsService {
         return null;
     }
 
-    public AppUser ActivateUser(final String verificationToken) {
+    public AppUser ActivateUser(final String verificationToken,final String email) {
         final AppUser user = getUser(verificationToken);
         if (user != null) {
-            user.setEnabled(true);
-            appUserRepository.save(user);
-            return user;
+            if(user.getEmail() == email){
+                user.setEnabled(true);
+                appUserRepository.save(user);
+                return user;
+            }
+            else
+                throw new UsernameNotFoundException(verificationToken);
+
         } else {
             System.err.println("Username Not Found");
             throw new UsernameNotFoundException(verificationToken);

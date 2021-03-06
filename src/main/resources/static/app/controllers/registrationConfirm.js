@@ -2,13 +2,15 @@ angular.module('NAProject')
 // Creating the Angular Controller
     .controller('registrationConfirmController', ['$http', '$scope', '$state', function ($http, $scope, $state) {
         var token = $state.params.token;
+        var email = $state.params.email;
         $scope.confirmload = true;
         //alert($state.params.token);
         $http({
             url: 'registrationConfirm',
             method: "POST",
             params: {
-                token: token
+                token: token,
+                email: email
             }
         }).success(function () {
             $scope.message = "Registration successful ! ";

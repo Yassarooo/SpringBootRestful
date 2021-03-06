@@ -120,7 +120,7 @@ angular.module('NAProject').config(function ($stateProvider, $urlRouterProvider)
         }
     }).state('registrationConfirm', {
         parent: 'nav',
-        url: '/registrationConfirm/{token}',
+        url: '/registrationConfirm/{email}/{token}',
         views: {
             'content@': {
                 templateUrl: 'app/views/registrationConfirm.html',

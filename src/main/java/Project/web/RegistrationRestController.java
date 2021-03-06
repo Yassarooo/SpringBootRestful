@@ -66,8 +66,8 @@ public class RegistrationRestController {
 
     // confirm activation
     @RequestMapping(value = "/registrationConfirm", method = RequestMethod.POST)
-    public ResponseEntity<AppUser> registrationConfirm(@RequestParam("token") String token) {
-        return new ResponseEntity<AppUser>(userService.ActivateUser(token), HttpStatus.OK);
+    public ResponseEntity<AppUser> registrationConfirm(@RequestParam("token") String token,@RequestParam("email") String email) {
+        return new ResponseEntity<AppUser>(userService.ActivateUser(token,email), HttpStatus.OK);
     }
 
     //check if username or email is used or no

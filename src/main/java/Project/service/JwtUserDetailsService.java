@@ -127,7 +127,8 @@ public class JwtUserDetailsService implements UserDetailsService {
     public AppUser ActivateUser(final String verificationToken,final String email) {
         final AppUser user = getUser(verificationToken);
         if (user != null) {
-            if(user.getEmail() == email){
+            System.err.println("user != null");
+            if(user.getEmail().equals(email)){
                 user.setEnabled(true);
                 appUserRepository.save(user);
                 return user;

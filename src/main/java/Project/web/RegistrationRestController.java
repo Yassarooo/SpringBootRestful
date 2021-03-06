@@ -57,17 +57,18 @@ public class RegistrationRestController {
 
     // User activation - verification
     @GetMapping("/resendRegistrationToken")
-    public ResponseEntity<String> resendRegistrationToken(final HttpServletRequest request, @RequestParam("token") final String existingToken) {
-        final VerificationToken newToken = userService.generateNewVerificationToken(existingToken);
-        final AppUser user = userService.getUser(newToken.getToken());
-        mailSender.send(constructResendVerificationTokenEmail(getAppUrl(request), request.getLocale(), newToken, user));
+    public ResponseEntity<String> resendRegistrationToken(final HttpServletRequest request, @RequestParam("token") final String email) {
+
+        final VerificationToken newToken = userService.generateNewVerificationToken(email);
+        mailSender.send(constructResendVerificationTokenEmail(getAppUrl(request), request.getLocale(), newToken, email));
         return new ResponseEntity<String>("Email sent successfully", HttpStatus.OK);
+
     }
 
     // confirm activation
     @RequestMapping(value = "/registrationConfirm", method = RequestMethod.POST)
-    public ResponseEntity<AppUser> registrationConfirm(@RequestParam("token") String token,@RequestParam("email") String email) {
-        return new ResponseEntity<AppUser>(userService.ActivateUser(token,email), HttpStatus.OK);
+    public ResponseEntity<AppUser> registrationConfirm(@RequestParam("token") String token, @RequestParam("email") String email) {
+        return new ResponseEntity<AppUser>(userService.ActivateUser(token, email), HttpStatus.OK);
     }
 
     //check if username or email is used or no
@@ -82,17 +83,17 @@ public class RegistrationRestController {
 
     // ============== NON-API ============
 
-    private SimpleMailMessage constructResendVerificationTokenEmail(final String contextPath, final Locale locale, final VerificationToken newToken, final AppUser user) {
+    private SimpleMailMessage constructResendVerificationTokenEmail(final String contextPath, final Locale locale, final VerificationToken newToken, final String emailaddress) {
         final String confirmationUrl = contextPath + "/registrationConfirm.html?token=" + newToken.getToken();
         final String message = messages.getMessage("message.resendToken", null, locale);
-        return constructEmail("Resend Registration Token", message + " \r\n" + confirmationUrl, user);
+        return constructEmail("Resend Registration Token", message + " \r\n" + confirmationUrl, emailaddress);
     }
 
-    private SimpleMailMessage constructEmail(String subject, String body, AppUser user) {
+    private SimpleMailMessage constructEmail(String subject, String body, String emailaddress) {
         final SimpleMailMessage email = new SimpleMailMessage();
         email.setSubject(subject);
         email.setText(body);
-        email.setTo(user.getEmail());
+        email.setTo(emailaddress);
         email.setFrom(env.getProperty("support.email"));
         return email;
     }

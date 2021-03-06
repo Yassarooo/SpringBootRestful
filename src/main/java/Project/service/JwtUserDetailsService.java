@@ -69,6 +69,21 @@ public class JwtUserDetailsService implements UserDetailsService {
         }
     }
 
+    public AppUser findUserByUsername(String UsernameOrEmail) throws UsernameNotFoundException {
+        AppUser appUser = appUserRepository.findByUsername(UsernameOrEmail);
+        if (appUser != null) {
+            return appUser;
+        } else {
+            appUser = appUserRepository.findByEmail(UsernameOrEmail);
+            if (appUser != null) {
+                return appUser;
+            } else {
+                System.err.println("Username Not Found");
+                return null;
+            }
+        }
+    }
+
     public AppUser save(AppUser appUser) {
         if (this.loadUserByUsername(appUser.getEmail()) != null || this.loadUserByUsername(appUser.getUsername()) != null)
             return null;
@@ -111,7 +126,7 @@ public class JwtUserDetailsService implements UserDetailsService {
         }
     }
 
-    public AppUser getUser(final String verificationToken) {
+    public AppUser getUserByToken(final String verificationToken) {
         VerificationToken token = tokenRepository.findByToken(verificationToken);
         if (token != null) {
             return token.getUser();
@@ -124,16 +139,15 @@ public class JwtUserDetailsService implements UserDetailsService {
         return null;
     }
 
-    public AppUser ActivateUser(final String verificationToken,final String email) {
-        final AppUser user = getUser(verificationToken);
+    public AppUser ActivateUser(final String verificationToken, final String email) {
+        final AppUser user = getUserByToken(verificationToken);
         if (user != null) {
             System.err.println("user != null");
-            if(user.getEmail().equals(email)){
+            if (user.getEmail().equals(email)) {
                 user.setEnabled(true);
                 appUserRepository.save(user);
                 return user;
-            }
-            else {
+            } else {
                 System.err.println("Also Username Not Found");
                 throw new UsernameNotFoundException(verificationToken);
             }
@@ -148,6 +162,9 @@ public class JwtUserDetailsService implements UserDetailsService {
         return tokenRepository.findByToken(VerificationToken);
     }
 
+    public VerificationToken getTokenByUser(final AppUser user) {
+        return tokenRepository.findByUser(user);
+    }
 
     public void deleteUser(final AppUser user) {
         final VerificationToken verificationToken = tokenRepository.findByUser(user);
@@ -164,14 +181,25 @@ public class JwtUserDetailsService implements UserDetailsService {
         tokenRepository.save(myToken);
     }
 
-    public VerificationToken generateNewVerificationToken(final String existingVerificationToken) {
-        Random rnd = new Random();
-        int code = rnd.nextInt(999999);
-        VerificationToken vToken = tokenRepository.findByToken(existingVerificationToken);
-        vToken.updateToken(UUID.randomUUID()
-                .toString(), String.format("%06d", code));
-        vToken = tokenRepository.save(vToken);
-        return vToken;
+    public VerificationToken generateNewVerificationToken(final String email) {
+        AppUser existinguser = findUserByUsername(email);
+        if (existinguser != null) {
+            VerificationToken vToken = tokenRepository.findByUser(existinguser);
+            if (vToken != null) {
+                Random rnd = new Random();
+                int code = rnd.nextInt(999999);
+                vToken.updateToken(UUID.randomUUID()
+                        .toString(), String.format("%06d", code));
+                return tokenRepository.save(vToken);
+            } else {
+                System.err.println("token Not Found");
+                return null;
+            }
+        } else {
+            System.err.println("User Not Found");
+            return null;
+        }
+
     }
 
 

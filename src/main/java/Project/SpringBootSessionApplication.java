@@ -50,7 +50,6 @@ public class SpringBootSessionApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        /*
         Role uRole = new Role();
         uRole.setName("USER");
         uRole.setDescription("USER Role (Only Manage cars without managing users)");
@@ -59,24 +58,23 @@ public class SpringBootSessionApplication implements CommandLineRunner {
         aRole.setName("ADMIN");
         aRole.setDescription("ADMIN Role (Manage cars and users)");
         roleService.CreateRole(aRole);
-        */
 
-        /*
-        Parameters suv = new Parameters("SUV", 6, 9f);
-        paramsService.createOrUpdateParam(suv, false);
         Parameters sedan = new Parameters("Sedan", 4, 6f);
         paramsService.createOrUpdateParam(sedan, false);
-        Parameters compact = new Parameters("Compact", 4, 4f);
-        paramsService.createOrUpdateParam(compact, false);
         Parameters sport = new Parameters("Sport", 4, 10f);
         paramsService.createOrUpdateParam(sport, false);
-        Parameters supercar = new Parameters("SuperCar", 4, 13f);
-        paramsService.createOrUpdateParam(supercar, false);
+        Parameters compact = new Parameters("Compact", 4, 4f);
+        paramsService.createOrUpdateParam(compact, false);
+        Parameters convertible = new Parameters("Convertible", 2, 6f);
+        paramsService.createOrUpdateParam(convertible, false);
+        Parameters Pickup = new Parameters("Pickup", 4, 6f);
+        paramsService.createOrUpdateParam(Pickup, false);
+        Parameters suv = new Parameters("SUV", 6, 9f);
+        paramsService.createOrUpdateParam(suv, false);
         Parameters coupe = new Parameters("Coupe", 4, 9f);
         paramsService.createOrUpdateParam(coupe, false);
         Parameters limousine = new Parameters("Limousine", 8, 10f);
         paramsService.createOrUpdateParam(limousine, false);
-        */
 
     }
 

@@ -145,7 +145,7 @@ public class CarService {
         else if (brand.contains("kia"))
             return "https://cdn.freebiesupply.com/logos/large/2x/kia-logo-png-transparent.png";
         else if (brand.contains("toyota"))
-            return "https://png2.cleanpng.com/sh/27c9cb54c28631de05db65752a34b6a3/L0KzQYm3WMEyN6dwj5H0aYP2gLBuTgRwgZD5eZ8DNj3mccPrif5idJZ8ees2bHBqf368gsZnQZZme6RtMHW6RXA4WMQ2O2c9UaMAM0SzRIKAV8IyQGU7RuJ3Zx==/kisspng-toyota-86-cardinaleway-logo-5b6f9eac2d0e75.1845368915340417721846.png";
+            return "https://www.vhv.rs/dpng/f/57-576848_whatsapp-logo-png-transparent-background.png";
         else if (brand.contains("mercedes"))
             return "https://cdn.freebiesupply.com/logos/large/2x/mercedes-benz-9-logo-png-transparent.png";
         else if (brand.contains("tesla"))
@@ -159,13 +159,13 @@ public class CarService {
         else if (brand.contains("volkswagen"))
             return "https://assets.stickpng.com/images/580b585b2edbce24c47b2cf2.png";
         else if (brand.contains("peageot"))
-            return "https://pngimg.com/uploads/peugeot/peugeot_PNG36.png";
+            return "https://www.stickpng.com/img/download/584831f6cef1014c0b5e4aa6/image";
         else if (brand.contains("ferrari"))
             return "https://assets.stickpng.com/images/580b585b2edbce24c47b2c52.png";
         else if (brand.contains("lamborghini"))
             return "https://assets.stickpng.com/images/580b585b2edbce24c47b2c8c.png";
         else if (brand.contains("maserati"))
-            return "https://banner2.cleanpng.com/20180603/ili/kisspng-maserati-granturismo-car-luxury-vehicle-maserati-q-5b13b75a7c2586.7844536415280187785085.jpg";
+            return "https://pngimg.com/uploads/maserati/maserati_PNG73.png";
         else if (brand.contains("lada"))
             return "https://pngimg.com/uploads/lada/lada_PNG111.png";
         else if (brand.contains("mitsubishi"))
@@ -173,15 +173,17 @@ public class CarService {
         else if (brand.contains("volvo"))
             return "https://pngimg.com/uploads/volvo/volvo_PNG64.png";
         else if (brand.contains("nissan"))
-            return "https://logos-download.com/wp-content/uploads/2016/02/Nissan_logo_2.jpg";
+            return "https://purepng.com/public/uploads/large/purepng.com-nissan-logonissannissan-motorautomobile-manufactureryokohamanissan-logo-1701527528584gkr0t.png";
         else if (brand.contains("ford"))
             return "https://logos-download.com/wp-content/uploads/2016/02/Ford_logo_motor_company_transparent.png";
+        else if (brand.contains("genesis"))
+            return "https://toppng.com/download/TT5bPfBbviPB7Q9p5VeCWX1QgaHQhy3hCHGQUyAM5tBrfqdMlrE9wlwDv1ABrzSdHNMTFGvOFTD2P5rVtv1UU6auXD4crYanrhRQrjvpWuu915YEQc8GuW5004tiXwkIoZYCv2GAbn51St7gU2EiBFL9gcPpJO4x5RLJ6Lfk7DJE94iA8OIy1qQuJ2sv0x6NjdLm0WMu/large";
         else if (brand.contains("mazda"))
             return "https://pngimg.com/uploads/mazda/mazda_PNG86.png";
         else if (brand.contains("citroen"))
             return "https://upload.wikimedia.org/wikipedia/commons/0/0b/Citroen-logo-2009.png";
         else if (brand.contains("jeep"))
-            return "https://mpng.subpng.com/20181118/eqw/kisspng-jeep-car-logo-brand-portable-network-graphics-5bf0fe9dc315f0.1693876715425204777991.jpg";
+            return "https://r1.hiclipart.com/path/427/594/445/9adse6qvto3ge4jqsvjqs0nb7n.png";
         else if (brand.contains("chevrolet"))
             return "https://pngimg.com/uploads/chevrolet/%D1%81hevrolet_PNG109.png";
         else if (brand.contains("audi"))
@@ -189,25 +191,55 @@ public class CarService {
         else if (brand.contains("gmc"))
             return "https://logodownload.org/wp-content/uploads/2019/08/gmc-logo-0.png";
         else if (brand.contains("land rover"))
-            return "https://pngimg.com/uploads/land_rover/land_rover_PNG39.png";
+            return "https://toppng.com/download/EzQhs5hh8uPdDBA1nS7rXB1QbtzJPvajyvSTtAPpbL2QoQeyu8bOJc4xaRwaaqz7gTtz3Igkb0wQi1rr1OJnr1R9DZi8zUxmXXty55xV4WUuF5879hAfDONf14X9gDfHfGWNmiwK96t4dUh9sCkYF4T4aR2Vm6YyphWK5aApxxksLX9HjK2tg0Qg5YVCivIub5xR9ImC/large";
         else if (brand.contains("bentley"))
             return "https://assets.stickpng.com/images/580b585b2edbce24c47b2c2c.png";
         else if (brand.contains("fiat"))
             return "http://www.pngall.com/wp-content/uploads/5/Fiat-Logo-Transparent.png";
         else if (brand.contains("lexus"))
-            return "https://assets.stickpng.com/images/580b57fcd9996e24bc43c48b.png";
+            return "http://pngimg.com/uploads/lexus/lexus_PNG37.png";
         else if (brand.contains("subaru"))
             return "https://assets.stickpng.com/images/580b585b2edbce24c47b2cbf.png";
         else if (brand.contains("bugatti"))
             return "https://pngimg.com/uploads/bugatti_logo/bugatti_logo_PNG5.png";
-        else if (brand.contains("infinity"))
-            return "https://image.pngaaa.com/217/882217-middle.png";
+        else if (brand.contains("infiniti"))
+            return "https://www.stickpng.com/img/download/580b57fcd9996e24bc43c483/image";
         else if (brand.contains("suzuki"))
             return "https://assets.stickpng.com/images/580b57fcd9996e24bc43c4a4.png";
         else if (brand.contains("opel"))
-            return "http://assets.stickpng.com/images/580b57fcd9996e24bc43c49c.png";
+            return "https://pngimg.com/uploads/opel/opel_PNG11.png";
         else if (brand.contains("hummer"))
             return "https://logodix.com/logo/91857.png";
+        else if (brand.contains("skoda"))
+            return "https://www.stickpng.com/img/download/580b585b2edbce24c47b2cb7/image";
+        else if (brand.contains("porsche"))
+            return "https://www.stickpng.com/img/download/580b585b2edbce24c47b2cac/image";
+        else if (brand.contains("renault"))
+            return "https://pngimg.com/uploads/renault/renault_PNG39.png";
+        else if (brand.contains("rolls royce"))
+            return "https://pngimg.com/uploads/rolls_royce/rolls_royce_PNG34.png";
+        else if (brand.contains("mclaren"))
+            return "https://pngimg.com/uploads/Mclaren/Mclaren_PNG49.png";
+        else if (brand.contains("geely"))
+            return "https://www.carlogos.org/logo/Geely-logo-2014-2560x1440.png";
+        else if (brand.contains("acura"))
+            return "https://pngimg.com/uploads/acura/acura_PNG80.png";
+        else if (brand.contains("alfa romeo"))
+            return "https://pngimg.com/uploads/alfa_romeo/alfa_romeo_PNG71.png";
+        else if (brand.contains("aston martin"))
+            return "http://pngimg.com/uploads/aston_martin/aston_martin_PNG17.png";
+        else if (brand.contains("cadillac"))
+            return "https://pngimg.com/uploads/cadillac/cadillac_PNG34.png";
+        else if (brand.contains("chrysler"))
+            return "https://pngimg.com/uploads/chrysler/chrysler_PNG28.png";
+        else if (brand.contains("dodge"))
+            return "https://pngimg.com/uploads/dodge/dodge_PNG47.png";
+        else if (brand.contains("koenigsegg"))
+            return "https://www.stickpng.com/img/download/580b57fcd9996e24bc43c486/image";
+        else if (brand.contains("lancia"))
+            return "http://pngimg.com/uploads/car_logo/car_logo_PNG1650.png";
+        else if (brand.contains("maybach"))
+            return "https://1000logos.net/wp-content/uploads/2020/04/Maybach_logo_PNG2.png";
         else
             return "";
     }

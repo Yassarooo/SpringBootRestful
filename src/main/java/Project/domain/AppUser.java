@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.sun.istack.NotNull;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -50,6 +52,7 @@ public class AppUser implements UserDetails {
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
+    @NotFound(action = NotFoundAction.IGNORE)
     private List<Car> cars = new ArrayList<Car>();
 
     public AppUser() {

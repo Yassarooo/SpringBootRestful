@@ -1,5 +1,6 @@
 package Project.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.sun.istack.NotNull;
@@ -18,11 +19,11 @@ public class AppUser implements UserDetails {
     private Long id;
     @Column
     private String name;
-    @Column(unique=true)
+    @Column(unique = true)
     private String username;
     @NotNull
     @Email
-    @Column(unique=true)
+    @Column(unique = true)
     private String email;
     @Column
     private String gender;
@@ -44,6 +45,11 @@ public class AppUser implements UserDetails {
     private List<Role> roles;
     @Column
     private boolean enabled;
+
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "car_id", nullable = false)
+    @JsonIgnore
+    private Car car;
 
     public AppUser() {
         super();
@@ -162,5 +168,13 @@ public class AppUser implements UserDetails {
 
     public void setProfilepic(String profilepic) {
         this.profilepic = profilepic;
+    }
+
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
     }
 }

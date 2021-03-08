@@ -1,8 +1,5 @@
 package Project.domain;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -77,6 +74,11 @@ public class Car implements Serializable {
             mappedBy = "car")
     private Specs specs;
 
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "car")
+    private AppUser user;
+
     public Car() {
 
     }
@@ -147,6 +149,10 @@ public class Car implements Serializable {
 
     public void setYear(Integer year) {
         this.year = year;
+    }
+
+    public Integer getYear() {
+        return year;
     }
 
     public String getType() {
@@ -237,6 +243,14 @@ public class Car implements Serializable {
         this.specs = specs;
     }
 
+    public AppUser getUser() {
+        return user;
+    }
+
+    public void setUser(AppUser userr) {
+        this.user = user;
+    }
+
     public String getLevel() {
         return level;
     }
@@ -253,11 +267,4 @@ public class Car implements Serializable {
         this.rate = rate;
     }
 
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
 }

@@ -1,6 +1,5 @@
 package Project.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.sun.istack.NotNull;
@@ -46,10 +45,8 @@ public class AppUser implements UserDetails {
     @Column
     private boolean enabled;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "car_id", nullable = false)
-    @JsonIgnore
-    private Car car;
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<Car> cars = new ArrayList<>();
 
     public AppUser() {
         super();
@@ -170,11 +167,11 @@ public class AppUser implements UserDetails {
         this.profilepic = profilepic;
     }
 
-    public Car getCar() {
-        return car;
+    public List<Car> getCars() {
+        return cars;
     }
 
-    public void setCar(Car car) {
-        this.car = car;
+    public void setCars(List<Car> cars) {
+        this.cars = cars;
     }
 }

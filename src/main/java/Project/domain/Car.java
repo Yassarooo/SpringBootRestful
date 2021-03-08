@@ -74,9 +74,8 @@ public class Car implements Serializable {
             mappedBy = "car")
     private Specs specs;
 
-    @OneToOne(fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL,
-            mappedBy = "car")
+    @ManyToOne
+    @JoinColumn(name = "User_ID")
     private AppUser user;
 
     public Car() {

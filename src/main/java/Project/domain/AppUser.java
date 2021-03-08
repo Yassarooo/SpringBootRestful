@@ -3,6 +3,8 @@ package Project.domain;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.sun.istack.NotNull;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,7 +36,7 @@ public class AppUser implements UserDetails {
     private String password;
     @Column
     private Date dob;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "USER_ROLES",
             joinColumns = {
                     @JoinColumn(name = "USER_ID")
@@ -45,8 +47,8 @@ public class AppUser implements UserDetails {
     @Column
     private boolean enabled;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    private List<Car> cars = new ArrayList<>();
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private Set<Car> cars;
 
     public AppUser() {
         super();
@@ -167,11 +169,11 @@ public class AppUser implements UserDetails {
         this.profilepic = profilepic;
     }
 
-    public List<Car> getCars() {
+    public Set<Car> getCars() {
         return cars;
     }
 
-    public void setCars(List<Car> cars) {
+    public void setCars(Set<Car> cars) {
         this.cars = cars;
     }
 }

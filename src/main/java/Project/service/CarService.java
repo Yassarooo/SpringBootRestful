@@ -1,9 +1,6 @@
 package Project.service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.logging.Logger;
 
 import Project.aspect.UserAspect;
@@ -133,7 +130,7 @@ public class CarService {
                 AppUser user = userService.findUserByUsername(auth.getName());
                 if (user != null) {
                     c.setUser(user);
-                    List<Car> cars = user.getCars();
+                    Set<Car> cars = user.getCars();
                     cars.add(c);
                     user.setCars(cars);
                     userService.updateUser(user);

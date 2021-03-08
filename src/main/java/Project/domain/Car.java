@@ -1,10 +1,12 @@
 package Project.domain;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "cars")
@@ -61,8 +63,8 @@ public class Car implements Serializable {
     @Column(name = "specsid")
     private Integer specsid;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> images = new ArrayList<String>();
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private Set<String> images;
 
     @ManyToOne
     @JoinColumn(name = "Params_ID")
@@ -82,7 +84,7 @@ public class Car implements Serializable {
 
     }
 
-    public Car(String model, String brand, Float price, Integer seats, String buyername, Float sellprice, Date selldate, Boolean sold, Integer paramid, String level, double rate, List<String> images, int year) {
+    public Car(String model, String brand, Float price, Integer seats, String buyername, Float sellprice, Date selldate, Boolean sold, Integer paramid, String level, double rate, Set<String> images, int year) {
         this.price = price;
         this.model = model;
         this.brand = brand;
@@ -122,11 +124,11 @@ public class Car implements Serializable {
         this.brandlogo = brandlogo;
     }
 
-    public List<String> getImages() {
+    public Set<String> getImages() {
         return images;
     }
 
-    public void setImages(List<String> images) {
+    public void setImages(Set<String> images) {
         this.images = images;
     }
 

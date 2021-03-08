@@ -61,7 +61,7 @@ public class Car implements Serializable {
     @Column(name = "specsid")
     private Integer specsid;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> images = new ArrayList<String>();
 
     @ManyToOne

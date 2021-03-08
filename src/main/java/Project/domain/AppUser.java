@@ -45,7 +45,7 @@ public class AppUser implements UserDetails {
     @Column
     private boolean enabled;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<Car> cars = new ArrayList<Car>();
 
     public AppUser() {

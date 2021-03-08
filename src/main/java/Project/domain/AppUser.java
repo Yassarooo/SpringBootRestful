@@ -3,6 +3,8 @@ package Project.domain;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.sun.istack.NotNull;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,6 +37,7 @@ public class AppUser implements UserDetails {
     @Column
     private Date dob;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @Fetch(value = FetchMode.SUBSELECT)
     @JoinTable(name = "USER_ROLES",
             joinColumns = {
                     @JoinColumn(name = "USER_ID")
@@ -45,7 +48,7 @@ public class AppUser implements UserDetails {
     @Column
     private boolean enabled;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<Car> cars = new ArrayList<Car>();
 
     public AppUser() {

@@ -48,7 +48,7 @@ public class AppUser implements UserDetails {
     private boolean enabled;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    private Set<Car> cars;
+    private List<Car> cars = new ArrayList<Car>();
 
     public AppUser() {
         super();
@@ -169,11 +169,11 @@ public class AppUser implements UserDetails {
         this.profilepic = profilepic;
     }
 
-    public Set<Car> getCars() {
+    public List<Car> getCars() {
         return cars;
     }
 
-    public void setCars(Set<Car> cars) {
+    public void setCars(List<Car> cars) {
         this.cars = cars;
     }
 }

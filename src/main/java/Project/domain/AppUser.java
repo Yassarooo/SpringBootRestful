@@ -3,8 +3,6 @@ package Project.domain;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.sun.istack.NotNull;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -47,7 +45,7 @@ public class AppUser implements UserDetails {
     @Column
     private boolean enabled;
 
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @ElementCollection
     private List<Car> cars = new ArrayList<Car>();
 
     public AppUser() {

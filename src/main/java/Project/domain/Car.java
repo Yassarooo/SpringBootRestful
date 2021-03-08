@@ -1,5 +1,8 @@
 package Project.domain;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -62,6 +65,7 @@ public class Car implements Serializable {
     private Integer specsid;
 
     @ElementCollection(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<String> images = new ArrayList<String>();
 
     @ManyToOne

@@ -49,6 +49,7 @@ public class AppUser implements UserDetails {
     private boolean enabled;
 
     @ElementCollection(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Car> cars = new ArrayList<Car>();
 
     public AppUser() {

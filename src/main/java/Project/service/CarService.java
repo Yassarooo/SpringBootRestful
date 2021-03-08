@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import Project.aspect.UserAspect;
+import Project.domain.AppUser;
 import Project.domain.Car;
 import Project.domain.Parameters;
 import Project.repository.CarRepository;
@@ -15,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +31,11 @@ public class CarService {
 
     @Autowired
     ParamsService paramsService;
+
+    @Autowired
+    JwtUserDetailsService userService;
+
+    private Authentication auth;
 
     private final static Logger log = Logger.getLogger(UserAspect.class.getName());
 
@@ -79,8 +87,11 @@ public class CarService {
     @Transactional
     public Car createOrUpdateCar(Car c, Boolean update) throws RuntimeException {
         try {
+            auth = SecurityContextHolder.getContext().getAuthentication();
+
             c.setBrandlogo(this.setBrandLogo(c.getBrand().toLowerCase().trim()));
             Optional<Car> car;
+
             if (update) {
                 car = carRepository.findById(c.getId());
                 if (car.isPresent()) {
@@ -119,6 +130,10 @@ public class CarService {
                     throw new RuntimeException("No car record exist for given id " + c.getId());
                 }
             } else {
+                AppUser user = userService.findUserByUsername(auth.getName());
+                if (user != null) {
+                    c.setUser(user);
+                }
                 c = carRepository.save(c);
 
                 return c;

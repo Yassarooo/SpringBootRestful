@@ -1,17 +1,12 @@
 package Project.web;
 
-import Project.domain.AppUser;
 import Project.domain.Car;
 import Project.domain.Parameters;
-import Project.repository.AppUserRepository;
 import Project.service.CarService;
-import Project.service.JwtUserDetailsService;
 import Project.service.ParamsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -28,10 +23,6 @@ public class CarRestController {
     @Autowired
     ParamsService paramsService;
 
-    @Autowired
-    private JwtUserDetailsService userService;
-
-    private Authentication auth;
 
 
     @RequestMapping(value = "/cars", method = RequestMethod.GET)
@@ -100,11 +91,6 @@ public class CarRestController {
 
     @RequestMapping(value = "/cars", method = RequestMethod.POST)
     public ResponseEntity<Car> createCar(@RequestBody Car car) {
-        auth = SecurityContextHolder.getContext().getAuthentication();
-        AppUser user = userService.findUserByUsername(auth.getName());
-        if (user != null) {
-            car.setUser(user);
-        }
 
         car.setSold(false);
         Parameters def = paramsService.getParamById((long) car.getParamid());

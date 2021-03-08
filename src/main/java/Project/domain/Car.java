@@ -1,5 +1,8 @@
 package Project.domain;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -61,7 +64,7 @@ public class Car implements Serializable {
     @Column(name = "specsid")
     private Integer specsid;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<String> images = new ArrayList<String>();
 
     @ManyToOne

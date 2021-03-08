@@ -130,7 +130,7 @@ public class CarService {
                 AppUser user = userService.findUserByUsername(auth.getName());
                 if (user != null) {
                     c.setUser(user);
-                    Set<Car> cars = user.getCars();
+                    List<Car> cars = user.getCars();
                     cars.add(c);
                     user.setCars(cars);
                     userService.updateUser(user);

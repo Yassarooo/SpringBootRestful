@@ -3,6 +3,7 @@ package Project;
 import Project.config.FileStorageProperties;
 import Project.domain.Parameters;
 import Project.domain.Role;
+import Project.service.JwtUserDetailsService;
 import Project.service.ParamsService;
 import Project.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,9 @@ public class SpringBootSessionApplication implements CommandLineRunner {
     @Autowired
     ParamsService paramsService;
 
+    @Autowired
+    JwtUserDetailsService userService;
+
     public static void main(String[] args) {
 
         SpringApplication.run(SpringBootSessionApplication.class, args);
@@ -51,6 +55,7 @@ public class SpringBootSessionApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         roleService.deleteAllRoles();
+        userService.deleteAllUsers();
 
         Role uRole = new Role();
         uRole.setName("USER");

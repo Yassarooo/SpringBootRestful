@@ -132,13 +132,12 @@ public class CarService {
                     c.setUser(user);
                     List<Car> cars = new ArrayList<Car>(user.getCars());
                     cars.add(c);
+                    carRepository.save(c);
                     user.setCars(cars);
                     userService.updateUser(user);
                     log.info("CarService User != null cars length :" +user.getCars().size());
                 }
-                c = carRepository.save(c);
-
-                return c;
+                return carRepository.save(c);
             }
         } catch (ObjectOptimisticLockingFailureException e) {
             log.severe("Somebody has already updated the amount for item:{} in concurrent transaction.");

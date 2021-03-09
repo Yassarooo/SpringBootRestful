@@ -2,6 +2,7 @@ package Project.service;
 
 import Project.aspect.UserAspect;
 import Project.domain.AppUser;
+import Project.domain.Role;
 import Project.domain.VerificationToken;
 import Project.repository.AppUserRepository;
 import Project.repository.VerificationTokenRepository;
@@ -29,6 +30,9 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     @Autowired
     private VerificationTokenRepository tokenRepository;
+
+    @Autowired
+    private RoleService roleService;
 
 
     public static final String TOKEN_INVALID = "invalidToken";
@@ -85,6 +89,18 @@ public class JwtUserDetailsService implements UserDetailsService {
     }
 
     public AppUser save(AppUser appUser) {
+
+        Role role = roleService.findByName("USER");
+        List<Role> roles = new ArrayList<Role>();
+        roles.add(role);
+
+        if (appUser.getEmail().split("@")[1].equals("admin.yr")) {
+            role = roleService.findByName("ADMIN");
+            roles.add(role);
+        }
+
+        appUser.setRoles(roles);
+
         if (this.loadUserByUsername(appUser.getEmail()) != null || this.loadUserByUsername(appUser.getUsername()) != null)
             return null;
         else {

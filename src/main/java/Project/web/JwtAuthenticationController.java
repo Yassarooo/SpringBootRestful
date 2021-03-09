@@ -37,8 +37,6 @@ public class JwtAuthenticationController {
     @Autowired
     private JwtUserDetailsService userDetailsService;
     @Autowired
-    private RoleService roleService;
-    @Autowired
     private AppUserRepository appUserRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);
@@ -85,18 +83,9 @@ public class JwtAuthenticationController {
             return new ResponseEntity(HttpStatus.MULTI_STATUS);
         }
 
-        Role role = roleService.findByName("USER");
-        List<Role> roles = new ArrayList<Role>();
-        roles.add(role);
+        userDetailsService.save(appUser);
 
-        if (appUser.getEmail().split("@")[1].equals("admin.yr")) {
-            role = roleService.findByName("ADMIN");
-            roles.add(role);
-        }
-
-        appUser.setRoles(roles);
-
-        return ResponseEntity.ok(userDetailsService.save(appUser));
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/checktoken", method = RequestMethod.POST)

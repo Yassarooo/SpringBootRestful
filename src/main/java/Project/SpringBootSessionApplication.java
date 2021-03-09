@@ -50,7 +50,8 @@ public class SpringBootSessionApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        /*
+        roleService.deleteAllRoles();
+
         Role uRole = new Role();
         uRole.setName("USER");
         uRole.setDescription("USER Role (Only Manage cars without managing users)");
@@ -59,6 +60,8 @@ public class SpringBootSessionApplication implements CommandLineRunner {
         aRole.setName("ADMIN");
         aRole.setDescription("ADMIN Role (Manage cars and users)");
         roleService.CreateRole(aRole);
+        /*
+
 
         Parameters sedan = new Parameters("Sedan", 4, 6f);
         paramsService.createOrUpdateParam(sedan, false);

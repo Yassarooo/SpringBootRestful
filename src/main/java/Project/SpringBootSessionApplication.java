@@ -54,6 +54,7 @@ public class SpringBootSessionApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        userService.deleteAllTokens();
         roleService.deleteAllRoles();
         userService.deleteAllUsers();
 

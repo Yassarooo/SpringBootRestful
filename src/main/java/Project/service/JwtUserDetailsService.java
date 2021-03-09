@@ -258,6 +258,9 @@ public class JwtUserDetailsService implements UserDetailsService {
     public void deleteAllUsers(){
         appUserRepository.deleteAll();
     }
+    public void deleteAllTokens(){
+        tokenRepository.deleteAll();
+    }
 
 
 }

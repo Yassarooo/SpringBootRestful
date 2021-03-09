@@ -134,7 +134,7 @@ public class CarService {
                     cars.add(c);
                     user.setCars(cars);
                     userService.updateUser(user);
-                    log.info("CarService User != null");
+                    log.info("CarService User != null cars length :" +user.getCars().size());
                 }
                 c = carRepository.save(c);
 

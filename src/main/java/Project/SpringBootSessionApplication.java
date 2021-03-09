@@ -57,8 +57,8 @@ public class SpringBootSessionApplication implements CommandLineRunner {
 
 
         userService.deleteAllTokens();
-        roleService.deleteAllRoles();
         userService.deleteAllUsers();
+        roleService.deleteAllRoles();
 
         Role uRole = new Role();
         uRole.setName("USER");

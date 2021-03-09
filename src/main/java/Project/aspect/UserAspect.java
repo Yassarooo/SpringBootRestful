@@ -76,7 +76,7 @@ public class UserAspect {
             log.info("Enter: " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName() + "() with argument[s] = " +
                     Arrays.toString(joinPoint.getArgs()) + " By :" + auth.getName());
         }
-        catch (Exception e){
+        catch (NullPointerException e){
             log.severe("Exception in : " + Arrays.toString(joinPoint.getArgs()) + " in " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName() + "()");
             throw e;
         }
@@ -88,7 +88,7 @@ public class UserAspect {
                     result + " By :" + auth.getName());
 
             return result;
-        } catch (Exception e) {
+        } catch (NullPointerException | IllegalArgumentException  e) {
             log.severe("Exception in : " + Arrays.toString(joinPoint.getArgs()) + " in " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName() + "()");
             throw e;
         }

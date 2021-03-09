@@ -78,7 +78,7 @@ public class UserAspect {
         }
         catch (NullPointerException e){
             log.severe("Exception in : " + Arrays.toString(joinPoint.getArgs()) + " in " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName() + "()");
-            throw e;
+            //throw e;
         }
 
         try {
@@ -90,7 +90,8 @@ public class UserAspect {
             return result;
         } catch (NullPointerException | IllegalArgumentException  e) {
             log.severe("Exception in : " + Arrays.toString(joinPoint.getArgs()) + " in " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName() + "()");
-            throw e;
+            //throw e;
+            return null;
         }
     }
 }

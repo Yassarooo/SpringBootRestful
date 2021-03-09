@@ -80,7 +80,6 @@ public class Car implements Serializable {
     private Specs specs;
 
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "User_ID")
     private AppUser user;

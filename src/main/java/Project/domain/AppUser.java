@@ -1,5 +1,6 @@
 package Project.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.sun.istack.NotNull;
@@ -50,6 +51,8 @@ public class AppUser implements UserDetails {
     @Column
     private boolean enabled;
 
+
+    @JsonIgnore
     @ElementCollection(fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     @NotFound(action = NotFoundAction.IGNORE)

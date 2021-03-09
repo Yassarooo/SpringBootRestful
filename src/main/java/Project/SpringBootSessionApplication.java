@@ -56,6 +56,13 @@ public class SpringBootSessionApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
 
+
+        /*
+
+        userService.deleteAllTokens();
+        userService.deleteAllUsers();
+        roleService.deleteAllRoles();
+
         Role uRole = new Role();
         uRole.setName("USER");
         uRole.setDescription("USER Role (Only Manage cars without managing users)");
@@ -64,15 +71,6 @@ public class SpringBootSessionApplication implements CommandLineRunner {
         aRole.setName("ADMIN");
         aRole.setDescription("ADMIN Role (Manage cars and users)");
         roleService.CreateRole(aRole);
-
-
-
-        /*
-
-        userService.deleteAllTokens();
-        userService.deleteAllUsers();
-        roleService.deleteAllRoles();
-
 
         Parameters sedan = new Parameters("Sedan", 4, 6f);
         paramsService.createOrUpdateParam(sedan, false);

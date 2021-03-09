@@ -79,7 +79,6 @@ public class Car implements Serializable {
             mappedBy = "car")
     private Specs specs;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "User_ID")
     private AppUser user;
@@ -248,7 +247,6 @@ public class Car implements Serializable {
         this.specs = specs;
     }
 
-    @JsonIgnore
     public AppUser getUser() {
         return user;
     }

@@ -39,6 +39,7 @@ public class AppUser implements UserDetails {
     @Column
     private Date dob;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @Fetch(value = FetchMode.SUBSELECT)
     @JoinTable(name = "USER_ROLES",
             joinColumns = {
                     @JoinColumn(name = "USER_ID")

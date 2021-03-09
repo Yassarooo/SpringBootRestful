@@ -79,7 +79,6 @@ public class Car implements Serializable {
             mappedBy = "car")
     private Specs specs;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "User_ID")
     private AppUser user;

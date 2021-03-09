@@ -52,7 +52,7 @@ public class AppUser implements UserDetails {
     private boolean enabled;
 
 
-    @JsonIgnore
+    @Lob
     @ElementCollection(fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     @NotFound(action = NotFoundAction.IGNORE)

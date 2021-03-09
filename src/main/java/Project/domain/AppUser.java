@@ -51,8 +51,7 @@ public class AppUser implements UserDetails {
     @Column
     private boolean enabled;
 
-
-    @Lob
+    @JsonIgnore
     @ElementCollection(fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     @NotFound(action = NotFoundAction.IGNORE)
@@ -177,6 +176,7 @@ public class AppUser implements UserDetails {
         this.profilepic = profilepic;
     }
 
+    @JsonIgnore
     public List<Car> getCars() {
         return cars;
     }

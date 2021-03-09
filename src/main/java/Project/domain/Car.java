@@ -250,7 +250,7 @@ public class Car implements Serializable {
         return user;
     }
 
-    public void setUser(AppUser userr) {
+    public void setUser(AppUser user) {
         this.user = user;
     }
 

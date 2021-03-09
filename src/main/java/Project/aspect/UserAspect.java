@@ -72,29 +72,24 @@ public class UserAspect {
     public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
         auth = SecurityContextHolder.getContext().getAuthentication();
 
-        log.info("Enter: " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName() + "() with argument[s] = " +
-                Arrays.toString(joinPoint.getArgs()));
         try {
-            log.info(" By :" + auth.getName());
-        } catch (NullPointerException e) {
-
+            log.info("Enter: " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName() + "() with argument[s] = " +
+                    Arrays.toString(joinPoint.getArgs()) + " By :" + auth.getName());
+        }
+        catch (Exception e){
+            log.severe("Exception in : " + Arrays.toString(joinPoint.getArgs()) + " in " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName() + "()");
+            throw e;
         }
 
         try {
             Object result = joinPoint.proceed();
 
             log.info("Exit: " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName() + "() with result = " +
-                    result);
-
-            try {
-                log.info(" By :" + auth.getName());
-            } catch (NullPointerException e) {
-
-            }
+                    result + " By :" + auth.getName());
 
             return result;
-        } catch (IllegalArgumentException e) {
-            log.severe("Illegal argument: " + Arrays.toString(joinPoint.getArgs()) + " in " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName() + "()");
+        } catch (Exception e) {
+            log.severe("Exception in : " + Arrays.toString(joinPoint.getArgs()) + " in " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName() + "()");
             throw e;
         }
     }

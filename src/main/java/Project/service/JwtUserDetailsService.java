@@ -131,10 +131,20 @@ public class JwtUserDetailsService implements UserDetailsService {
     @Transactional
     public AppUser updateUser(AppUser u) {
         try {
-            u.setUsername(u.getUsername().toLowerCase().trim());
-            u.setEmail(u.getEmail().toLowerCase().trim());
-            u.setGender(u.getGender().toLowerCase().trim());
-            u = appUserRepository.save(u);
+            AppUser user = appUserRepository.findByUsername(u.getUsername());
+
+            user.setName(u.getName().trim());
+            user.setUsername(u.getUsername().toLowerCase().trim());
+            user.setEmail(u.getEmail().toLowerCase().trim());
+            user.setGender(u.getGender().toLowerCase().trim());
+            user.setCars(u.getCars());
+            user.setPhonenumber(u.getPhonenumber());
+            user.setDob(u.getDob());
+            user.setGender(u.getGender());
+            user.setProfilepic(u.getProfilepic());
+
+            appUserRepository.save(user);
+            log.info("upadted user : " + u.getCars().toString());
             return u;
         } catch (ObjectOptimisticLockingFailureException e) {
             log.severe("Somebody has already updated the amount for item:{} in concurrent transaction.");
@@ -187,8 +197,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 
         if (verificationToken != null) {
             tokenRepository.delete(verificationToken);
-        }
-        else {
+        } else {
             System.err.println("verificationToken Not Found");
             throw new UsernameNotFoundException("verificationToken Not Found");
         }
@@ -255,10 +264,11 @@ public class JwtUserDetailsService implements UserDetailsService {
         return TOKEN_VALID;
     }
 
-    public void deleteAllUsers(){
+    public void deleteAllUsers() {
         appUserRepository.deleteAll();
     }
-    public void deleteAllTokens(){
+
+    public void deleteAllTokens() {
         tokenRepository.deleteAll();
     }
 

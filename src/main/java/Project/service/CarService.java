@@ -130,9 +130,9 @@ public class CarService {
                 AppUser user = userService.findUserByUsername(auth.getName());
                 if (user != null) {
                     c.setUser(user);
+                    c = carRepository.save(c);
                     List<Car> cars = new ArrayList<Car>(user.getCars());
                     cars.add(c);
-                    carRepository.save(c);
                     user.setCars(cars);
                     userService.updateUser(user);
                     log.info("CarService User != null cars length :" +user.getCars().size());

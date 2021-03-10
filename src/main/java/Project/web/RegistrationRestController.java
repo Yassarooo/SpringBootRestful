@@ -84,8 +84,8 @@ public class RegistrationRestController {
     // ============== NON-API ============
 
     private SimpleMailMessage constructResendVerificationTokenEmail(final String contextPath, final Locale locale, final VerificationToken newToken, final String emailaddress) {
-        final String confirmationUrl = contextPath + "/registrationConfirm.html?token=" + newToken.getToken();
-        final String message = messages.getMessage("message.regSuccLink", null, "You have registered successfully. To confirm your registration, please enter this code:\n "+newToken.getCode()+"\n or click on the below link.", locale);
+        final String confirmationUrl = contextPath + "/#/registrationConfirm.html/" + emailaddress + "/" + newToken.getToken();
+        final String message = messages.getMessage("message.regSuccLink", null, "You have registered successfully. To confirm your registration, please enter this code:\n " + newToken.getCode() + "\n or click on the below link.", locale);
         return constructEmail("Resend Registration Token", message + " \r\n" + confirmationUrl, emailaddress);
     }
 

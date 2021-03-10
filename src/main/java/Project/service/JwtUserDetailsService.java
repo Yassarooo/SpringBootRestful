@@ -168,22 +168,29 @@ public class JwtUserDetailsService implements UserDetailsService {
     public AppUser ActivateUser(final String verificationToken, final String email) {
         final AppUser user = getUserByToken(verificationToken);
         VerificationToken token = tokenRepository.findByToken(verificationToken);
-        if (user != null && token != null) {
-            System.err.println("user != null");
-            if (user.getEmail().equals(email)) {
-                user.setEnabled(true);
-                appUserRepository.save(user);
-                tokenRepository.delete(token);
-                return user;
+        if (token == null)
+            token = tokenRepository.findByCode(verificationToken);
+        if (token == null) {
+            System.err.println("Token not Found");
+            throw new UsernameNotFoundException(verificationToken);
+        } else {
+            if (user != null) {
+                if (user.getEmail().equals(email)) {
+                    user.setEnabled(true);
+                    appUserRepository.save(user);
+                    tokenRepository.delete(token);
+                    return user;
+                } else {
+                    System.err.println("found the same token for other email");
+                    throw new UsernameNotFoundException(verificationToken);
+                }
+
             } else {
-                System.err.println("found the same token for other email");
+                System.err.println("Username Not Found");
                 throw new UsernameNotFoundException(verificationToken);
             }
-
-        } else {
-            System.err.println("Token or Username Not Found");
-            throw new UsernameNotFoundException(verificationToken);
         }
+
     }
 
     public VerificationToken getVerificationToken(final String VerificationToken) {

@@ -8,7 +8,6 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
-import org.springframework.context.annotation.Profile;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.security.core.GrantedAuthority;
@@ -68,8 +67,6 @@ public class AppUser implements UserDetails {
 
     @LastModifiedDate
     private Instant updatedAt;
-
-    private Profile userProfile;
 
     @JsonIgnore
     @ElementCollection(fetch = FetchType.EAGER)

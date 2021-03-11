@@ -142,6 +142,9 @@ public class JwtUserDetailsService implements UserDetailsService {
             return null;
         else {
             AppUser newAppUser = new AppUser();
+            if (appUser.getId() != 0) {
+                newAppUser.setId(appUser.getId());
+            }
             newAppUser.setUsername(appUser.getUsername().toLowerCase().trim());
             newAppUser.setName(appUser.getName().trim());
             newAppUser.setRoles(appUser.getRoles());
@@ -149,6 +152,7 @@ public class JwtUserDetailsService implements UserDetailsService {
             newAppUser.setEmail(appUser.getEmail().toLowerCase().trim());
             newAppUser.setPhonenumber(appUser.getPhonenumber());
             newAppUser.setDob(appUser.getDob());
+            newAppUser.setProfilepic(appUser.getProfilepic());
             newAppUser.setEnabled(appUser.isEnabled());
             newAppUser.setPassword(bCryptPasswordEncoder.encode(appUser.getPassword()));
             return appUserRepository.save(newAppUser);

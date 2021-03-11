@@ -27,7 +27,7 @@ public class FacebookService {
         if (facebookUser == null) {
             throw new UsernameNotFoundException("unable to login facebook user id " + facebookUser.getId());
         } else {
-            AppUser user = userService.findById(facebookUser.getId());
+            AppUser user = userService.findUserByUsername(facebookUser.getEmail());
             if (user == null) {
                 user = userService.save(convertTo(facebookUser));
             }

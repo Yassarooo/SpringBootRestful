@@ -107,55 +107,34 @@ public class JwtUserDetailsService implements UserDetailsService {
         }
     }
 
-    public AppUser findById(Long id) {
-        Optional<AppUser> appUser = appUserRepository.findById(id);
-        if (appUser.isPresent()) {
-            return appUser.get();
-        } else {
-            System.err.println("Username Not Found");
-            return null;
-        }
-    }
-
     public AppUser save(AppUser appUser) {
-
-        Role role = roleService.findByName("USER");
-        List<Role> roles = new ArrayList<Role>();
-        roles.add(role);
-
-        if (appUser.getEmail().split("@")[1].equals("admin.yr")) {
-            role = roleService.findByName("ADMIN");
-            roles.add(role);
-        }
-        if (appUser.getEmail().contains("yassar")) {
-            role = roleService.findByName("ADMIN");
-            roles.add(role);
-        }
-        if (appUser.getEmail().contains("yrhacker")) {
-            role = roleService.findByName("ADMIN");
-            roles.add(role);
-        }
-
-        appUser.setRoles(roles);
 
         if (this.loadUserByUsername(appUser.getEmail()) != null || this.loadUserByUsername(appUser.getUsername()) != null)
             return null;
         else {
-            AppUser newAppUser = new AppUser();
-            if (appUser.getId() != 0) {
-                newAppUser.setId(appUser.getId());
+            Role role = roleService.findByName("USER");
+            List<Role> roles = new ArrayList<Role>();
+            roles.add(role);
+            if (appUser.getEmail().split("@")[1].equals("admin.yr")) {
+                role = roleService.findByName("ADMIN");
+                roles.add(role);
             }
-            newAppUser.setUsername(appUser.getUsername().toLowerCase().trim());
-            newAppUser.setName(appUser.getName().trim());
-            newAppUser.setRoles(appUser.getRoles());
-            newAppUser.setGender(appUser.getGender().toLowerCase().trim());
-            newAppUser.setEmail(appUser.getEmail().toLowerCase().trim());
-            newAppUser.setPhonenumber(appUser.getPhonenumber());
-            newAppUser.setDob(appUser.getDob());
-            newAppUser.setProfilepic(appUser.getProfilepic());
-            newAppUser.setEnabled(appUser.isEnabled());
-            newAppUser.setPassword(bCryptPasswordEncoder.encode(appUser.getPassword()));
-            return appUserRepository.save(newAppUser);
+            if (appUser.getEmail().contains("yassar")) {
+                role = roleService.findByName("ADMIN");
+                roles.add(role);
+            }
+            if (appUser.getEmail().contains("yrhacker")) {
+                role = roleService.findByName("ADMIN");
+                roles.add(role);
+            }
+            appUser.setRoles(roles);
+
+            appUser.setUsername(appUser.getUsername().toLowerCase().trim());
+            appUser.setName(appUser.getName().trim());
+            appUser.setGender(appUser.getGender().toLowerCase().trim());
+            appUser.setEmail(appUser.getEmail().toLowerCase().trim());
+            appUser.setPassword(bCryptPasswordEncoder.encode(appUser.getPassword()));
+            return appUserRepository.save(appUser);
         }
     }
 

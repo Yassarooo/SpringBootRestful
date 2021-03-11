@@ -107,13 +107,13 @@ public class JwtUserDetailsService implements UserDetailsService {
         }
     }
 
-    public AppUser findById(Long id) throws UsernameNotFoundException {
+    public AppUser findById(Long id) {
         Optional<AppUser> appUser = appUserRepository.findById(id);
         if (appUser.isPresent()) {
             return appUser.get();
         } else {
             System.err.println("Username Not Found");
-            throw new UsernameNotFoundException("Username Not Found");
+            return null;
         }
     }
 

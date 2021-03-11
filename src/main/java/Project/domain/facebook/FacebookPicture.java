@@ -11,4 +11,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class FacebookPicture {
     private PictureData data;
+
+    public PictureData getData() {
+        return data;
+    }
+
+    public void setData(PictureData data) {
+        this.data = data;
+    }
 }

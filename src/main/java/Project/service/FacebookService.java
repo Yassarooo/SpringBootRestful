@@ -53,8 +53,7 @@ public class FacebookService {
     }
 
     private AppUser convertTo(FacebookUser facebookUser) {
-        String name = facebookUser.getFirstName() + " " + facebookUser.getLastName();
-        return new AppUser(facebookUser.getId(), name, facebookUser.getEmail(), facebookUser.getEmail(), facebookUser.getGender(), "facebookuserpassword", new Date(), new ArrayList<Role>(), true);
+        return new AppUser(facebookUser.getId(), facebookUser.getName(), facebookUser.getEmail(), facebookUser.getEmail(), facebookUser.getGender(), "facebookuserpassword", facebookUser.getPicture().getData().getUrl(), new Date(), new ArrayList<Role>(), true);
     }
 
     private String generateUsername(String firstName, String lastName) {

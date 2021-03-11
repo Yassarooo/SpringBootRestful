@@ -11,4 +11,8 @@ public class PictureData {
     private String height;
     private String width;
     private String url;
+
+    public String getUrl() {
+        return url;
+    }
 }

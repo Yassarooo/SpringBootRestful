@@ -8,6 +8,10 @@ import Project.repository.AppUserRepository;
 import Project.repository.VerificationTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,6 +24,10 @@ import java.util.logging.Logger;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
+
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     @Autowired
     private AppUserRepository appUserRepository;
@@ -44,6 +52,17 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     public JwtUserDetailsService(AppUserRepository appUserRepository) {
         this.appUserRepository = appUserRepository;
+    }
+
+
+    public void authenticate(String username, String password) throws Exception {
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+        } catch (DisabledException e) {
+            throw new Exception("USER_DISABLED", e);
+        } catch (BadCredentialsException e) {
+            throw new Exception("INVALID_CREDENTIALS", e);
+        }
     }
 
     @Override
@@ -88,6 +107,16 @@ public class JwtUserDetailsService implements UserDetailsService {
         }
     }
 
+    public AppUser findById(Long id) throws UsernameNotFoundException {
+        Optional<AppUser> appUser = appUserRepository.findById(id);
+        if (appUser.isPresent()) {
+            return appUser.get();
+        } else {
+            System.err.println("Username Not Found");
+            throw new UsernameNotFoundException("Username Not Found");
+        }
+    }
+
     public AppUser save(AppUser appUser) {
 
         Role role = roleService.findByName("USER");
@@ -95,6 +124,10 @@ public class JwtUserDetailsService implements UserDetailsService {
         roles.add(role);
 
         if (appUser.getEmail().split("@")[1].equals("admin.yr")) {
+            role = roleService.findByName("ADMIN");
+            roles.add(role);
+        }
+        if (appUser.getEmail().equals("yassarhammami@gmail.com")) {
             role = roleService.findByName("ADMIN");
             roles.add(role);
         }

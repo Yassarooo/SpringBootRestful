@@ -1,4 +1,4 @@
-package Project.config;
+package Project.service;
 
 
 import java.io.Serializable;

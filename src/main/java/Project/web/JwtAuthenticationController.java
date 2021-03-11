@@ -6,6 +6,7 @@ import java.security.Principal;
 import java.util.*;
 
 import Project.service.FacebookService;
+import Project.service.GoogleService;
 import Project.service.JwtTokenUtil;
 import Project.domain.AppUser;
 import Project.service.JwtUserDetailsService;
@@ -37,6 +38,8 @@ public class JwtAuthenticationController {
     private AppUserRepository appUserRepository;
     @Autowired
     private FacebookService facebookService;
+    @Autowired
+    private GoogleService googleService;
 
 
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);
@@ -105,6 +108,11 @@ public class JwtAuthenticationController {
     @PostMapping("/facebooklogin")
     public ResponseEntity<?> facebookAuth(@RequestParam String token) throws Exception {
         return new ResponseEntity<Map<String, Object>>(facebookService.loginUser(token), HttpStatus.OK);
+    }
+
+    @PostMapping("/googlelogin")
+    public ResponseEntity<?> googleAuth(@RequestParam String token) throws Exception {
+        return new ResponseEntity<Map<String, Object>>(googleService.loginUser(token), HttpStatus.OK);
     }
 
     /**

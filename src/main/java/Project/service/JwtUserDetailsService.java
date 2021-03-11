@@ -133,6 +133,7 @@ public class JwtUserDetailsService implements UserDetailsService {
             appUser.setName(appUser.getName().trim());
             appUser.setGender(appUser.getGender().toLowerCase().trim());
             appUser.setEmail(appUser.getEmail().toLowerCase().trim());
+            appUser.setCreatedAt(new Date());
             appUser.setPassword(bCryptPasswordEncoder.encode(appUser.getPassword()));
             return appUserRepository.save(appUser);
         }
@@ -163,6 +164,7 @@ public class JwtUserDetailsService implements UserDetailsService {
             user.setDob(u.getDob());
             user.setGender(u.getGender());
             user.setProfilepic(u.getProfilepic());
+            user.setUpdatedAt(new Date());
 
             appUserRepository.save(user);
             log.info("upadted user : " + u.getCars().toString());

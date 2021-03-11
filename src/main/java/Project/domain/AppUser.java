@@ -32,8 +32,10 @@ public class AppUser implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull
     @Column
     private String name;
+    @NotNull
     @Column(unique = true)
     private String username;
     @NotNull
@@ -42,6 +44,7 @@ public class AppUser implements UserDetails {
     private String email;
     @Column
     private String gender;
+    @NotNull
     @Column
     private String profilepic = "https://www.w3schools.com/w3images/avatar2.png";
     @Column
@@ -63,10 +66,10 @@ public class AppUser implements UserDetails {
     private boolean enabled;
 
     @CreatedDate
-    private Instant createdAt;
+    private Date createdAt;
 
     @LastModifiedDate
-    private Instant updatedAt;
+    private Date updatedAt;
 
     @JsonIgnore
     @ElementCollection(fetch = FetchType.EAGER)
@@ -210,5 +213,19 @@ public class AppUser implements UserDetails {
         this.cars = cars;
     }
 
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }

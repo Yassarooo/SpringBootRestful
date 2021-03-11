@@ -18,7 +18,7 @@ public class FacebookClient {
 
     public FacebookUser getUser(String accessToken) {
         String path = "/me?fields={fields}&redirect={redirect}&access_token={access_token}";
-        String fields = "username,gender,email,first_name,last_name,id,picture.width(720).height(720)";
+        String fields = "birthday,gender,email,name,id,picture.width(720).height(720)";
         final Map<String, String> variables = new HashMap<>();
         variables.put("fields", fields);
         variables.put("redirect", "false");

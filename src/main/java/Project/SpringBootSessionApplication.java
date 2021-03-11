@@ -21,6 +21,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.client.RestTemplate;
 
 @Configuration
 @EnableAutoConfiguration
@@ -52,6 +53,10 @@ public class SpringBootSessionApplication implements CommandLineRunner {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
     @Override
     public void run(String... args) throws Exception {
 

@@ -102,7 +102,7 @@ public class JwtAuthenticationController {
 
     }
 
-    @PostMapping("/facebook/signin")
+    @PostMapping("/facebooklogin")
     public ResponseEntity<?> facebookAuth(@RequestParam String token) throws Exception {
         return new ResponseEntity<Map<String, Object>>(facebookService.loginUser(token), HttpStatus.OK);
     }

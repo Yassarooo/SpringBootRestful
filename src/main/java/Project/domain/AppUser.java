@@ -71,17 +71,11 @@ public class AppUser implements UserDetails {
 
     private Profile userProfile;
 
-
     @JsonIgnore
     @ElementCollection(fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     @NotFound(action = NotFoundAction.IGNORE)
     private List<Car> cars = new ArrayList<Car>();
-
-    public AppUser() {
-        super();
-        this.enabled = false;
-    }
 
     public AppUser(Long id, String name, String username, @Email String email, String gender, String password, Date dob, List<Role> roles, boolean enabled) {
         this.id = id;

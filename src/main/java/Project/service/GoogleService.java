@@ -2,24 +2,20 @@ package Project.service;
 
 import Project.domain.AppUser;
 import Project.domain.Role;
-import Project.domain.facebook.FacebookUser;
-import Project.domain.google.GoogleUser;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.jackson2.JacksonFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.IOException;
 import java.net.URI;
+import java.security.GeneralSecurityException;
 import java.util.*;
 
 /**
@@ -40,6 +36,8 @@ public class GoogleService {
     JwtUserDetailsService userService;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+
+    GoogleIdTokenVerifier googleIdTokenVerifier;
 
     @Autowired
     public GoogleService(RestTemplate restTemplate) {
@@ -77,8 +75,6 @@ public class GoogleService {
 
         if (user == null) {
             user = userService.save(convertTo(payload.get()));
-        } else {
-
         }
 
         Authentication auth = userService.authenticate(user.getEmail(), "googleuserpassword");
@@ -102,17 +98,12 @@ public class GoogleService {
         }
     }
 
-    public GoogleIdToken.Payload verifyToken(String idTokenString) throws Exception {
+    public GoogleIdToken.Payload verifyToken(String idTokenString) throws GeneralSecurityException, IOException {
 
-        GoogleIdTokenVerifier googleIdTokenVerifier =
-                new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), JacksonFactory.getDefaultInstance())
-                        .setAudience(Collections.singletonList(CLIENT_ID))
-                        .build();
-
-        GoogleIdToken idToken = googleIdTokenVerifier.verify(idTokenString);
+         GoogleIdToken idToken = googleIdTokenVerifier.verify(idTokenString);
 
         if (idToken == null)
-            throw new Exception();
+            throw new IOException("Empty Token");
 
         return idToken.getPayload();
     }

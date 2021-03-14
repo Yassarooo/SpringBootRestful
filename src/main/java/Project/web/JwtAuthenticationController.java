@@ -5,14 +5,12 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.*;
 
-import Project.google.GoogleTokenVerifier;
 import Project.service.FacebookService;
 import Project.service.GoogleService;
 import Project.service.JwtTokenUtil;
 import Project.domain.AppUser;
 import Project.service.JwtUserDetailsService;
 import Project.repository.AppUserRepository;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,9 +26,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import static java.lang.System.currentTimeMillis;
-import static java.util.Objects.isNull;
-
 @RestController
 @CrossOrigin
 public class JwtAuthenticationController {
@@ -45,9 +40,6 @@ public class JwtAuthenticationController {
     private FacebookService facebookService;
     @Autowired
     private GoogleService googleService;
-
-    @Autowired
-    private GoogleTokenVerifier googleTokenVerifierTemplate;
 
 
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);
@@ -120,14 +112,7 @@ public class JwtAuthenticationController {
 
     @PostMapping("/googlelogin")
     public ResponseEntity<?> googleAuth(@RequestParam String token) throws Exception {
-        System.out.println(currentTimeMillis());
-        GoogleIdToken googleIdToken = googleTokenVerifierTemplate.verify(token);
-        if (isNull(googleIdToken)) {
-            throw new RuntimeException("Unauthenticated User by google");
-        }
-        GoogleIdToken.Payload payload = googleIdToken.getPayload();
-        System.out.println("Suuuuuuuuuuuuuucceeeeeess :  " + payload.getEmail());
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<Map<String, Object>>(googleService.loginUser(token), HttpStatus.OK);
     }
 
     /**

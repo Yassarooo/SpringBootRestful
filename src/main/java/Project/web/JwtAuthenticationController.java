@@ -28,6 +28,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import static java.lang.System.currentTimeMillis;
 import static java.util.Objects.isNull;
 
 @RestController
@@ -119,6 +120,7 @@ public class JwtAuthenticationController {
 
     @PostMapping("/googlelogin")
     public ResponseEntity<?> googleAuth(@RequestParam String token) throws Exception {
+        System.out.println(currentTimeMillis());
         GoogleIdToken googleIdToken = googleTokenVerifierTemplate.verify(token);
         if (isNull(googleIdToken)) {
             throw new RuntimeException("Unauthenticated User by google");

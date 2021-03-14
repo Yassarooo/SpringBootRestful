@@ -120,7 +120,7 @@ public class JwtAuthenticationController {
 
     @PostMapping("/googlelogin")
     public ResponseEntity<?> googAuth(@RequestParam String token) throws Exception {
-        return new ResponseEntity<Map<String, Object>>(googleService.loginUser(token), HttpStatus.OK);
+        return new ResponseEntity<Map<String, Object>>(googleService.loginUser2(token), HttpStatus.OK);
     }
 
     @PostMapping("/googlelogin1")

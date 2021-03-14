@@ -18,7 +18,7 @@ public class GoogleClient {
     private final String GOOGLE_API_BASE = "https://accounts.google.com";
 
     public GoogleUser getUser(String idToken) {
-        String path = "oauth2/v3/tokeninfo?id_token={id_token}";
+        String path = "/oauth2/v3/tokeninfo?id_token={id_token}";
         final Map<String, String> variables = new HashMap<>();
         variables.put("id_token", idToken);
         return restTemplate

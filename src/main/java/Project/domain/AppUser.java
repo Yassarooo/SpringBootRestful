@@ -71,14 +71,20 @@ public class AppUser implements UserDetails {
     @LastModifiedDate
     private Date updatedAt;
 
+    private Account_Type acctype;
+
     @JsonIgnore
     @ElementCollection(fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     @NotFound(action = NotFoundAction.IGNORE)
     private List<Car> cars = new ArrayList<Car>();
 
+    public enum Account_Type {
+        Facebook,Google,Guest
+    }
 
-    public AppUser(Long id, String name, String username, @Email String email, String gender, String password, String profilepic, Date dob, List<Role> roles, boolean enabled) {
+
+    public AppUser(Long id, String name, String username, @Email String email, String gender, String password, String profilepic, Date dob, List<Role> roles,Account_Type type, boolean enabled) {
         this.id = id;
         this.name = name;
         this.username = username;
@@ -89,6 +95,7 @@ public class AppUser implements UserDetails {
         this.dob = dob;
         this.roles = roles;
         this.enabled = enabled;
+        this.acctype = type;
     }
 
     @Override
@@ -227,5 +234,13 @@ public class AppUser implements UserDetails {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Account_Type getAcctype() {
+        return acctype;
+    }
+
+    public void setAcctype(Account_Type acctype) {
+        this.acctype = acctype;
     }
 }

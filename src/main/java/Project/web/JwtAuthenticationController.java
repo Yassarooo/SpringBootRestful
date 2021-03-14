@@ -84,6 +84,7 @@ public class JwtAuthenticationController {
             return new ResponseEntity(HttpStatus.MULTI_STATUS);
         }
 
+        appUser.setAcctype(AppUser.Account_Type.Guest);
         userDetailsService.save(appUser);
 
         return new ResponseEntity(HttpStatus.OK);
@@ -109,19 +110,9 @@ public class JwtAuthenticationController {
     }
 
     @PostMapping("/googlelogin")
-    public ResponseEntity<?> googAuth(@RequestParam String token) throws Exception {
-        Map<String, String> map = googleService.getMapFromGoogleTokenString(token);
-        System.out.println(map);
-        googleService.doTokenVerification(map);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @PostMapping("/googlelogin2")
     public ResponseEntity<?> googleAuth(@RequestParam String token) throws Exception {
         System.out.println(currentTimeMillis());
-
-        System.out.println("Suuuuuuuuuuuuuucceeeeeess :  ");
-        return new ResponseEntity<Map<String, Object>>(googleService.loginUser(token),HttpStatus.OK);
+        return new ResponseEntity<Map<String, Object>>(googleService.loginUser(token), HttpStatus.OK);
     }
 
     /**

@@ -2,18 +2,16 @@ package Project.google;
 
 import Project.domain.AppUser;
 import Project.domain.Role;
-import Project.google.GoogleTokenVerifier;
 import Project.service.JwtTokenUtil;
 import Project.service.JwtUserDetailsService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -194,7 +192,7 @@ public class GoogleService {
 
 
     private AppUser convertTo(GoogleIdToken.Payload payload) {
-        return new AppUser((long) 0, String.valueOf(payload.get("name")), payload.getEmail(), payload.getEmail(), "None", "googleuserpassword", String.valueOf(payload.get("picture")), new Date(), new ArrayList<Role>(), true);
+        return new AppUser((long) 0, String.valueOf(payload.get("name")), payload.getEmail(), payload.getEmail(), "None", "googleyassar12321password", String.valueOf(payload.get("picture")), new Date(), new ArrayList<Role>(), AppUser.Account_Type.Google, true);
     }
 
     public Map<?, ?> verifyTokenUsingRest(String token) {

@@ -7,8 +7,6 @@ import Project.service.JwtUserDetailsService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -168,9 +166,6 @@ public class GoogleService {
             user = userService.save(convertTo(payload.get()));
         }
 
-        Authentication auth = userService.authenticate(user.getEmail(), "googleuserpassword");
-
-        SecurityContextHolder.getContext().setAuthentication(auth);
         final UserDetails userDetails = userService.loadUserByUsername(user.getEmail());
 
         String token = jwtTokenUtil.generateToken(userDetails);

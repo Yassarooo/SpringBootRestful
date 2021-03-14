@@ -118,8 +118,8 @@ public class JwtAuthenticationController {
     }
 
     @PostMapping("/googlelogin")
-    public ResponseEntity<?> googleAuth(@RequestParam String idToken) throws Exception {
-        GoogleIdToken googleIdToken = googleTokenVerifierTemplate.verify(idToken);
+    public ResponseEntity<?> googleAuth(@RequestParam String token) throws Exception {
+        GoogleIdToken googleIdToken = googleTokenVerifierTemplate.verify(token);
         if (isNull(googleIdToken)) {
             throw new RuntimeException("Unauthenticated User by google");
         }

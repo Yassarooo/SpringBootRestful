@@ -4,7 +4,9 @@ import Project.domain.AppUser;
 import Project.domain.Role;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +17,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
 import java.net.URI;
+import java.security.GeneralSecurityException;
 import java.util.*;
 
 /**
@@ -39,6 +43,10 @@ public class GoogleService {
 
     private GoogleIdTokenVerifier googleIdTokenVerifier;
 
+    private static final HttpTransport transport = new NetHttpTransport();
+    private static final JsonFactory jsonFactory = new JacksonFactory();
+    private static final String MY_APP_GOOGLE_CLIENT_ID = "965172490679-k1n80f3adjn24jp81jq1bp5pvp2puefc.apps.googleusercontent.com";
+
     @Autowired
     public GoogleService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
@@ -56,7 +64,7 @@ public class GoogleService {
         Optional<GoogleIdToken.Payload> payload = Optional.empty();
 
         try {
-            GoogleIdToken.Payload payload1 = verifyToken(googleToken);
+            GoogleIdToken.Payload payload1 = verify2(googleToken);
 
             payload = Optional.of(payload1);
 
@@ -108,6 +116,36 @@ public class GoogleService {
             throw new Exception();
 
         return idToken.getPayload();
+    }
+
+    public GoogleIdToken.Payload verify2(final String idTokenString) throws GeneralSecurityException, IOException {
+
+        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory)
+                .setAudience(Collections.singletonList(MY_APP_GOOGLE_CLIENT_ID))
+                .build();
+
+        try {
+            GoogleIdToken idToken = verifier.verify(idTokenString);// <-- verifier.verify returns null !!!
+            if (idToken != null) {
+                GoogleIdToken.Payload payload = idToken.getPayload();
+                String email = payload.getEmail();
+                if (Boolean.valueOf(payload.getEmailVerified())) {
+                    return idToken.getPayload();
+                }
+                else{
+
+                    System.out.println("The Email isnt verified !!!");
+                    return null;
+                }
+            } else {
+                System.out.println("The *idToken* object is null !!!");
+                return null;
+            }
+        } catch (GeneralSecurityException | IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     private AppUser convertTo(GoogleIdToken.Payload payload) {

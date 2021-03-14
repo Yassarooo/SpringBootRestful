@@ -159,12 +159,12 @@ public class JwtUserDetailsService implements UserDetailsService {
             user.setName(u.getName().trim());
             user.setUsername(u.getUsername().toLowerCase().trim());
             user.setEmail(u.getEmail().toLowerCase().trim());
-            user.setGender(u.getGender().toLowerCase().trim());
             user.setCars(u.getCars());
             user.setPhonenumber(u.getPhonenumber());
             user.setDob(u.getDob());
-            user.setGender(u.getGender());
+            user.setGender(u.getGender().trim());
             user.setProfilepic(u.getProfilepic());
+            user.setRoles(u.getRoles());
             user.setUpdatedAt(new Date());
 
             appUserRepository.save(user);

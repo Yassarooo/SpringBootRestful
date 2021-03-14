@@ -135,7 +135,7 @@ public class CarService {
                     cars.add(c);
                     user.setCars(cars);
                     userService.updateUser(user);
-                    log.info("CarService User != null cars length :" +user.getCars().size());
+                    log.info("CarService User != null cars length :" + user.getCars().size());
                 }
                 return carRepository.save(c);
             }
@@ -150,6 +150,11 @@ public class CarService {
         Optional<Car> car = carRepository.findById(id);
 
         if (car.isPresent()) {
+            Car c = car.get();
+            List<Car> newCars = c.getUser().getCars();
+            newCars.remove(c);
+            c.getUser().setCars(newCars);
+            userService.updateUser(c.getUser());
             carRepository.deleteById(id);
         } else {
             throw new RuntimeException("No car record exist for given id");

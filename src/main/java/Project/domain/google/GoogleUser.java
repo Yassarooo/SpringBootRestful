@@ -12,18 +12,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class GoogleUser {
 
-    private String id;
     private String name;
     private String email;
-    private String imageUrl;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+    private String picture;
 
     public String getName() {
         return name;
@@ -41,11 +32,11 @@ public class GoogleUser {
         this.email = email;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getPicture() {
+        return picture;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 }

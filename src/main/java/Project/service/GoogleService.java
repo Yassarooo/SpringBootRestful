@@ -2,6 +2,7 @@ package Project.service;
 
 import Project.domain.AppUser;
 import Project.domain.Role;
+import Project.domain.google.GoogleUser;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.HttpTransport;
@@ -18,15 +19,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.net.URI;
 import java.security.GeneralSecurityException;
 import java.util.*;
-
-/**
- * @author Austin Oyugi
- * @email austinoyugi@gmail.com
- * @since 3/4/2021
- */
 
 @Service
 public class GoogleService {
@@ -37,9 +31,12 @@ public class GoogleService {
     private String CLIENT_ID;
 
     @Autowired
+    private GoogleClient googleClient;
+    @Autowired
     JwtUserDetailsService userService;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+
 
     private GoogleIdTokenVerifier googleIdTokenVerifier;
 
@@ -108,6 +105,36 @@ public class GoogleService {
         }
     }
 
+
+    public Map<String, Object> loginUser2(String gAccessToken) throws Exception {
+        GoogleUser googleUser = googleClient.getUser(gAccessToken);
+        if (googleUser == null) {
+            throw new UsernameNotFoundException("unable to login google user : " + googleUser.getEmail());
+        } else {
+            AppUser user = userService.findUserByUsername(googleUser.getEmail());
+            if (user == null) {
+                user = userService.save(convertTo(googleUser));
+            }
+
+            userService.authenticate(googleUser.getEmail(), "googleuserpassword");
+            final UserDetails userDetails = userService.loadUserByUsername(googleUser.getEmail());
+            String token = jwtTokenUtil.generateToken(userDetails);
+            Map<String, Object> tokenMap = new HashMap<String, Object>();
+
+
+            if (token != null) {
+                tokenMap.put("token", token);
+                tokenMap.put("user", user);
+
+                return tokenMap;
+            } else {
+                tokenMap.put("token", null);
+                throw new UsernameNotFoundException("token = empty , unable to login google user : " + googleUser.getEmail());
+            }
+        }
+
+    }
+
     public GoogleIdToken.Payload verifyToken(String idTokenString) throws Exception {
 
         GoogleIdToken idToken = googleIdTokenVerifier.verify(idTokenString);
@@ -131,8 +158,7 @@ public class GoogleService {
                 String email = payload.getEmail();
                 if (Boolean.valueOf(payload.getEmailVerified())) {
                     return idToken.getPayload();
-                }
-                else{
+                } else {
 
                     System.out.println("The Email isnt verified !!!");
                     return null;
@@ -150,6 +176,11 @@ public class GoogleService {
 
     private AppUser convertTo(GoogleIdToken.Payload payload) {
         return new AppUser((long) 0, String.valueOf(payload.get("name")), payload.getEmail(), payload.getEmail(), String.valueOf(payload.get("gender")), "googleuserpassword", String.valueOf(payload.get("picture")), new Date(), new ArrayList<Role>(), true);
+    }
+
+
+    private AppUser convertTo(GoogleUser googleUser) {
+        return new AppUser((long) 0, googleUser.getName(), googleUser.getEmail(), googleUser.getEmail(), "None", "googleuserpassword", googleUser.getPicture(), new Date(), new ArrayList<Role>(), true);
     }
 
     public Map<?, ?> verifyTokenUsingRest(String token) {

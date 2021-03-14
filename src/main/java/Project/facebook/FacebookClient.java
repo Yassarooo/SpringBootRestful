@@ -1,6 +1,6 @@
-package Project.service;
+package Project.facebook;
 
-import Project.domain.facebook.FacebookUser;
+import Project.facebook.account.FacebookUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -14,7 +14,7 @@ public class FacebookClient {
     @Autowired
     private RestTemplate restTemplate;
 
-    private final String FACEBOOK_GRAPH_API_BASE = "https://graph.facebook.com";
+    private final String FACEBOOK_GRAPH_API_BASE = "https://graph.account.com";
 
     public FacebookUser getUser(String accessToken) {
         String path = "/me?fields={fields}&redirect={redirect}&access_token={access_token}";

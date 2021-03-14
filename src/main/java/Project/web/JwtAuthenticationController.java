@@ -5,31 +5,24 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.*;
 
-import Project.google.GoogleTokenVerifier;
-import Project.service.FacebookService;
-import Project.service.GoogleService;
+import Project.facebook.FacebookService;
+import Project.google.GoogleService;
 import Project.service.JwtTokenUtil;
 import Project.domain.AppUser;
 import Project.service.JwtUserDetailsService;
 import Project.repository.AppUserRepository;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import static java.lang.System.currentTimeMillis;
-import static java.util.Objects.isNull;
 
 @RestController
 @CrossOrigin
@@ -45,9 +38,6 @@ public class JwtAuthenticationController {
     private FacebookService facebookService;
     @Autowired
     private GoogleService googleService;
-
-    @Autowired
-    private GoogleTokenVerifier googleTokenVerifierTemplate;
 
 
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);
@@ -130,13 +120,8 @@ public class JwtAuthenticationController {
     public ResponseEntity<?> googleAuth(@RequestParam String token) throws Exception {
         System.out.println(currentTimeMillis());
 
-        GoogleIdToken googleIdToken = googleTokenVerifierTemplate.verify(token);
-        if (isNull(googleIdToken)) {
-            throw new RuntimeException("Unauthenticated User by google");
-        }
-        GoogleIdToken.Payload payload = googleIdToken.getPayload();
-        System.out.println("Suuuuuuuuuuuuuucceeeeeess :  " + payload.getEmail());
-        return new ResponseEntity<>(HttpStatus.OK);
+        System.out.println("Suuuuuuuuuuuuuucceeeeeess :  ");
+        return new ResponseEntity<Map<String, Object>>(googleService.loginUser(token),HttpStatus.OK);
     }
 
     /**

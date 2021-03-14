@@ -1,8 +1,10 @@
-package Project.service;
+package Project.facebook;
 
 import Project.domain.AppUser;
 import Project.domain.Role;
-import Project.domain.facebook.FacebookUser;
+import Project.facebook.account.FacebookUser;
+import Project.service.JwtTokenUtil;
+import Project.service.JwtUserDetailsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,7 +27,7 @@ public class FacebookService {
     public Map<String, Object> loginUser(String fbAccessToken) throws Exception {
         FacebookUser facebookUser = facebookClient.getUser(fbAccessToken);
         if (facebookUser == null) {
-            throw new UsernameNotFoundException("unable to login facebook user id " + facebookUser.getId());
+            throw new UsernameNotFoundException("unable to login account user id " + facebookUser.getId());
         } else {
             AppUser user = userService.findUserByUsername(facebookUser.getEmail());
             if (user == null) {
@@ -45,7 +47,7 @@ public class FacebookService {
                 return tokenMap;
             } else {
                 tokenMap.put("token", null);
-                throw new UsernameNotFoundException("token == null , unable to login facebook user id " + facebookUser.getId());
+                throw new UsernameNotFoundException("token == null , unable to login account user id " + facebookUser.getId());
             }
         }
 

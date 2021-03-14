@@ -1,4 +1,4 @@
-package Project.domain.facebook;
+package Project.facebook.account;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package Project.domain.facebook;
+package Project.facebook.account;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

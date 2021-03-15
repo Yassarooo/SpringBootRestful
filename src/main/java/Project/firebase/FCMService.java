@@ -5,7 +5,6 @@ import com.google.firebase.messaging.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
 import java.time.Duration;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -26,7 +25,7 @@ public class FCMService {
             throws InterruptedException, ExecutionException {
         Message message = getPreconfiguredMessageWithoutData(request);
         String response = sendAndGetResponse(message);
-        logger.info("Sent message without data. Topic: " + /*request.getTopic() + ", " +*/ response);
+        logger.info("Sent message without data. Topic: " + request.getTopic() + ", " + response);
     }
 
     public void sendMessageToToken(PushNotificationRequest request)
@@ -59,7 +58,7 @@ public class FCMService {
     }
 
     private Message getPreconfiguredMessageWithoutData(PushNotificationRequest request) {
-        return getPreconfiguredMessageBuilder(request)
+        return getPreconfiguredMessageBuilder(request).setTopic(request.getTopic())
                 .build();
     }
 

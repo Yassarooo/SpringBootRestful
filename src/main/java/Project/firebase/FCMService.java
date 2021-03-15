@@ -26,7 +26,7 @@ public class FCMService {
             throws InterruptedException, ExecutionException {
         Message message = getPreconfiguredMessageWithoutData(request);
         String response = sendAndGetResponse(message);
-        logger.info("Sent message without data. Topic: " + request.getTopic() + ", " + response);
+        logger.info("Sent message without data. Topic: " + /*request.getTopic() + ", " +*/ response);
     }
 
     public void sendMessageToToken(PushNotificationRequest request)

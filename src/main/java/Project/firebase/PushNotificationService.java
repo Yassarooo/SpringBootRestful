@@ -24,13 +24,6 @@ public class PushNotificationService {
         this.fcmService = fcmService;
     }
 
-    public void sendSamplePushNotification() {
-        try {
-            fcmService.sendMessageWithoutData(getSamplePushNotificationRequest());
-        } catch (InterruptedException | ExecutionException e) {
-            logger.error(e.getMessage());
-        }
-    }
 
     public void sendPushNotification(PushNotificationRequest request) {
         try {
@@ -57,17 +50,25 @@ public class PushNotificationService {
         }
     }
 
+    public void sendSamplePushNotification() {
+        try {
+            fcmService.sendMessage(getSamplePayloadData(), getSamplePushNotificationRequest());
+        } catch (InterruptedException | ExecutionException e) {
+            logger.error(e.getMessage());
+        }
+    }
 
     private Map<String, String> getSamplePayloadData() {
         Map<String, String> pushData = new HashMap<>();
-        pushData.put("messageId", defaults.get("payloadMessageId"));
-        pushData.put("text", defaults.get("payloadData") + " " + LocalDateTime.now());
+        pushData.put("id", defaults.get("id"));
+        pushData.put("click_action", defaults.get("click_action"));
         return pushData;
     }
 
 
     private PushNotificationRequest getSamplePushNotificationRequest() {
-        PushNotificationRequest request = new PushNotificationRequest(defaults.get("title"),
+        PushNotificationRequest request = new PushNotificationRequest(
+                defaults.get("title"),
                 defaults.get("body"),
                 defaults.get("image"),
                 defaults.get("topic"));

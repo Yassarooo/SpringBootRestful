@@ -24,7 +24,6 @@ public class PushNotificationService {
         this.fcmService = fcmService;
     }
 
-    @Scheduled(initialDelay = 60000, fixedDelay = 60000)
     public void sendSamplePushNotification() {
         try {
             fcmService.sendMessageWithoutData(getSamplePushNotificationRequest());

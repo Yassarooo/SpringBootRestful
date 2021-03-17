@@ -54,43 +54,42 @@ public class SpecsService {
     }
 
     @CacheEvict(value = "specs", allEntries = true)
-    public Specs createOrUpdateSpecs(Specs c, Boolean update) throws RuntimeException {
+    public Specs createOrUpdateSpecs(Specs s, Boolean update) throws RuntimeException {
+
+        Car car = carService.getCarById((Long) s.getCarid());
+        if (car != null) {
+            s.setCar(car);
+        } else
+            throw new RuntimeException("Car not found for the its car id");
         Optional<Specs> spec;
+
         if (update) {
-            spec = specsRepository.findById(c.getId());
+            spec = specsRepository.findById(s.getId());
             if (spec.isPresent()) {
                 Specs newEntity = spec.get();
-                newEntity.setAbs(c.getAbs());
-                newEntity.setAcceleration(c.getAcceleration());
-                newEntity.setCar(c.getCar());
-                newEntity.setCarid(c.getCarid());
-                newEntity.setConsumption(c.getConsumption());
-                newEntity.setDoors(c.getDoors());
-                newEntity.setDrive(c.getDrive());
-                newEntity.setFrontstabilizer(c.getFrontstabilizer());
-                newEntity.setFueltype(c.getFueltype());
-                newEntity.setPower(c.getPower());
-                newEntity.setRearstabilizer(c.getRearstabilizer());
-                newEntity.setTank(c.getTank());
-                newEntity.setTopspeed(c.getTopspeed());
-                newEntity.setTransmission(c.getTransmission());
-                newEntity.setTurnangle(c.getTurnangle());
+                newEntity.setAbs(s.getAbs());
+                newEntity.setAcceleration(s.getAcceleration());
+                newEntity.setCar(s.getCar());
+                newEntity.setCarid(s.getCarid());
+                newEntity.setConsumption(s.getConsumption());
+                newEntity.setDoors(s.getDoors());
+                newEntity.setDrive(s.getDrive());
+                newEntity.setFrontstabilizer(s.getFrontstabilizer());
+                newEntity.setFueltype(s.getFueltype());
+                newEntity.setPower(s.getPower());
+                newEntity.setRearstabilizer(s.getRearstabilizer());
+                newEntity.setTank(s.getTank());
+                newEntity.setTopspeed(s.getTopspeed());
+                newEntity.setTransmission(s.getTransmission());
+                newEntity.setTurnangle(s.getTurnangle());
                 newEntity = specsRepository.save(newEntity);
                 return newEntity;
             } else {
-                c = specsRepository.save(c);
-                return c;
+                throw new RuntimeException("Specs not found for the given id");
             }
         } else {
-            Car car = carService.getCarById((Long) c.getCarid());
-            if (car != null) {
-                c.setCar(car);
-                c = specsRepository.save(c);
-            }
-            else
-                throw new RuntimeException("Car not found for the given id");
-
-            return c;
+            s = specsRepository.save(s);
+            return s;
         }
     }
 

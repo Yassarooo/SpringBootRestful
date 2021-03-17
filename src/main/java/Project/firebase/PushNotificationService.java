@@ -1,6 +1,7 @@
 package Project.firebase;
 
 import Project.domain.Car;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -52,17 +53,17 @@ public class PushNotificationService {
     private Map<String, String> getPayloadDataFromRequest(PushNotificationRequest request) {
         Map<String, String> pushData = new HashMap<>();
         pushData.put("id", request.getId().toString());
-        pushData.put("click_action", !request.getClick_action().equals("")? request.getClick_action(): defaults.get("click_action"));
-        pushData.put("route", !request.getRoute().equals("")? request.getRoute():defaults.get("route"));
+        pushData.put("click_action", !StringUtils.isEmpty(request.getClick_action()) ? request.getClick_action(): defaults.get("click_action"));
+        pushData.put("route", !StringUtils.isEmpty(request.getRoute())? request.getRoute():defaults.get("route"));
         return pushData;
     }
 
     private PushNotificationRequest getCarPushNotificationRequest(Car c, PushNotificationRequest request) {
         return new PushNotificationRequest(
-                !request.getTitle().equals("") ? request.getTitle() : "We've got new car for you !",
-                !request.getBody().equals("") ? request.getBody() : "The new " + c.getBrand() + " " + c.getModel() + " " + c.getYear() + "is now here! Click to see details",
-                request.getImage(),
-                request.getTopic());
+                !StringUtils.isEmpty(request.getTitle()) ? request.getTitle() : "We've got new car for you !",
+                !StringUtils.isEmpty(request.getBody()) ? request.getBody() : "The new " + c.getBrand() + " " + c.getModel() + " " + c.getYear() + " is now here! Click to see details",
+                !StringUtils.isEmpty(request.getImage()) ? request.getImage() : c.getBrandlogo(),
+                !StringUtils.isEmpty(request.getTopic()) ? request.getTopic() : defaults.get("topic") );
     }
 
     public void sendCustomPushNotification(PushNotificationRequest pushRequest) {
@@ -71,6 +72,7 @@ public class PushNotificationService {
             map.put("id", pushRequest.getId().toString());
             map.put("click_action", pushRequest.getClick_action());
             map.put("route", pushRequest.getRoute());
+            map.put("tag", pushRequest.getTag());
             fcmService.sendMessage(map, pushRequest);
         } catch (InterruptedException | ExecutionException e) {
             logger.error(e.getMessage());

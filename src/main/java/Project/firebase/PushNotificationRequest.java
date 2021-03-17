@@ -10,11 +10,12 @@ public class PushNotificationRequest {
     private String token;
     private String click_action;
     private String route;
+    private String tag;
 
     public PushNotificationRequest() {
     }
 
-    public PushNotificationRequest(Long id, String title, String body, String image, String topicName, String click_action, String route) {
+    public PushNotificationRequest(Long id, String title, String body, String image, String topicName, String click_action, String route, String tag) {
 
         this.id = id;
         this.title = title;
@@ -23,6 +24,7 @@ public class PushNotificationRequest {
         this.topic = topicName;
         this.click_action = click_action;
         this.route = route;
+        this.tag = tag;
     }
 
     public PushNotificationRequest(String title, String body, String image, String topic) {
@@ -86,6 +88,14 @@ public class PushNotificationRequest {
 
     public void setTopic(String topic) {
         this.topic = topic;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
     public String getToken() {

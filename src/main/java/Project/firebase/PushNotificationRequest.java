@@ -2,20 +2,58 @@ package Project.firebase;
 
 public class PushNotificationRequest {
 
+    private Long id;
     private String title;
     private String body;
     private String image;
     private String topic;
     private String token;
+    private String click_action;
+    private String route;
 
     public PushNotificationRequest() {
     }
 
-    public PushNotificationRequest(String title, String body, String image, String topicName) {
+    public PushNotificationRequest(Long id, String title, String body, String image, String topicName, String click_action, String route) {
+
+        this.id = id;
         this.title = title;
         this.body = body;
         this.image = image;
         this.topic = topicName;
+        this.click_action = click_action;
+        this.route = route;
+    }
+
+    public PushNotificationRequest(String title, String body, String image, String topic) {
+        this.title = title;
+        this.body = body;
+        this.image = image;
+        this.topic = topic;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getClick_action() {
+        return click_action;
+    }
+
+    public void setClick_action(String click_action) {
+        this.click_action = click_action;
+    }
+
+    public String getRoute() {
+        return route;
+    }
+
+    public void setRoute(String route) {
+        this.route = route;
     }
 
     public String getTitle() {

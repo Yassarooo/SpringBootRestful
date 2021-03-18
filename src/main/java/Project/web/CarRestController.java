@@ -62,7 +62,7 @@ public class CarRestController {
         List<Car> cars = carService.getAllCarsOrderBy(Comparator.comparing(Car::getRate));
         return (List<Car>) cars;
     }
-    @RequestMapping(value = "/cars/{year}", method = RequestMethod.GET)
+    @RequestMapping(value = "/cars/year/{year}", method = RequestMethod.GET)
     public List<Car> getCarsOfYear(@PathVariable("year") int year) {
         List<Car> cars = carService.getCarsBySpecificYear(year);
         return (List<Car>) cars;

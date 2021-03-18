@@ -37,9 +37,6 @@ public class PushNotificationRequest {
     @Column
     private String tag;
 
-    public PushNotificationRequest() {
-    }
-
     public PushNotificationRequest(Long carid, String title, String body, String image, String topicName, String click_action, String route, String tag) {
         this.id = carid;
         this.title = title;

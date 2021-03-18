@@ -1,17 +1,16 @@
 package Project.web;
 
 import Project.domain.Car;
-import Project.firebase.PushNotificationRequest;
+import Project.domain.PushNotificationRequest;
 import Project.firebase.PushNotificationResponse;
 import Project.firebase.PushNotificationService;
 import Project.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class PushNotificationController {
@@ -64,4 +63,11 @@ public class PushNotificationController {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
+
+    @RequestMapping(value = "/notifications", method = RequestMethod.GET)
+    public List<PushNotificationRequest> getAllCars() {
+        List<PushNotificationRequest> nots = pushNotificationService.getAll();
+        return (List<PushNotificationRequest>) nots;
+    }
+
 }

@@ -249,7 +249,7 @@ public class CarService {
         else if (brand.contains("fiat"))
             return "http://www.pngall.com/wp-content/uploads/5/Fiat-Logo-Transparent.png";
         else if (brand.contains("lexus"))
-            return "http://pngimg.com/uploads/lexus/lexus_PNG37.png";
+            return "https://www.stickpng.com/img/download/580b57fcd9996e24bc43c48b/image";
         else if (brand.contains("subaru"))
             return "https://assets.stickpng.com/images/580b585b2edbce24c47b2cbf.png";
         else if (brand.contains("bugatti"))
@@ -289,7 +289,7 @@ public class CarService {
         else if (brand.contains("koenigsegg"))
             return "https://www.stickpng.com/img/download/580b57fcd9996e24bc43c486/image";
         else if (brand.contains("lancia"))
-            return "http://pngimg.com/uploads/car_logo/car_logo_PNG1650.png";
+            return "https://www.stickpng.com/img/download/580b585b2edbce24c47b2c11/image";
         else if (brand.contains("maybach"))
             return "https://1000logos.net/wp-content/uploads/2020/04/Maybach_logo_PNG2.png";
         else

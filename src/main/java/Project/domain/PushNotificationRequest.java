@@ -1,23 +1,47 @@
-package Project.firebase;
+package Project.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
 public class PushNotificationRequest {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column
+    private Long carid;
+    @Column
     private String title;
+    @Column
     private String body;
+    @Column
     private String image;
+    @Column
     private String topic;
+    @Column
     private String token;
+    @Column
     private String click_action;
+    @Column
     private String route;
+    @Column
     private String tag;
 
     public PushNotificationRequest() {
     }
 
-    public PushNotificationRequest(Long id, String title, String body, String image, String topicName, String click_action, String route, String tag) {
-
-        this.id = id;
+    public PushNotificationRequest(Long carid, String title, String body, String image, String topicName, String click_action, String route, String tag) {
+        this.id = carid;
         this.title = title;
         this.body = body;
         this.image = image;
@@ -40,6 +64,15 @@ public class PushNotificationRequest {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+
+    public Long getCarid() {
+        return carid;
+    }
+
+    public void setCarid(Long carid) {
+        this.carid = carid;
     }
 
     public String getClick_action() {

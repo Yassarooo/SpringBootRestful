@@ -59,6 +59,36 @@ public class CarService {
         }
     }
 
+    public List<Car> getCarsBySpecificType(String type) {
+        List<Car> carList = (List<Car>) carRepository.findAll();
+        List<Car> filtered = new ArrayList<Car>();
+
+        if (carList.size() > 0) {
+            for (Car c : carList)
+                if (c.getType().equals(type))
+                    filtered.add(c);
+
+            return filtered;
+        } else {
+            return new ArrayList<Car>();
+        }
+    }
+
+    public List<Car> getCarsBySpecificYear(int year) {
+        List<Car> carList = (List<Car>) carRepository.findAll();
+        List<Car> filtered = new ArrayList<Car>();
+
+        if (carList.size() > 0) {
+            for (Car c : carList)
+                if (c.getYear() == year)
+                    filtered.add(c);
+
+            return filtered;
+        } else {
+            return new ArrayList<Car>();
+        }
+    }
+
 
     public List<Car> getAllCarsForParamId(Long paramid) {
         List<Car> carList = (List<Car>) carRepository.findAllByparamid(paramid);

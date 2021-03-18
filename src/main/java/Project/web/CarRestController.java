@@ -31,7 +31,7 @@ public class CarRestController {
         return (List<Car>) cars;
     }
 
-    @RequestMapping(value = "/carsforparamid", method = RequestMethod.GET)
+    @RequestMapping(value = "/cars/carsforparamid", method = RequestMethod.GET)
     public List<Car> getAllCarsForParamId(String paramname) {
         Parameters param = paramsService.getParamByName(paramname);
         List<Car> cars = carService.getAllCarsForParamId(param.getId());
@@ -39,27 +39,38 @@ public class CarRestController {
     }
 
 
-    @RequestMapping(value = "/carsbyid", method = RequestMethod.GET)
+    @RequestMapping(value = "/cars/byid", method = RequestMethod.GET)
     public List<Car> getAllCarsById() {
         List<Car> cars = carService.getAllCarsOrderBy(Comparator.comparing(Car::getId));
         return (List<Car>) cars;
     }
 
-    @RequestMapping(value = "/carsbymodel", method = RequestMethod.GET)
+    @RequestMapping(value = "/cars/bymodel", method = RequestMethod.GET)
     public List<Car> getAllCarsByModel() {
         List<Car> cars = carService.getAllCarsOrderBy(Comparator.comparing(Car::getModel));
         return (List<Car>) cars;
     }
 
-    @RequestMapping(value = "/carsbyprice", method = RequestMethod.GET)
+    @RequestMapping(value = "/cars/lowprice", method = RequestMethod.GET)
     public List<Car> getAllCarsByPrice() {
         List<Car> cars = carService.getAllCarsOrderBy(Comparator.comparing(Car::getPrice));
         return (List<Car>) cars;
     }
 
-    @RequestMapping(value = "/carsbyrate", method = RequestMethod.GET)
+    @RequestMapping(value = "/cars/highrate", method = RequestMethod.GET)
     public List<Car> getAllCarsByRate() {
         List<Car> cars = carService.getAllCarsOrderBy(Comparator.comparing(Car::getRate));
+        return (List<Car>) cars;
+    }
+    @RequestMapping(value = "/cars/{year}", method = RequestMethod.GET)
+    public List<Car> getCarsOfYear(@PathVariable("year") int year) {
+        List<Car> cars = carService.getCarsBySpecificYear(year);
+        return (List<Car>) cars;
+    }
+
+    @RequestMapping(value = "/cars/{type}", method = RequestMethod.GET)
+    public List<Car> getCarsOfType(@PathVariable("type") String type) {
+        List<Car> cars = carService.getCarsBySpecificType(type);
         return (List<Car>) cars;
     }
 

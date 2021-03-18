@@ -88,7 +88,7 @@ public class CarRestController {
     }
 
 
-    @RequestMapping(value = "/cars/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/cars/id/{id}", method = RequestMethod.GET)
     public ResponseEntity<Car> getCarById(@PathVariable("id") Long id)
             throws RuntimeException {
         Car car = carService.getCarById(id);

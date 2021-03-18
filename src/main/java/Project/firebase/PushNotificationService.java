@@ -8,12 +8,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 @Service
@@ -52,7 +51,7 @@ public class PushNotificationService {
 
     public void sendCarPushNotification(Car c, PushNotificationRequest request) {
         try {
-            createNotification(request);
+            createOrUpdateNotification(request, false);
             fcmService.sendMessage(getPayloadDataFromRequest(request), getCarPushNotificationRequest(c, request));
         } catch (InterruptedException | ExecutionException e) {
             logger.error(e.getMessage());
@@ -77,7 +76,7 @@ public class PushNotificationService {
 
     public void sendCustomPushNotification(PushNotificationRequest request) {
         try {
-            createNotification(request);
+            createOrUpdateNotification(request, false);
             Map<String, String> map = new HashMap<>();
             map.put("carid", request.getCarid().toString());
             map.put("click_action", request.getClick_action());
@@ -125,12 +124,48 @@ public class PushNotificationService {
         }
     }
 
-    public PushNotificationRequest createNotification(PushNotificationRequest notif) {
-        return pushNotificationRepository.save(notif);
+    public PushNotificationRequest createOrUpdateNotification(PushNotificationRequest request, boolean update) {
+        try {
+            Optional<PushNotificationRequest> req;
+            if (update) {
+                req = pushNotificationRepository.findById(request.getId());
+                if (req.isPresent()) {
+                    PushNotificationRequest newEntity = req.get();
+                    newEntity.setTitle(request.getTitle().trim());
+                    newEntity.setBody(request.getBody().trim());
+                    newEntity.setImage(request.getImage());
+                    newEntity.setCarid(request.getCarid());
+                    newEntity.setRoute(request.getRoute());
+                    newEntity.setClick_action(request.getClick_action());
+                    newEntity.setTopic(request.getTopic());
+                    newEntity.setTag(request.getTag());
+                    newEntity.setToken(request.getToken());
+                    return newEntity;
+
+                } else {
+                    throw new RuntimeException("No record exist for given id " + request.getId());
+                }
+            } else {
+                return pushNotificationRepository.save(request);
+            }
+        } catch (ObjectOptimisticLockingFailureException e) {
+            System.err.print("Somebody has already updated the amount for item:{} in concurrent transaction.");
+            throw e;
+        }
     }
 
     public void deleteAllNotifications() {
         pushNotificationRepository.deleteAll();
+    }
+
+    @Transactional
+    public void deleteNotificationById(Long id) throws RuntimeException {
+        Optional<PushNotificationRequest> request = pushNotificationRepository.findById(id);
+        if (request.isPresent()) {
+            pushNotificationRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("No record exist for given id");
+        }
     }
 
 

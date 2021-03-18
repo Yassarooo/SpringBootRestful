@@ -65,9 +65,33 @@ public class PushNotificationController {
     }
 
     @RequestMapping(value = "/notifications", method = RequestMethod.GET)
-    public List<PushNotificationRequest> getAllCars() {
+    public List<PushNotificationRequest> getAllNotifications() {
         List<PushNotificationRequest> nots = pushNotificationService.getAll();
         return (List<PushNotificationRequest>) nots;
+    }
+
+    @RequestMapping(value = "/notifications", method = RequestMethod.DELETE)
+    public ResponseEntity deleteAllNotifications() {
+        pushNotificationService.deleteAllNotifications();
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/notifications", method = RequestMethod.POST)
+    public ResponseEntity addNotification(@RequestBody PushNotificationRequest r) {
+        pushNotificationService.createOrUpdateNotification(r, false);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/notifications", method = RequestMethod.PUT)
+    public ResponseEntity editNotification(@RequestBody PushNotificationRequest r) {
+        pushNotificationService.createOrUpdateNotification(r, true);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/notifications/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity deleteNotification(@PathVariable("id") Long id) {
+        pushNotificationService.deleteAllNotifications();
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 }

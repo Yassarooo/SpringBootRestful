@@ -71,9 +71,9 @@ public class PushNotificationService {
                 !StringUtils.isEmpty(request.getTitle()) ? request.getTitle() : "We've got new car for you !",
                 !StringUtils.isEmpty(request.getBody()) ? request.getBody() : "The new " + c.getBrand() + " " + c.getModel() + " " + c.getYear() + " is now here! Click to see details",
                 !StringUtils.isEmpty(request.getImage()) ? request.getImage() : c.getBrandlogo(),
-                !StringUtils.isEmpty(request.getTopic()) ? request.getTopic() : defaults.get("topic"));
-                !StringUtils.isEmpty(request.getClick_action()) ? request.getClick_action() : defaults.get("click_action"));
-                !StringUtils.isEmpty(request.getRoute()) ? request.getRoute() : defaults.get("route"));
+                !StringUtils.isEmpty(request.getTopic()) ? request.getTopic() : defaults.get("topic"),
+                !StringUtils.isEmpty(request.getClick_action()) ? request.getClick_action() : defaults.get("click_action"),
+                !StringUtils.isEmpty(request.getRoute()) ? request.getRoute() : defaults.get("route"),
                 !StringUtils.isEmpty(request.getTag()) ? request.getTag() : defaults.get("tag"));
     }
 

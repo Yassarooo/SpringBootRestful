@@ -38,7 +38,7 @@ public class PushNotificationController {
 
     @PostMapping("/notification/car")
     public ResponseEntity sendCarNotification(@RequestBody PushNotificationRequest pushRequest) {
-        Car c = carService.getCarById(pushRequest.getId());
+        Car c = carService.getCarById(pushRequest.getCarid());
         if (c != null) {
             pushNotificationService.sendCarPushNotification(c, pushRequest);
             return new ResponseEntity<>(new PushNotificationResponse(HttpStatus.OK.value(), "Notification has been sent."), HttpStatus.OK);
